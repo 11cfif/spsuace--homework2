@@ -223,9 +223,9 @@ public class DoubleLinkedListTest {
 
         i = 0;
         String[] actual = new String[actualList.size()];
-        for (String s : actualList) {
+      /**  for (String s : actualList) {
             actual[i++] = s;
-        }
+        }*/
         assertArrayEquals(expected, actual);
     }
 
