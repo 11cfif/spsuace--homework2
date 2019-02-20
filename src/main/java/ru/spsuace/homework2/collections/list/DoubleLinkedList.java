@@ -48,32 +48,43 @@ public class DoubleLinkedList<T> {
         Node node = new Node(element);
         Node tempNext = first;
         Node tempPrevious = tempNext;
-         if (index > count && index < 1) {
+        if (index > count && index < 1) {
             System.out.println("Такого индекса не существует в этом списке");
         }
-        if (index <= count / 2 + 1) {
+        if (index > 1 && index < count) {
+            addFirst(element);
 
-            for (int i = 1; i < index; i++) {
-                tempPrevious = tempNext;
-                tempNext = tempNext.next;
-            }
-            tempPrevious.next = node;
-            tempNext.previous = node;
-            node.previous = tempPrevious;
-            node.next = tempNext;
-        } else {
-            tempPrevious = last;
-            for (int i = count; i > index; i--) {
-                tempNext = tempPrevious;
-                tempPrevious = tempPrevious.previous;
-            }
-            tempPrevious.next = node;
-            tempNext.previous = node;
-            node.previous = tempPrevious;
-            node.next = tempNext;
+            if (index <= count / 2 + 1) {
 
+                for (int i = 1; i < index; i++) {
+                    tempPrevious = tempNext;
+                    tempNext = tempNext.next;
+                }
+                tempPrevious.next = node;
+                tempNext.previous = node;
+                node.previous = tempPrevious;
+                node.next = tempNext;
+            } else {
+                tempPrevious = last;
+                for (int i = count; i > index; i--) {
+                    tempNext = tempPrevious;
+                    tempPrevious = tempPrevious.previous;
+                }
+                tempPrevious.next = node;
+                tempNext.previous = node;
+                node.previous = tempPrevious;
+                node.next = tempNext;
+
+            }
+            count++;
         }
-        count++;
+        if (index == 1) {
+            addFirst(element);
+        }
+        if (index == count) {
+            addLast(element);
+        }
+
     }
 
     void addLast(T element) {
@@ -257,6 +268,7 @@ public class DoubleLinkedList<T> {
         //  test.set(10,"f");
         //
         //System.out.println(test.remove(5));
+        test.add(1, "ff");
         for (int i = 1; i <= 10; i++) {
 
             System.out.println(test.get(i));
