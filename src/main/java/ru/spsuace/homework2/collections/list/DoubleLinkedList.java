@@ -21,14 +21,14 @@ public class DoubleLinkedList<T> {
         return count + 1;
     }
 
-    boolean contains(Object o) {
+    boolean contains(T o) {
         if (count == 0) {
             return false;
         } else {
             Node temp = first;
             for (int i = 0; i <= count; i++) {
 
-                if (o.equals(temp)) {
+                if (o == temp.node) {
                     return true;
                 }
                 temp = temp.next;
@@ -38,9 +38,15 @@ public class DoubleLinkedList<T> {
     }
 
     void clear() {
-        for (int i = count; i >= 0; i--) {
-            remove(i);
+        Node temp;
+        temp = last;
+        for (int i = count; i > 0; i--) {
+            temp = temp.previous;
+            temp.next = null;
+            count--;
         }
+        first = null;
+        count--;
     }
 
 
@@ -48,13 +54,13 @@ public class DoubleLinkedList<T> {
         Node node = new Node(element);
         Node tempNext = first;
         Node tempPrevious = tempNext;
-        if (index > count + 1 && index < 0) {
-            System.out.println("Такого индекса не существует в этом списке");
-        }
-        if (index > 0 && index < count) {
+        /** if (index > count + 1 || index < 0) {
+         System.out.println("Такого индекса не существует в этом списке");
+         }*/
+        if (index > 0 && index < count + 1) {
 
 
-            if (index <= count / 2 + 1) {
+            if (index <= count / 2) {
 
                 for (int i = 1; i < index; i++) {
                     tempPrevious = tempNext;
@@ -122,7 +128,7 @@ public class DoubleLinkedList<T> {
         Node temp;
         Node replacedNode = first;
         if (index > count && index < 0) {
-            System.out.println("Ошибка!Такого индекса не существует");
+            // System.out.println("Ошибка!Такого индекса не существует");
             return null;
         }
 
@@ -147,7 +153,7 @@ public class DoubleLinkedList<T> {
     T get(int index) {
         Node temp;
         if (index > count || index < 0) {
-            System.out.println("Ошибка!Такого индекса не существует");
+            // System.out.println("Ошибка!Такого индекса не существует");
             return null;
         }
 
@@ -187,23 +193,9 @@ public class DoubleLinkedList<T> {
     T remove(int index) {
 
         Node temp;
-        if (index > count || index < 0) {
-            System.out.println("Ошибка!Такого индекса не существует");
+        if (index > count + 1 || index < 0) {
+            //  System.out.println("Ошибка!Такого индекса не существует");
             return null;
-        }
-
-
-        if (index <= (count + 1) / 2) {
-            temp = first;
-            for (int i = 0; i < index; i++) {
-                temp = temp.next;
-            }
-        } else {
-            temp = last;
-            for (int i = count; i > index; i--) {
-                temp = temp.previous;
-            }
-
         }
 
         if (index == 0) {
@@ -220,6 +212,21 @@ public class DoubleLinkedList<T> {
             count--;
             return temp.node;
         }
+
+        if (index <= (count + 1) / 2) {
+            temp = first;
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+        } else {
+            temp = last;
+            for (int i = count; i > index; i--) {
+                temp = temp.previous;
+            }
+
+        }
+
+
 
         temp.previous.next = temp.next;
         temp.next.previous = temp.previous;
@@ -248,8 +255,6 @@ public class DoubleLinkedList<T> {
         }
 
     }
-
-
 
 
 }
