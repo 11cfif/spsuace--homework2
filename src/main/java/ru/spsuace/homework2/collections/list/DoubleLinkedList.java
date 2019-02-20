@@ -96,6 +96,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public Node searchItem(int index) {
+
         Node temp = first.next;
         if (index == 0) {
             return first;
@@ -120,6 +121,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T set(int index, T element) {
+
         Node<T> temp = searchItem(index);
         Node<T> tempPreviously = searchItem(index);
         if (temp != null) {
@@ -131,13 +133,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        Node<T> temp = searchItem(index);
-        if (temp == null) {
+
+        if (index >= count || (index == 0 && first == null)) {
             throw new IndexOutOfBoundsException("Item is empty");
-
         }
-
-        return temp.value;
+        return (T) searchItem(index).value;
     }
 
     public int indexOf(T o) {
@@ -206,7 +206,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return null;
     }
-
 
 
 }

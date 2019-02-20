@@ -238,8 +238,7 @@ public class DoubleLinkedListStringTest {
             actual.get(expected.size());
         } catch (IndexOutOfBoundsException e) {
             return;
-        } catch (Exception other) {
-          //  fail();
+        } catch (Exception other) { fail();
         }
     }
 }
