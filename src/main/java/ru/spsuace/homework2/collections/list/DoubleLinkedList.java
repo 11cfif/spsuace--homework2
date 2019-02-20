@@ -208,49 +208,5 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
 
-    public static void main(String[] args) {
-        DoubleLinkedList test = new DoubleLinkedList();
-        //test.addFirst("a");
-        // System.out.println(test.first.value);
 
-        for (int i = 0; i <= 8; i++) {
-            test.addLast(i);
-        }
-
-        //  test.set(3,"f");
-        //
-        //System.out.println(test.remove(5));
-
-        test.remove(3);
-
-        for (int i = 0; i <= 8; i++) {
-
-            System.out.println(test.get(i));
-        }
-
-        // }
-        // System.out.println(test.get(5));
-        // System.out.println(test.contains(test.last));
-        /** System.out.println(test.get(3));
-         /** System.out.println(test.get(2));
-         System.out.println(test.get(3));
-         System.out.println(test.first.node);
-         System.out.println(test.first.next.node);
-         System.out.println(test.first.next.next.node);
-         */
-        // System.out.println(test.get(4));
-        //System.out.println(test.get(5));
-
-
-        //System.out.println(test.first.node);
-        // System.out.println(test.last.node);
-        //System.out.println(test.count);
-        // System.out.println(test.last.previous.node);
-        // System.out.println(test.count);
-        // System.out.println(test.indexOf("fff"));
-        // System.out.println(test.get(2));
-        // test.set(2,"fff2");
-        //System.out.println(test.get(2));
-
-    }
 }
