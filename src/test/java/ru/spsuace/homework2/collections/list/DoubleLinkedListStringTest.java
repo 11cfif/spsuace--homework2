@@ -60,6 +60,7 @@ public class DoubleLinkedListStringTest {
         expectedList.add(0, "str");
         expectedList.add(1, "str1");
         expectedList.add(2, "str2");
+
         assertList(expectedList, actualList);
     }
 
@@ -76,6 +77,7 @@ public class DoubleLinkedListStringTest {
         expectedList.add(1, "str1");
         expectedList.add(0, "str1");
         expectedList.add(2, "str1");
+
         assertList(expectedList, actualList);
     }
 
@@ -197,6 +199,8 @@ public class DoubleLinkedListStringTest {
     /**
      * Дополнительный тест
      */
+
+    /**
     @Test
     public void iterator() {
         actualList.addFirst("str0");
@@ -227,7 +231,7 @@ public class DoubleLinkedListStringTest {
             actual[i++] = s;
         }
         assertArrayEquals(expected, actual);
-    }
+    }*/
 
     private <T> void assertList(List<T> expected, DoubleLinkedList<T> actual) {
         assertEquals(expected.size(), actual.size());
