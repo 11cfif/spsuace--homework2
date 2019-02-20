@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.collections.list;
 
+import javax.xml.soap.Node;
 import java.util.Iterator;
 
 /**
@@ -7,48 +8,196 @@ import java.util.Iterator;
  * Если не понятно, что должны возвращать методы, смотрите документацию интерфейсов List и Collection
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
+    Node first;
+    Node last;
+    int count;
+
+    public DoubleLinkedList() {
+        first = null;
+        last = null;
+        count = 0;
+    }
 
     public int size() {
-        return 0;
+
+        return count;
     }
 
     public boolean contains(Object o) {
+        Node temp = first;
+        for (int i = 0; i < count; i++) {
+            if (o.equals(temp.value)) {
+                return true;
+            }
+            temp = temp.next;
+        }
         return false;
     }
 
     public void clear() {
+        for (int i = count - 1; i >= 0; i--) {
+            remove(i);
+        }
+    }
+
+    public void addBetween(Node node, Node movingNode) {
+        Node temp = movingNode.previous;
+        temp.next = node;
+        movingNode.previous = node;
+        node.previous = temp;
+        node.next = movingNode;
+    }
+
+
+    public void add(int index, T element) {
+        Node node = new Node(element);
+        if (index >= 0 && index <= count) {
+            if (index == 0) {
+                addFirst(element);
+            } else if (index == count) {
+                addLast(element);
+            } else {
+                addBetween(node, searchItem(index));
+                count++;
+            }
+
+        }
 
     }
 
-    public void add(int index, T element) {
-
+    public void addFirstItem(T element, Node node) {
+        first = node;
+        last = node;
     }
 
     public void addLast(T element) {
-
+        Node node = new Node(element);
+        if (count == 0) {
+            addFirstItem(element, node);
+        } else {
+            node.previous = last;
+            last.next = node;
+            last = node;
+        }
+        count++;
     }
 
 
     public void addFirst(T element) {
-
+        Node node = new Node(element);
+        if (count == 0) {
+            addFirstItem(element, node);
+        } else {
+            node.next = first;
+            first.previous = node;
+            first = node;
+        }
+        count++;
     }
 
+    public Node searchItem(int index) {
+        Node temp = first.next;
+        if (index == 0) {
+            return first;
+        }
+        if (index == count - 1) {
+            return last;
+        }
+        if (index > 0 && index <= (count) / 2) {
+            for (int i = 1; i < index; i++) {
+                temp = temp.next;
+            }
+            return temp;
+        } else if (index > (count) / 2 && index < count) {
+            temp = last;
+            for (int i = count; i > index; i--) {
+                temp = temp.previous;
+            }
+            return temp.next;
+        }
+
+        return null;
+    }
 
     public T set(int index, T element) {
+        Node<T> temp = searchItem(index);
+        Node<T> tempPreviously = searchItem(index);
+        if (temp != null) {
+            temp.value = element;
+            return tempPreviously.value;
+        }
         return null;
+
     }
 
     public T get(int index) {
-        return null;
+        Node<T> temp = searchItem(index);
+        if (temp == null) {
+            throw new IndexOutOfBoundsException("Item is empty");
+
+        }
+
+        return temp.value;
     }
 
     public int indexOf(T o) {
+        Node temp = first;
+        for (int i = 0; i < count; i++) {
+            if (o.equals(temp.value)) {
+                return i;
+            }
+            temp = temp.next;
+        }
         return -1;
     }
 
     public T remove(int index) {
+        if (index == 0 && count == 1) {
+            Node<T> temp = first;
+            first = null;
+            last = null;
+            count--;
+            return temp.value;
+        }
+        if (index == 0) {
+            Node<T> temp = first;
+            first = first.next;
+            first.previous = null;
+            count--;
+            return temp.value;
+        }
+        if (index == count - 1) {
+            Node<T> temp = last;
+            last = last.previous;
+            last.next = null;
+            count--;
+            return temp.value;
+        }
+
+        Node<T> removeNode = searchItem(index);
+        if (removeNode != null) {
+            Node<T> temp = removeNode.previous;
+            temp.next = removeNode.next;
+            removeNode.next.previous = temp;
+            count--;
+            return temp.value;
+        }
         return null;
     }
+
+
+    private class Node<T> {
+        public T value;
+        private Node next;
+        private Node previous;
+
+        public Node(T element) {
+            this.value = element;
+            this.next = null;
+            this.previous = null;
+        }
+    }
+
 
     /**
      * Дополнительное задание
@@ -56,5 +205,52 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return null;
+    }
+
+
+    public static void main(String[] args) {
+        DoubleLinkedList test = new DoubleLinkedList();
+        //test.addFirst("a");
+        // System.out.println(test.first.value);
+
+        for (int i = 0; i <= 8; i++) {
+            test.addLast(i);
+        }
+
+        //  test.set(3,"f");
+        //
+        //System.out.println(test.remove(5));
+
+        test.remove(3);
+
+        for (int i = 0; i <= 8; i++) {
+
+            System.out.println(test.get(i));
+        }
+
+        // }
+        // System.out.println(test.get(5));
+        // System.out.println(test.contains(test.last));
+        /** System.out.println(test.get(3));
+         /** System.out.println(test.get(2));
+         System.out.println(test.get(3));
+         System.out.println(test.first.node);
+         System.out.println(test.first.next.node);
+         System.out.println(test.first.next.next.node);
+         */
+        // System.out.println(test.get(4));
+        //System.out.println(test.get(5));
+
+
+        //System.out.println(test.first.node);
+        // System.out.println(test.last.node);
+        //System.out.println(test.count);
+        // System.out.println(test.last.previous.node);
+        // System.out.println(test.count);
+        // System.out.println(test.indexOf("fff"));
+        // System.out.println(test.get(2));
+        // test.set(2,"fff2");
+        //System.out.println(test.get(2));
+
     }
 }
