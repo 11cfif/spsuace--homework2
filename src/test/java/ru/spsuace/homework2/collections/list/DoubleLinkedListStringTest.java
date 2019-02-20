@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DoubleLinkedListTest {
+public class DoubleLinkedListStringTest {
 
     LinkedList<String> expectedList;
     DoubleLinkedList<String> actualList;
