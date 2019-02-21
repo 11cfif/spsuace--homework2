@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.collections.list;
 
-import javax.xml.soap.Node;
 import java.util.Iterator;
 
 /**
@@ -40,32 +39,34 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
     }
 
-    public void addBetween(Node node, Node movingNode) {
+    private void addBetweenNodes(Node insertNode, Node movingNode) {
         Node temp = movingNode.previous;
-        temp.next = node;
-        movingNode.previous = node;
-        node.previous = temp;
-        node.next = movingNode;
+        temp.next = insertNode;
+        movingNode.previous = insertNode;
+        insertNode.previous = temp;
+        insertNode.next = movingNode;
     }
 
 
     public void add(int index, T element) {
-        Node node = new Node(element);
+        Node insertNode = new Node(element);
         if (index >= 0 && index <= count) {
             if (index == 0) {
                 addFirst(element);
             } else if (index == count) {
                 addLast(element);
             } else {
-                addBetween(node, searchItem(index));
+                addBetweenNodes(insertNode, searchItem(index));
                 count++;
             }
 
+        } else {
+            throw new IndexOutOfBoundsException("Item is empty");
         }
 
     }
 
-    public void addFirstItem(T element, Node node) {
+    private void addFirstItem(T element, Node node) {
         first = node;
         last = node;
     }
@@ -95,8 +96,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         count++;
     }
 
-    public Node searchItem(int index) {
-
+    private Node searchItem(int index) {
+        assert first != null;
         Node temp = first.next;
         if (index == 0) {
             return first;
@@ -104,7 +105,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index == count - 1) {
             return last;
         }
-        if (index > 0 && index <= (count) / 2) {
+        if (index > 0 && index <= count / 2) {
             for (int i = 1; i < index; i++) {
                 temp = temp.next;
             }
@@ -123,10 +124,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public T set(int index, T element) {
 
         Node<T> temp = searchItem(index);
-        Node<T> tempPreviously = searchItem(index);
+        Node<T> tempReplaced = searchItem(index);
         if (temp != null) {
             temp.value = element;
-            return tempPreviously.value;
+            return tempReplaced.value;
         }
         return null;
 
@@ -141,6 +142,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public int indexOf(T o) {
+        assert first != null;
         Node temp = first;
         for (int i = 0; i < count; i++) {
             if (o.equals(temp.value)) {
