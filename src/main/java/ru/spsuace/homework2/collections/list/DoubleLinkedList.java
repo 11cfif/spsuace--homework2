@@ -34,9 +34,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
-        for (int i = count - 1; i >= 0; i--) {
-            remove(i);
-        }
+        first=null;
+        last=null;
+        count = 0;
     }
 
     private void addBetweenNodes(Node insertNode, Node movingNode) {

@@ -2,6 +2,8 @@ package ru.spsuace.homework2.objects.analyzer;
 
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -11,14 +13,14 @@ import java.util.Collection;
  * 3) фильтр для текстов с плохими эмоциями. (в тексте не должно быть таких смайлов:
  * "=(", ":(", ":|" (NEGATIVE_TEXT)
  * + в качестве доп задания, можете сделать любой свой фильтр (CUSTOM)
- *
+ * <p>
  * Класс TextFilterManager должен содержать все фильтры, которые передаются ему в конструкторе,
  * и при анализе текста через метод analyze должен выдавать первый "успешный" фильтр,
  * если не один не прошел, то возвращать тип GOOD.
  * + в качестве доп задания, можно всем типам фильтров задать приоритет
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
-public class TextFilterManager {
+public class TextFilterManager implements TextAnalyzer {
 
     public TextFilterManager(Collection<TextAnalyzer> filters) {
 
@@ -29,5 +31,12 @@ public class TextFilterManager {
      */
     public FilterType analyze(String text) {
         return null;
+    }
+
+
+    public static void main(String[] args) {
+        LinkedList<TextAnalyzer> list = new LinkedList<>();
+        list.add(TextAnalyzer.createTooLongAnalyzer(19));
+        TextFilterManager filt = new TextFilterManager(list);
     }
 }

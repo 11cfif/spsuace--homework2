@@ -8,9 +8,12 @@ import java.util.Collection;
  */
 public interface TextAnalyzer {
 
+
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
+
         return null;
     }
+
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
         return null;
@@ -23,4 +26,6 @@ public interface TextAnalyzer {
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
         return null;
     }
+
+
 }
