@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.collections.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Реализовать двусвязный список, аналог LinkedList в java (то что я рассказывал на лекции)
@@ -33,10 +34,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return size;
     }
 
-
     public void add(int index, T element) {
-
-        indexIsCorrect(index);
 
         if (index == 0) {
             addFirst(element);
@@ -52,12 +50,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Node<T> before = after.previous;
         Node<T> middleNode = new Node<>(element, before, after);
         before.next = middleNode;
-
-        if (after == null) {
-            last = middleNode;
-        } else {
-            after.previous = middleNode;
-        }
+        after.previous = middleNode;
 
         size++;
     }
@@ -67,7 +60,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Node<T> newNode = new Node<T>(element, current, null);
         last = newNode;
 
-        //if list is empty
         if (isEmpty()) {
             first = newNode;
         } else {
@@ -84,7 +76,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Node<T> newNode = new Node<T>(element, null, current);
         first = newNode;
 
-        // if list is empty
         if (isEmpty()) {
             last = newNode;
         } else {
@@ -93,7 +84,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         size++;
     }
-
 
     public T set(int index, T element) {
         Node<T> current = neededNode(index);
@@ -105,10 +95,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index > size || (index == 0 && first == null)) {
-            throw new IndexOutOfBoundsException("item is empty");
+
+        Node <T> current = neededNode(index);
+
+        if (current == null) {
+            throw new IndexOutOfBoundsException();
         }
-        return (T)neededNode(index).element;
+
+        return current.element;
     }
 
     public int indexOf(Object o) {
@@ -143,11 +137,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public T remove(int index) {
 
-        indexIsCorrect(index);
-
         Node<T> current = neededNode(index);
-        T element = current.element;
 
+        T element = current.element;
         Node<T> before = current.previous;
         Node<T> after = current.next;
 
@@ -155,17 +147,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             first = after;
         } else {
             before.next = after;
-            current.previous = null;
         }
 
         if (after == null) {
             last = before;
         } else {
             after.previous = before;
-            current.next = null;
         }
 
-        current.element = null;
         size--;
         return element;
     }
@@ -175,26 +164,16 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
-
-      Node<T> current = first;
-
-        while(current != null) {
-            Node<T> next = current.next;
-            current.element = null;
-            current.previous = null;
-            current.next = null;
-            current = next;
-        }
-
         size = 0;
         first = last = null;
     }
 
     private Node<T> neededNode(int index) {
 
+        indexIsCorrect(index);
         Node<T> current;
 
-        if (index < (size >> 1)) {
+        if (index < (size / 2)) {
            current = first;
 
             for (int i = 0; i < index; i++) {
@@ -218,11 +197,54 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Size: " + size + " Index: " + index);
         }
     }
+
     /**
      * Дополнительное задание
      */
+
+    public class ListIterator implements Iterator<T> {
+
+        private Node<T> current = first;
+        private Node<T> lastReturned;
+        int nextIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            lastReturned = current;
+            current = current.next;
+            nextIndex++;
+            return lastReturned.element;
+        }
+
+        @Override
+        public void remove() {
+
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+
+            Node<T> next = lastReturned.next;
+
+            if (current == lastReturned) {
+                current = next;
+            } else {
+                nextIndex--;
+            }
+
+        }
+    }
+
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new ListIterator();
     }
 }
