@@ -1,9 +1,8 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -21,22 +20,76 @@ import java.util.LinkedList;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
 public class TextFilterManager implements TextAnalyzer {
+    FilterType filt;
+    long maxLenght;
+    Collection<TextAnalyzer> filters;
+    Collection<String> spam;
+    String[] negative = {"=(", ":(", ":|",};
 
     public TextFilterManager(Collection<TextAnalyzer> filters) {
+        this.filters = filters;
+    }
 
+
+    public TextFilterManager(long maxLength) {
+        this.maxLenght = maxLength;
+        this.filt = FilterType.TOO_LONG;
+    }
+
+    public TextFilterManager() {
+        this.filt = FilterType.NEGATIVE_TEXT;
+    }
+
+    public TextFilterManager(Collection<String> spam, FilterType filter) {
+        this.spam = spam;
+        this.filt = FilterType.SPAM;
+    }
+
+
+    @Override
+    public FilterType textAnalyze(String text) {
+
+        switch (this.filt) {
+            case TOO_LONG:
+                if (text.length() > this.maxLenght) {
+                    return FilterType.TOO_LONG;
+                }
+                break;
+            case SPAM:
+                for (String s : spam) {
+                    if (text.contains(s)) {
+                        return FilterType.SPAM;
+                    }
+                }
+
+                break;
+            case NEGATIVE_TEXT:
+                for (String s : negative) {
+                    if (text.contains(s)) {
+                        return FilterType.NEGATIVE_TEXT;
+                    }
+                }
+
+                break;
+        }
+        return FilterType.GOOD;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
-    }
+        if (text != null && filters != null) {
+            for (TextAnalyzer i : filters
+            ) {
+                filt = i.textAnalyze(text);
 
+                if (filt != FilterType.GOOD) {
+                    return filt;
+                }
+            }
+        }
 
-    public static void main(String[] args) {
-        LinkedList<TextAnalyzer> list = new LinkedList<>();
-        list.add(TextAnalyzer.createTooLongAnalyzer(19));
-        TextFilterManager filt = new TextFilterManager(list);
+        return FilterType.GOOD;
     }
 }

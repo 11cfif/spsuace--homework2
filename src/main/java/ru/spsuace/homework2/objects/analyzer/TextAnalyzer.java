@@ -6,21 +6,22 @@ import java.util.Collection;
  * Базовый интерефейс фильтра.
  * Ниже надо реализовать методы, которые создают фильтры заданного типа
  */
-public interface TextAnalyzer {
+public interface TextAnalyzer  {
 
+    FilterType textAnalyze(String text);
 
-    static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-
-        return null;
+    static TextAnalyzer createTooLongAnalyzer (long maxLength) {
+        return  new TextFilterManager(maxLength);
     }
 
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
-        return null;
+        return  new TextFilterManager(spam,null);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new TextFilterManager();
+
     }
 
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
