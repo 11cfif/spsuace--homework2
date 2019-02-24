@@ -209,7 +209,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
 
     private class ListIterator implements Iterator<T> {
-
         private Node<T> current = first;
         private Node<T> lastReturned;
         private int nextIndex;
@@ -233,13 +232,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-
             if (lastReturned == null) {
                 throw new IllegalStateException();
             }
 
             DoubleLinkedList.this.remove(nextIndex - 1);
             nextIndex--;
+
         }
     }
 
@@ -247,4 +246,5 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new ListIterator();
     }
+
 }
