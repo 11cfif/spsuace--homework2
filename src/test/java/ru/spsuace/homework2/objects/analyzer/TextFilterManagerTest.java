@@ -78,8 +78,7 @@ public class TextFilterManagerTest {
 
     @Test
     public void analyzeOnlyNegativeFilter() {
-        TextFilterManager manager = new TextFilterManager(
-                Collections.singleton(TextAnalyzer.createNegativeTextAnalyzer()));
+        TextFilterManager manager = new TextFilterManager(Collections.singleton(TextAnalyzer.createNegativeTextAnalyzer()));
         assertEquals("NEGATIVE_TEXT", manager.analyze("Привет, я Петя :(").toString());
         assertEquals("GOOD", manager.analyze("").toString());
         assertEquals("GOOD", manager.analyze(null).toString());
@@ -116,7 +115,8 @@ public class TextFilterManagerTest {
     public void analyzeAllFiltersMany() {
         manyFilters(false);
     }
-//
+
+    //
 //    @Test
 //    public void analyzeAllFiltersManyWithPriority() {
 //        manyFilters(true);

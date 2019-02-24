@@ -14,7 +14,6 @@ import java.util.Collection;
  * по всем фильтрам в классе TextFilterManager
  */
 public interface TextAnalyzer<T> {
-    FilterType getTypeFilter();
 
     FilterType analyzeText(String text);
 

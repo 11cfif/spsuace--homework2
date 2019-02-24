@@ -35,11 +35,13 @@ public class TextFilterManager {
      */
     public FilterType analyze(String text) {
 
-        if (text != null && filters != null) {
-            for (TextAnalyzer filter : filters) {
-                if (filter.analyzeText(text) != FilterType.GOOD) {
-                    return filter.analyzeText(text);
-                }
+        if (text == null || filters == null) {
+            return FilterType.GOOD;
+        }
+
+        for (TextAnalyzer filter : filters) {
+            if (filter.analyzeText(text) != FilterType.GOOD) {
+                return filter.analyzeText(text);
             }
         }
         return FilterType.GOOD;
