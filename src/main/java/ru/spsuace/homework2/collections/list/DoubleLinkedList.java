@@ -69,7 +69,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         size++;
     }
 
-    public boolean isEmpty() {return size == 0;}
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
     public void addFirst(T element) {
         Node<T> current = first;
@@ -87,22 +89,15 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public T set(int index, T element) {
         Node<T> current = neededNode(index);
-        Node<T> temp = current;
+        T temp = current.element;
 
         current.element = element;
 
-        return temp.element;
+        return temp;
     }
 
     public T get(int index) {
-
-        Node <T> current = neededNode(index);
-
-        if (current == null) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        return current.element;
+        return neededNode(index).element;
     }
 
     public int indexOf(Object o) {
@@ -165,20 +160,24 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public void clear() {
         size = 0;
-        first = last = null;
+        first = null;
+        last = null;
     }
 
     private Node<T> neededNode(int index) {
 
         indexIsCorrect(index);
+
         Node<T> current;
 
         if (index < (size / 2)) {
-           current = first;
+            current = first;
 
             for (int i = 0; i < index; i++) {
                 current = current.next;
             }
+
+            checkIfNull(current);
 
             return current;
         } else {
@@ -187,6 +186,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             for (int i = size - 1; i > index; i--) {
                 current = current.previous;
             }
+
+            checkIfNull(current);
 
             return current;
         }
@@ -198,15 +199,20 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
     }
 
+    private void checkIfNull(Node<T> node) {
+        if (node == null) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
     /**
      * Дополнительное задание
      */
 
-    public class ListIterator implements Iterator<T> {
+    private class ListIterator implements Iterator<T> {
 
         private Node<T> current = first;
         private Node<T> lastReturned;
-        int nextIndex = 0;
+        private int nextIndex;
 
         @Override
         public boolean hasNext() {
@@ -232,14 +238,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
                 throw new IllegalStateException();
             }
 
-            Node<T> next = lastReturned.next;
-
-            if (current == lastReturned) {
-                current = next;
-            } else {
-                nextIndex--;
-            }
-
+            DoubleLinkedList.this.remove(nextIndex - 1);
+            nextIndex--;
         }
     }
 
