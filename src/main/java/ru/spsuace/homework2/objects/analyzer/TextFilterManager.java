@@ -11,7 +11,7 @@ import java.util.Collection;
  * 3) фильтр для текстов с плохими эмоциями. (в тексте не должно быть таких смайлов:
  * "=(", ":(", ":|" (NEGATIVE_TEXT)
  * + в качестве доп задания, можете сделать любой свой фильтр (CUSTOM)
- *
+ * <p>
  * Класс TextFilterManager должен содержать все фильтры, которые передаются ему в конструкторе,
  * и при анализе текста через метод analyze должен выдавать первый "успешный" фильтр,
  * если не один не прошел, то возвращать тип GOOD.
@@ -19,6 +19,7 @@ import java.util.Collection;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
 public class TextFilterManager {
+    Collection<TextAnalyzer> filters;
 
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
@@ -26,13 +27,21 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(Collection<TextAnalyzer> filters) {
-
+        this.filters = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        if (text != null && filters != null) {
+            for (TextAnalyzer filter : filters) {
+                if (filter.analyzeText(text) != FilterType.GOOD) {
+                    return filter.analyzeText(text);
+                }
+            }
+        }
+        return FilterType.GOOD;
     }
 }
