@@ -9,22 +9,24 @@ import java.util.Collection;
  * прием ООП, где нам не важна конкретная реализация, а важен только контракт, что результат статических методов
  * умеет как-то анализировать текст). Сами статические методы мне нужны для создания тестов,
  * что бы без реальных классов (которые вы напишите) я смог "сэмулировать" их создание.
- *
+ * <p>
  * Так же необходимо создать все необходимы методы, которые будут вам нужны для прогона текста
  * по всем фильтрам в классе TextFilterManager
  */
-public interface TextAnalyzer {
+public interface TextAnalyzer<T> {
+
+    FilterType analyzeText(String text);
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new FilterToLong(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
-        return null;
+        return new FilterSpam(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new FilterNegative();
     }
 
     /**
