@@ -14,16 +14,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     private Node<T> first;
     private Node<T> last;
 
-    public DoubleLinkedList(){
-        first = null;
-        last = null;
-        size = 0;
-    }
-
     private class Node<T> {
-        Node<T> previous;
-        Node<T> next;
-        T element;
+        private Node<T> previous;
+        private Node<T> next;
+        private T element;
 
         Node(T element, Node<T> previous, Node<T> next) {
             this.element = element;
