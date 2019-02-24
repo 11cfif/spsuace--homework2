@@ -20,19 +20,37 @@ import java.util.Collection;
  */
 public class TextFilterManager {
 
+    Collection<TextAnalyzer> filterList;
+    FilterType filterType = FilterType.GOOD;
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    public TextFilterManager(Collection<TextAnalyzer> filters) {
-
+    public TextFilterManager(Collection<TextAnalyzer> filterList) {
+        this.filterList = filterList;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        filterType = FilterType.GOOD;
+
+        if (text == null || filterList == null) {
+            return FilterType.GOOD;
+        }
+
+        for (TextAnalyzer item : filterList) {
+
+            if (filterType == FilterType.GOOD) {
+                filterType = item.doFilter(text);
+            } else {
+                return filterType;
+            }
+        }
+
+        return filterType;
     }
 }
