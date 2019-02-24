@@ -1,8 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -19,77 +18,54 @@ import java.util.*;
  * + в качестве доп задания, можно всем типам фильтров задать приоритет
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
-public class TextFilterManager implements TextAnalyzer {
-    FilterType filt;
-    long maxLenght;
+public class TextFilterManager<T> {
     Collection<TextAnalyzer> filters;
-    Collection<String> spam;
-    String[] negative = {"=(", ":(", ":|",};
 
+    /**
+     * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
+     * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
+     * что в них реализован интерфейс TextAnalyzer
+     */
     public TextFilterManager(Collection<TextAnalyzer> filters) {
         this.filters = filters;
-    }
-
-
-    public TextFilterManager(long maxLength) {
-        this.maxLenght = maxLength;
-        this.filt = FilterType.TOO_LONG;
-    }
-
-    public TextFilterManager() {
-        this.filt = FilterType.NEGATIVE_TEXT;
-    }
-
-    public TextFilterManager(Collection<String> spam, FilterType filter) {
-        this.spam = spam;
-        this.filt = FilterType.SPAM;
-    }
-
-
-    @Override
-    public FilterType textAnalyze(String text) {
-
-        switch (this.filt) {
-            case TOO_LONG:
-                if (text.length() > this.maxLenght) {
-                    return FilterType.TOO_LONG;
-                }
-                break;
-            case SPAM:
-                for (String s : spam) {
-                    if (text.contains(s)) {
-                        return FilterType.SPAM;
-                    }
-                }
-
-                break;
-            case NEGATIVE_TEXT:
-                for (String s : negative) {
-                    if (text.contains(s)) {
-                        return FilterType.NEGATIVE_TEXT;
-                    }
-                }
-
-                break;
-        }
-        return FilterType.GOOD;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        if (text != null && filters != null) {
-            for (TextAnalyzer i : filters
-            ) {
-                filt = i.textAnalyze(text);
 
-                if (filt != FilterType.GOOD) {
-                    return filt;
+        if (text != null && filters != null) {
+            for (TextAnalyzer i : filters) {
+                FilterType filter = i.getTypeFilter();
+                switch (filter) {
+                    case TOO_LONG:
+                        if (text.length() > (long) i.getData()) {
+                            return filter;
+                        }
+                        break;
+                    case SPAM:
+                        for (String s : (Collection<String>) i.getData()) {
+                            if (text.contains(s)) {
+                                return FilterType.SPAM;
+                            }
+                        }
+
+                        break;
+                    case NEGATIVE_TEXT:
+                        for (String s : (String[]) i.getData()) {
+                            if (text.contains(s)) {
+                                return FilterType.NEGATIVE_TEXT;
+                            }
+                        }
+
+                        break;
                 }
             }
         }
 
         return FilterType.GOOD;
     }
+
+
 }

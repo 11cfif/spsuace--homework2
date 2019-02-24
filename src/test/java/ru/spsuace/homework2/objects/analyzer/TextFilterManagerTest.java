@@ -28,14 +28,14 @@ public class TextFilterManagerTest {
         assertEquals("TOO_LONG", manager.analyze("Скажите код из смс  ").toString());
         assertEquals("TOO_LONG", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
 
-          manager = new TextFilterManager(Collections.singleton(TextAnalyzer.createTooLongAnalyzer(0)));
+        manager = new TextFilterManager(Collections.singleton(TextAnalyzer.createTooLongAnalyzer(0)));
         assertEquals("TOO_LONG", manager.analyze("Привет, я Петя").toString());
         assertEquals("GOOD", manager.analyze("").toString());
         assertEquals("GOOD", manager.analyze(null).toString());
         assertEquals("TOO_LONG", manager.analyze("Скажите код из смс  ").toString());
         assertEquals("TOO_LONG", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
 
-       manager = new TextFilterManager(Arrays.asList(
+        manager = new TextFilterManager(Arrays.asList(
                 TextAnalyzer.createTooLongAnalyzer(19),
                 TextAnalyzer.createTooLongAnalyzer(8)));
         assertEquals("TOO_LONG", manager.analyze("Привет, я Петя :(").toString());
@@ -116,7 +116,8 @@ public class TextFilterManagerTest {
     public void analyzeAllFiltersMany() {
         manyFilters(false);
     }
-//
+
+    //
 //    @Test
 //    public void analyzeAllFiltersManyWithPriority() {
 //        manyFilters(true);

@@ -10,12 +10,12 @@ public enum FilterType {
     CUSTOM(4),
     GOOD(5);
     private final int number;
-    FilterType( int number){
-        this.number=number;
+
+    FilterType(int number) {
+        this.number = number;
     }
 
     public int getNumber() {
         return number;
     }
 }
-

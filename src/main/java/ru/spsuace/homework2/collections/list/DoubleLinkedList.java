@@ -34,8 +34,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
-        first=null;
-        last=null;
+        first = null;
+        last = null;
         count = 0;
     }
 
