@@ -19,7 +19,7 @@ import java.util.Collection;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
 public class TextFilterManager {
-    Collection<TextAnalyzer> filters;
+    private Collection<TextAnalyzer> filters;
 
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
@@ -38,10 +38,11 @@ public class TextFilterManager {
         if (text == null || filters == null) {
             return FilterType.GOOD;
         }
-
+        FilterType filterType;
         for (TextAnalyzer filter : filters) {
-            if (filter.analyzeText(text) != FilterType.GOOD) {
-                return filter.analyzeText(text);
+            filterType = filter.analyzeText(text);
+            if (filterType != FilterType.GOOD) {
+                return filterType;
             }
         }
         return FilterType.GOOD;
