@@ -1,4 +1,4 @@
-package ru.spsuace.homework2.collections.list;
+package ru.spsuace.homework2.collections;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ public class DoubleLinkedListTest {
     DoubleLinkedList<TestObject> actualList;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         expectedList = new LinkedList<>();
         actualList = new DoubleLinkedList<>();
     }

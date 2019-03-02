@@ -1,4 +1,4 @@
-package ru.spsuace.homework2.collections.list;
+package ru.spsuace.homework2.collections;
 
 import java.util.Iterator;
 
