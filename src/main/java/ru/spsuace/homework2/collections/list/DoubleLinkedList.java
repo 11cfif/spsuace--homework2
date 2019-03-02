@@ -8,9 +8,9 @@ import java.util.NoSuchElementException;
  * Если не понятно, что должны возвращать методы, смотрите документацию интерфейсов List и Collection
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-    Node first;
-    Node last;
-    int count;
+    private Node first;
+    private Node last;
+    private int count;
 
 
     public int size() {
@@ -19,15 +19,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        assert o != null;
         assert first != null;
         Node temp = first;
-        for (int i = 0; i < count; i++) {
-            if (o.equals(temp.value)) {
-                return true;
-            }
-            temp = temp.next;
+        if (indexOf((T) o) != -1) {
+            return true;
         }
+
         return false;
     }
 
@@ -109,7 +106,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         Node temp = first.next;
-        if (index > 0 && index <= count / 2) {
+        if (index <= count / 2) {
             for (int i = 1; i < index; i++) {
                 temp = temp.next;
             }
@@ -139,9 +136,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return (T) searchItem(index).value;
     }
 
+
     public int indexOf(T o) {
         assert first != null;
-        assert o != null;
         Node temp = first;
         for (int i = 0; i < count; i++) {
             if (o.equals(temp.value)) {
@@ -188,14 +185,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
 
     private class Node<T> {
-        public T value;
-        private Node next;
-        private Node previous;
+        private T value;
+        Node next;
+        Node previous;
 
         public Node(T element) {
-            this.value = element;
-            this.next = null;
-            this.previous = null;
+            value = element;
+            next = null;
+            previous = null;
         }
     }
 
@@ -216,7 +213,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         @Override
         public T next() {
 
-
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -224,7 +220,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             current = current.next;
             index++;
             return returned;
-
         }
 
         @Override
