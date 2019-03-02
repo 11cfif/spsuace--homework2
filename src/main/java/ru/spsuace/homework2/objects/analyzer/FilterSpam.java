@@ -2,7 +2,7 @@ package ru.spsuace.homework2.objects.analyzer;
 
 import java.util.Collection;
 
-public class FilterSpam implements TextAnalyzer {
+public class FilterSpam extends StringTextAnalyze implements TextAnalyzer {
     private final FilterType filter = FilterType.SPAM;
     private Collection<String> spam;
 
@@ -13,11 +13,6 @@ public class FilterSpam implements TextAnalyzer {
 
     @Override
     public FilterType analyzeText(String text) {
-        for (String spamWord : spam) {
-            if (text.contains(spamWord)) {
-                return filter;
-            }
-        }
-        return FilterType.GOOD;
+        return analyzeTextString(text, filter, spam);
     }
 }

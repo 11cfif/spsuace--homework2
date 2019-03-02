@@ -45,6 +45,9 @@ public class TextFilterManager {
                 return filterType;
             }
         }
+
         return FilterType.GOOD;
     }
 }
+
+

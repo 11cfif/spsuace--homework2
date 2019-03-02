@@ -1,17 +1,14 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class FilterNegative implements TextAnalyzer {
-    private final FilterType filter = FilterType.NEGATIVE_TEXT;
-    String[] negative = {"=(", ":(", ":|",};
+import java.util.Arrays;
+import java.util.Collection;
 
+public class FilterNegative extends StringTextAnalyze implements TextAnalyzer {
+    private final FilterType filter = FilterType.NEGATIVE_TEXT;
+    Collection<String> negative = Arrays.asList("=(", ":(", ":|");
 
     @Override
     public FilterType analyzeText(String text) {
-        for (String smiles : negative) {
-            if (text.contains(smiles)) {
-                return filter;
-            }
-        }
-        return FilterType.GOOD;
+        return analyzeTextString(text, filter, negative);
     }
 }
