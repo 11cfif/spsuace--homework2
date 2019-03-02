@@ -19,12 +19,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        assert first != null;
-        Node temp = first;
+
         if (indexOf((T) o) != -1) {
             return true;
         }
-
         return false;
     }
 
@@ -138,13 +136,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
 
     public int indexOf(T o) {
-        assert first != null;
-        Node temp = first;
-        for (int i = 0; i < count; i++) {
-            if (o.equals(temp.value)) {
-                return i;
+        if (first != null) {
+            Node temp = first;
+            for (int i = 0; i < count; i++) {
+                if (o.equals(temp.value)) {
+                    return i;
+                }
+                temp = temp.next;
             }
-            temp = temp.next;
         }
         return -1;
     }
@@ -186,13 +185,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     private class Node<T> {
         private T value;
-        Node next;
-        Node previous;
+        private Node next;
+        private Node previous;
 
-        public Node(T element) {
+        Node(T element) {
             value = element;
-            next = null;
-            previous = null;
         }
     }
 
