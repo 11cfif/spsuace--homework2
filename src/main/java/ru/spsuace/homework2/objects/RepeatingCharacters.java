@@ -16,7 +16,7 @@ public class RepeatingCharacters {
         if (str == null || str == "") {
             return null;
         }
-        Integer max = 1;
+        int max = 1;
         char ch = str.charAt(0);
         int index = 1;
 
