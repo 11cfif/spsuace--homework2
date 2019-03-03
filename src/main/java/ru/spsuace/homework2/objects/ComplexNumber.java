@@ -23,8 +23,8 @@ public class ComplexNumber {
     }
 
     public String toString() {
-        String complex = "";
-        return complex + real + " + " + imaginary + 'i';
+
+        return real + " + " + imaginary + 'i';
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ComplexNumber {
             return false;
         }
         ComplexNumber complexNumber = (ComplexNumber) obj;
-        return (real == complexNumber.real && imaginary == ((ComplexNumber) obj).imaginary);
+        return (real == complexNumber.real && imaginary == complexNumber.imaginary);
 
     }
 

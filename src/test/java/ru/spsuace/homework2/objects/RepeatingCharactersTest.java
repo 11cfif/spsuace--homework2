@@ -17,7 +17,7 @@ public class RepeatingCharactersTest {
 
     @Test
     public void getMaxRepeatingCharacters_oneMax() {
-        assertEquals(new Pair<>('d', 4), RepeatingCharacters.getMaxRepeatingCharacters("aaaddddggeeereee"));
+       assertEquals(new Pair<>('d', 4), RepeatingCharacters.getMaxRepeatingCharacters("aaaddddggeeereee"));
         assertEquals(new Pair<>('g', 3), RepeatingCharacters.getMaxRepeatingCharacters("ggg"));
         assertEquals(new Pair<>('c', 4), RepeatingCharacters.getMaxRepeatingCharacters("bbbaabbbccccaa"));
         assertEquals(new Pair<>('f', 6), RepeatingCharacters.getMaxRepeatingCharacters("abbcccddddeeeeeffffff"));

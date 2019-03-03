@@ -17,7 +17,7 @@ public class RepeatingCharacters {
             return null;
         }
         Integer max = 1;
-        Character ch = str.charAt(0);
+        char ch = str.charAt(0);
         int index = 1;
 
         for (int k = 0; k < str.length() - 1; k++) {
