@@ -20,6 +20,11 @@ import java.util.Collection;
  */
 public class TextFilterManager {
 
+    /**
+     * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
+     * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
+     * что в них реализован интерфейс TextAnalyzer
+     */
     public TextFilterManager(Collection<TextAnalyzer> filters) {
 
     }

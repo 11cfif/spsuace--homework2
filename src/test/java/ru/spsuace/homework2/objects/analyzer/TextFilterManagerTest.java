@@ -83,7 +83,7 @@ public class TextFilterManagerTest {
         assertEquals("NEGATIVE_TEXT", manager.analyze("Привет, я Петя :(").toString());
         assertEquals("GOOD", manager.analyze("").toString());
         assertEquals("GOOD", manager.analyze(null).toString());
-        assertEquals("NEGATIVE_TEXT", manager.analyze("Скажите код из смс :-( ").toString());
+        assertEquals("GOOD", manager.analyze("Скажите код из смс :-( ").toString());
         assertEquals("NEGATIVE_TEXT", manager.analyze("Скажите код из смс пожалуйста :|").toString());
         assertEquals("GOOD", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
     }
