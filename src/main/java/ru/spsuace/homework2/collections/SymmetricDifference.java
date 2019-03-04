@@ -17,13 +17,11 @@ public class SymmetricDifference {
         //встроенные set -> retainAll -> removeAll
 
         Set<T> difference = new HashSet<>(set1);
+        Set<T> temp = new HashSet<>(set1);
 
-        for (T item : set2) {
-
-            if (!difference.add(item)) {
-                difference.remove(item);
-            }
-        }
+        difference.addAll(set2);
+        temp.retainAll(set2);
+        difference.removeAll(temp);
 
         return difference;
     }

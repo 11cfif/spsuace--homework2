@@ -2,6 +2,8 @@ package ru.spsuace.homework2.objects;
 
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Нужно найти символ, который встречается подряд в строке чаще всего, и указать количество повторений.
@@ -12,7 +14,29 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return null;
+
+        if (str == null || str == "") {
+            return  null;
+        }
+
+        int counter = 1;
+        char symbol = str.charAt(0);
+        String repetitions;
+
+        Pattern pattern = Pattern.compile("(.)\\1+");
+        Matcher matcher = pattern.matcher(str);
+
+        while (matcher.find()) {
+
+            repetitions = matcher.group();
+
+            if (counter < repetitions.length()) {
+                counter = repetitions.length();
+                symbol = repetitions.charAt(0);
+            }
+        }
+
+        return new Pair<>(symbol, counter);
     }
 
     public static class Pair<T, V> {

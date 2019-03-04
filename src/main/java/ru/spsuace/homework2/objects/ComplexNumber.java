@@ -7,33 +7,28 @@ import java.util.Objects;
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
  */
 public final class ComplexNumber {
-    private double real = 0.0;
-    private double imaginary = 0.0;
+    private final double real;
+    private final double imaginary;
 
     public ComplexNumber (double real, double imaginary) {
         this.real = real;
         this.imaginary = imaginary;
     }
 
-    public final double getReal() {
+    public double getReal() {
         return real;
     }
 
-    public final double getImaginary() {
+    public double getImaginary() {
         return imaginary;
     }
 
-    public final String toString() {
-
-        if (this.imaginary > 0) {
-            return real + " + " + imaginary + "i";
-        }
-
-        return real + " + " + "i";
+    public String toString() {
+        return real + " + " + imaginary + "i";
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
 
         if (obj instanceof ComplexNumber) {
             ComplexNumber number = (ComplexNumber)obj;
@@ -44,7 +39,7 @@ public final class ComplexNumber {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(real, imaginary);
     }
 }
