@@ -13,7 +13,7 @@ public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
 
-        if (str == null || str == "") {
+        if (str == null || str.isEmpty()) {
             return null;
         }
         int max = 1;
