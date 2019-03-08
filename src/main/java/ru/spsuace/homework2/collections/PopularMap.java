@@ -1,12 +1,7 @@
 package ru.spsuace.homework2.collections;
 
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.Map;
-import java.util.Set;
-
 
 /**
  * Написать структуру данных, реализующую интерфейс мапы + набор дополнительных методов.
@@ -42,79 +37,138 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
 
+    private HashMap<K, Integer> keysMap = new HashMap<>();
+    private HashMap<V, Integer> valueMap = new HashMap<>();
+
     public PopularMap() {
         this.map = new HashMap<>();
     }
 
-    public PopularMap(Map<K, V> map) {
+    public PopularMap(Map<K, V> map){
         this.map = map;
     }
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        countValue((V)value);
+        return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        return null;
+        countKeys(key);
+
+        V value = map.get(key);
+        countValue(value);
+
+        return value;
     }
 
     @Override
     public V put(K key, V value) {
-        return null;
+        countKeys(key);
+
+        if (map.containsKey(key)) {
+            countValue(map.get(key));
+        }
+
+        countValue(value);
+
+        return map.put(key, value);
     }
 
     @Override
     public V remove(Object key) {
-        return null;
+
+        countKeys(key);
+        countValue(map.get(key));
+
+        return map.remove(key);
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+        map.putAll(m);
     }
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return map.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return map.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return map.entrySet();
+    }
+
+    private void countKeys(Object key) {
+
+        if (keysMap.containsKey(key)) {
+            int temp = keysMap.get(key);
+            temp++;
+            keysMap.put((K)key, temp);
+
+        }else {
+            keysMap.put((K)key, 1);
+        }
+    }
+
+    private void countValue(V value) {
+        if (value == null){
+            return;
+        }
+        
+        if (valueMap.containsKey(value)) {
+            int temp = valueMap.get(value);
+            temp++;
+            valueMap.put(value, temp);
+        } else {
+            valueMap.put(value, 1);
+        }
     }
 
     /**
      * Возвращает самый популярный, на данный момент, ключ
      */
     public K getPopularKey() {
-        return null;
+
+        K moreRepeatable = null;
+        int counter = 0;
+
+        for (Map.Entry<K, Integer> entry : keysMap.entrySet()) {
+
+            if (entry.getValue() > counter) {
+                counter = entry.getValue();
+                moreRepeatable = entry.getKey();
+            }
+
+        }
+        return moreRepeatable;
     }
 
 
@@ -122,7 +176,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        return 0;
+        return keysMap.get(key);
     }
 
     /**
@@ -130,7 +184,25 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самое популярное, на данный момент, значение. Надо учесть что значени может быть более одного
      */
     public V getPopularValue() {
-        return null;
+
+        List<V> values = new ArrayList<>();
+
+        int counter = 0;
+
+        for (Map.Entry<V, Integer> entry : valueMap.entrySet()) {
+
+            if (entry.getValue() == counter) {
+                values.add(entry.getKey());
+
+            }
+
+            if (entry.getValue() > counter) {
+                values.clear();
+                values.add(entry.getKey());
+            }
+        }
+
+        return values.get(0);
     }
 
     /**
@@ -139,6 +211,9 @@ public class PopularMap<K, V> implements Map<K, V> {
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
     public int getValuePopularity(V value) {
+        if (valueMap.containsKey(value)) {
+            return valueMap.get(value);
+        }
         return 0;
     }
 
@@ -147,6 +222,49 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Вернуть итератор, который итерируется по значениям (от самых НЕ популярных, к самым популярным)
      */
     public Iterator<V> popularIterator() {
-        return null;
+
+        return new hashMapIterator();
     }
+
+    private class hashMapIterator implements Iterator {
+
+        private HashMap<V, Integer> temp = sorting();
+        private Iterator iter = temp.entrySet().iterator();
+
+        @Override
+        public boolean hasNext() {
+            return iter.hasNext();
+        }
+
+        @Override
+        public Object next() {
+            return ((Entry) iter.next()).getKey();
+        }
+
+
+    }
+
+    public HashMap<V, Integer> sorting(){
+
+        HashMap<V, Integer> unsorted = valueMap;
+        HashMap<V, Integer> sorted = new LinkedHashMap<>();
+
+        List<Entry<V, Integer>> list = new LinkedList<>(unsorted.entrySet());
+
+
+        Collections.sort(list, new Comparator<Entry<V, Integer>>() {
+            public int compare(HashMap.Entry<V, Integer> map1, HashMap.Entry<V, Integer> map2) {
+                return (map1.getValue()).compareTo(map2.getValue());
+            }
+        });
+
+        for (Entry<V, Integer> entry : list) {
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+
+        return sorted;
+    }
+
+
+
 }
