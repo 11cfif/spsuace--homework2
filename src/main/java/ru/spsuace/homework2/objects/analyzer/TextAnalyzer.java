@@ -16,16 +16,18 @@ import java.util.Collection;
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new FilterLong(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
-        return null;
+        return new FilterSpam(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new FilterNegative();
     }
+
+    public FilterType textAnalyzer(String text);
 
     /**
      * Дополнительное задание: придумать свой фильтр
@@ -33,4 +35,5 @@ public interface TextAnalyzer {
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
         return null;
     }
+
 }

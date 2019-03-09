@@ -20,6 +20,7 @@ import java.util.Collection;
  */
 public class TextFilterManager {
 
+    private Collection<TextAnalyzer> filters;
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
@@ -27,12 +28,28 @@ public class TextFilterManager {
      */
     public TextFilterManager(Collection<TextAnalyzer> filters) {
 
+        this.filters = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        if (text == null || text.isEmpty()){
+            return FilterType.GOOD;
+        }
+
+        FilterType ft;
+
+        for (TextAnalyzer ta: filters) {
+
+            ft = ta.textAnalyzer(text);
+            if (ft != FilterType.GOOD) {
+                return ft;
+            }
+        }
+        return FilterType.GOOD;
     }
+
 }
