@@ -34,19 +34,24 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
+        int min = 5;
 
+        int numberPriority = 5;
         if (text == null || filters == null) {
             return FilterType.GOOD;
         }
-        FilterType filterType;
+        FilterType filterType = FilterType.GOOD;
+
         for (TextAnalyzer filter : filters) {
-            filterType = filter.analyzeText(text);
-            if (filterType != FilterType.GOOD) {
-                return filterType;
+            numberPriority = filter.analyzeText(text).getNumber();
+            if (min > numberPriority) {
+                min = numberPriority;
+
             }
+
         }
 
-        return FilterType.GOOD;
+        return filterType.getValue(min);
     }
 }
 

@@ -33,6 +33,6 @@ public interface TextAnalyzer<T> {
      * Дополнительное задание: придумать свой фильтр
      */
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+        return new FilterCustom();
     }
 }
