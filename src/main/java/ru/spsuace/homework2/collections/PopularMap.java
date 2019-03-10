@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.collections;
 
+import java.security.KeyStore;
 import java.util.*;
 import java.util.Map;
 
@@ -60,44 +61,41 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        countKeys(key);
+        count(key, keysMap);
         return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        countValue(value);
+        count(value, valueMap);
         return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        countKeys(key);
+        count(key, keysMap);
 
         V value = map.get(key);
-        countValue(value);
-
+        count(value, valueMap);
         return value;
     }
 
     @Override
     public V put(K key, V value) {
-        countKeys(key);
+        V oldValue = map.put(key, value);
 
-        if (map.containsKey(key)) {
-            countValue(map.get(key));
-        }
+        count(key, keysMap);
+        count(oldValue, valueMap);
+        count(value, valueMap);
 
-        countValue(value);
-
-        return map.put(key, value);
+        return oldValue;
     }
 
     @Override
     public V remove(Object key) {
 
-        countKeys(key);
-        countValue(map.get(key));
+        count(key, keysMap);
+        count(map.get(key), valueMap);
 
         return map.remove(key);
     }
@@ -127,28 +125,19 @@ public class PopularMap<K, V> implements Map<K, V> {
         return map.entrySet();
     }
 
-    private void countKeys(Object key) {
 
-        if (keysMap.containsKey(key)) {
-            int temp = keysMap.get(key);
-            temp++;
-            keysMap.put((K)key, temp);
-        } else {
-            keysMap.put((K)key, 1);
-        }
-    }
+    private void count(Object type, Map map) {
 
-    private void countValue(Object value) {
-        if (value == null){
+        if (type == null) {
             return;
         }
-        
-        if (valueMap.containsKey(value)) {
-            int temp = valueMap.get(value);
+
+        if (map.containsKey(type)) {
+            int temp = (int)map.get(type);
             temp++;
-            valueMap.put((V)value, temp);
+            map.put(type, temp);
         } else {
-            valueMap.put((V)value, 1);
+            map.put(type, 1);
         }
     }
 
@@ -156,19 +145,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самый популярный, на данный момент, ключ
      */
     public K getPopularKey() {
-
-        K moreRepeatable = null;
-        int counter = 0;
-
-        for (Map.Entry<K, Integer> entry : keysMap.entrySet()) {
-
-            if (entry.getValue() > counter) {
-                counter = entry.getValue();
-                moreRepeatable = entry.getKey();
-            }
-
-        }
-        return moreRepeatable;
+        return countPopular(keysMap);
     }
 
 
@@ -184,19 +161,23 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самое популярное, на данный момент, значение. Надо учесть что значени может быть более одного
      */
     public V getPopularValue() {
+        return countPopular(valueMap);
+    }
 
-        V value = null;
+    public <T> T countPopular(Map<T, Integer> map) {
+
+        T popular = null; // просто для теста
         int counter = 0;
 
-        for (Map.Entry<V, Integer> entry : valueMap.entrySet()) {
+        for (Map.Entry<T, Integer> entry : map.entrySet()) {
 
             if (entry.getValue() >= counter) {
-                value = entry.getKey();
+                popular = entry.getKey();
                 counter = entry.getValue();
             }
         }
 
-        return value;
+        return popular;
     }
 
     /**
@@ -244,7 +225,6 @@ public class PopularMap<K, V> implements Map<K, V> {
         Map<V, Integer> sorted = new LinkedHashMap<>();
 
         List<Entry<V, Integer>> list = new ArrayList<>(unsorted.entrySet());
-
 
         Collections.sort(list, new Comparator<Entry<V, Integer>>() {
             public int compare(HashMap.Entry<V, Integer> map1, HashMap.Entry<V, Integer> map2) {
