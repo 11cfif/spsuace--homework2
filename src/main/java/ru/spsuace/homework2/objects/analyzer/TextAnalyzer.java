@@ -15,22 +15,26 @@ import java.util.Collection;
  */
 public interface TextAnalyzer {
 
+    FilterType doFilter(String text);
+
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new TooLongFilter(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
-        return null;
+        return new SpamFilter(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new NegativeFilter();
     }
+
+    int backId();
 
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+    static TextAnalyzer createEmailAnalyzer() {
+        return new EmailFilter();
     }
 }

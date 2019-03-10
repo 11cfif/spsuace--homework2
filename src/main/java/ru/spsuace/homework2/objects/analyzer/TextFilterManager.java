@@ -1,7 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -20,19 +20,53 @@ import java.util.Collection;
  */
 public class TextFilterManager {
 
+    Collection<TextAnalyzer> filterList;
+    FilterType filterType = FilterType.GOOD;
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    public TextFilterManager(Collection<TextAnalyzer> filters) {
-
+    public TextFilterManager(Collection<TextAnalyzer> filtersList) {
+        this.filterList = filtersList;
+        sorting();
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        filterType = FilterType.GOOD;
+
+        if (text == null || filterList == null) {
+            return filterType;
+        }
+
+
+        for (TextAnalyzer item : filterList) {
+
+            if (filterType == FilterType.GOOD) {
+                filterType = item.doFilter(text);
+            } else {
+                return filterType;
+            }
+
+        }
+
+        return filterType;
+    }
+
+    private void sorting() {
+        Comparator<TextAnalyzer> comparator = new Comparator<TextAnalyzer>() {
+            @Override
+            public int compare(TextAnalyzer o1, TextAnalyzer o2) {
+                return o1.backId() - o2.backId();
+            }
+        };
+
+        List<TextAnalyzer> sortedList = new ArrayList<>(filterList);
+        Collections.sort(sortedList, comparator);
+        filterList = sortedList;
     }
 }
