@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class NegativeFilter extends Analyzing implements TextAnalyzer {
+    Collection<String> emoticons = Arrays.asList("=(", ":(", ":|");
 
     @Override
     public FilterType doFilter(String text) {
-        return AnalyzString( Arrays.asList("=(", ":(", ":|"), FilterType.NEGATIVE_TEXT, text);
+        return analyzString(emoticons, FilterType.NEGATIVE_TEXT, text);
     }
 
     @Override

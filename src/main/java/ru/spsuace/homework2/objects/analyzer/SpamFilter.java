@@ -11,7 +11,7 @@ public class SpamFilter extends Analyzing {
 
     @Override
     public FilterType doFilter(String text) {
-        return AnalyzString(spamList, FilterType.SPAM, text);
+        return analyzString(spamList, FilterType.SPAM, text);
     }
 
     @Override
