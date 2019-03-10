@@ -37,8 +37,8 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
 
-    private HashMap<K, Integer> keysMap = new HashMap<>();
-    private HashMap<V, Integer> valueMap = new HashMap<>();
+    private Map<K, Integer> keysMap = new HashMap<>();
+    private Map<V, Integer> valueMap = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -60,12 +60,13 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
+        countKeys(key);
         return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        countValue((V)value);
+        countValue(value);
         return map.containsValue(value);
     }
 
@@ -132,13 +133,12 @@ public class PopularMap<K, V> implements Map<K, V> {
             int temp = keysMap.get(key);
             temp++;
             keysMap.put((K)key, temp);
-
-        }else {
+        } else {
             keysMap.put((K)key, 1);
         }
     }
 
-    private void countValue(V value) {
+    private void countValue(Object value) {
         if (value == null){
             return;
         }
@@ -146,9 +146,9 @@ public class PopularMap<K, V> implements Map<K, V> {
         if (valueMap.containsKey(value)) {
             int temp = valueMap.get(value);
             temp++;
-            valueMap.put(value, temp);
+            valueMap.put((V)value, temp);
         } else {
-            valueMap.put(value, 1);
+            valueMap.put((V)value, 1);
         }
     }
 
@@ -185,24 +185,18 @@ public class PopularMap<K, V> implements Map<K, V> {
      */
     public V getPopularValue() {
 
-        List<V> values = new ArrayList<>();
-
+        V value = null;
         int counter = 0;
 
         for (Map.Entry<V, Integer> entry : valueMap.entrySet()) {
 
-            if (entry.getValue() == counter) {
-                values.add(entry.getKey());
-
-            }
-
-            if (entry.getValue() > counter) {
-                values.clear();
-                values.add(entry.getKey());
+            if (entry.getValue() >= counter) {
+                value = entry.getKey();
+                counter = entry.getValue();
             }
         }
 
-        return values.get(0);
+        return value;
     }
 
     /**
@@ -223,12 +217,12 @@ public class PopularMap<K, V> implements Map<K, V> {
      */
     public Iterator<V> popularIterator() {
 
-        return new hashMapIterator();
+        return new MapIterator();
     }
 
-    private class hashMapIterator implements Iterator {
+    private class MapIterator implements Iterator {
 
-        private HashMap<V, Integer> temp = sorting();
+        private Map<V, Integer> temp = sorting();
         private Iterator iter = temp.entrySet().iterator();
 
         @Override
@@ -244,12 +238,12 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     }
 
-    public HashMap<V, Integer> sorting(){
+    private Map<V, Integer> sorting(){
 
-        HashMap<V, Integer> unsorted = valueMap;
-        HashMap<V, Integer> sorted = new LinkedHashMap<>();
+        Map<V, Integer> unsorted = valueMap;
+        Map<V, Integer> sorted = new LinkedHashMap<>();
 
-        List<Entry<V, Integer>> list = new LinkedList<>(unsorted.entrySet());
+        List<Entry<V, Integer>> list = new ArrayList<>(unsorted.entrySet());
 
 
         Collections.sort(list, new Comparator<Entry<V, Integer>>() {
@@ -264,7 +258,5 @@ public class PopularMap<K, V> implements Map<K, V> {
 
         return sorted;
     }
-
-
 
 }
