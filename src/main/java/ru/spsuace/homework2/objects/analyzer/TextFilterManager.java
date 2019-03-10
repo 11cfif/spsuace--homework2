@@ -26,8 +26,8 @@ public class TextFilterManager {
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    public TextFilterManager(Collection<TextAnalyzer> filters) {
-        this.filter = filters;
+    public TextFilterManager(Collection<TextAnalyzer> filter) {
+        this.filter = sortting(filter);
     }
 
 
@@ -46,7 +46,7 @@ public class TextFilterManager {
         return FilterType.GOOD;
     }
 
-    private void sorting() {
+    private Collection<TextAnalyzer> sortting(Collection<TextAnalyzer> lists) {
         Comparator<TextAnalyzer> comparator = new Comparator<TextAnalyzer>() {
             @Override
             public int compare(TextAnalyzer o1, TextAnalyzer o2) {
@@ -54,11 +54,13 @@ public class TextFilterManager {
             }
         };
 
+
         List<TextAnalyzer> sortedList = new ArrayList<>(filter);
         Collections.sort(sortedList, comparator);
-        filter = sortedList;
+        return sortedList;
     }
-
 }
+
+
 
 
