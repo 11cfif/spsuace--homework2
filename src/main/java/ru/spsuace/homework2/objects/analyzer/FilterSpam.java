@@ -4,19 +4,21 @@ import java.util.Collection;
 
 public class FilterSpam implements TextAnalyzer {
 
-    private Collection<String> spam;
+    protected Collection<String> badCharacters;
+    protected FilterType filterName;
 
-    FilterSpam(Collection<String> spam){
+    FilterSpam(Collection<String> badCharacters) {
 
-        this.spam = spam;
+        this.badCharacters = badCharacters;
+        filterName = FilterType.SPAM;
     }
 
     public FilterType textAnalyzer(String text) {
 
-        for ( String sp: spam ) {
+        for (String character : badCharacters) {
 
-            if (text.contains(sp)){
-                return FilterType.SPAM;
+            if (text.contains(character)) {
+                return filterName;
             }
         }
 

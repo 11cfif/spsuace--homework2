@@ -4,14 +4,14 @@ public class FilterLong implements TextAnalyzer {
 
     private long maxLength;
 
-    FilterLong(long length){
+    FilterLong(long maxLength) {
 
-        maxLength = length;
+        this.maxLength = maxLength;
     }
 
     public FilterType textAnalyzer(String text) {
 
-        if (text.length() > maxLength ){
+        if (text.length() > maxLength) {
             return FilterType.TOO_LONG;
         }
 

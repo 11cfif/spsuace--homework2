@@ -21,6 +21,7 @@ import java.util.Collection;
 public class TextFilterManager {
 
     private Collection<TextAnalyzer> filters;
+
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
@@ -36,17 +37,17 @@ public class TextFilterManager {
      */
     public FilterType analyze(String text) {
 
-        if (text == null || text.isEmpty()){
+        if (text == null || text.isEmpty()) {
             return FilterType.GOOD;
         }
 
-        FilterType ft;
+        FilterType filterType;
 
-        for (TextAnalyzer ta: filters) {
+        for (TextAnalyzer currentFilter : filters) {
 
-            ft = ta.textAnalyzer(text);
-            if (ft != FilterType.GOOD) {
-                return ft;
+            filterType = currentFilter.textAnalyzer(text);
+            if (filterType != FilterType.GOOD) {
+                return filterType;
             }
         }
         return FilterType.GOOD;
