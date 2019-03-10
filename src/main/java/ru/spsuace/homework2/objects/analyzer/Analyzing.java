@@ -2,12 +2,7 @@ package ru.spsuace.homework2.objects.analyzer;
 
 import java.util.Collection;
 
-public class Analyzing implements TextAnalyzer {
-
-    @Override
-    public FilterType doFilter(String text) {
-        return null;
-    }
+public abstract class Analyzing implements TextAnalyzer {
 
     public FilterType AnalyzString(Collection<String> collection, FilterType filerType, String text) {
 
@@ -20,8 +15,4 @@ public class Analyzing implements TextAnalyzer {
         return FilterType.GOOD;
     }
 
-    @Override
-    public int backId() {
-        return 0;
-    }
 }

@@ -4,7 +4,6 @@ import java.util.Collection;
 
 public class SpamFilter extends Analyzing {
     private Collection<String> spamList;
-    private FilterType filter = FilterType.SPAM;
 
     public SpamFilter(Collection<String> spamList) {
         this.spamList = spamList;
@@ -12,12 +11,11 @@ public class SpamFilter extends Analyzing {
 
     @Override
     public FilterType doFilter(String text) {
-
-        return AnalyzString(spamList, filter, text);
+        return AnalyzString(spamList, FilterType.SPAM, text);
     }
 
     @Override
     public int backId() {
-        return filter.getNumber();
+        return FilterType.SPAM.getNumber();
     }
 }

@@ -43,7 +43,6 @@ public class TextFilterManager {
             return filterType;
         }
 
-
         for (TextAnalyzer item : filterList) {
 
             if (filterType == FilterType.GOOD) {
@@ -51,7 +50,6 @@ public class TextFilterManager {
             } else {
                 return filterType;
             }
-
         }
 
         return filterType;
