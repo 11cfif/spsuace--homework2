@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.collections;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Реализовать двусвязный список, аналог LinkedList в java (то что я рассказывал на лекции)
@@ -10,8 +11,8 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
-    private LinksAndData<T> first;
-    private LinksAndData<T> last;
+    private LinksAndData first;
+    private LinksAndData last;
     private int count;
 
     public int size() {
@@ -209,6 +210,42 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return null;
+
+        return new IteratorForDoubleList<T>();
+    }
+
+    public class IteratorForDoubleList<T> implements Iterator<T> {
+
+        private LinksAndData<T> currentElement;
+        private T currentData;
+        private int currentIndex;
+
+        IteratorForDoubleList() {
+
+            currentElement = first;
+            currentIndex = -1;
+        }
+
+        public T next() {
+
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            currentData = currentElement.data;
+            currentElement = currentElement.next;
+            currentIndex++;
+            return currentData;
+        }
+
+        public boolean hasNext() {
+
+            return (currentElement != null);
+        }
+
+        public void remove() {
+
+            DoubleLinkedList.this.remove(currentIndex);
+        }
     }
 }
