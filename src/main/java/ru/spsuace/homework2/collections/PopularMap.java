@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.collections;
 
-import java.security.KeyStore;
 import java.util.*;
 import java.util.Map;
 
@@ -95,9 +94,10 @@ public class PopularMap<K, V> implements Map<K, V> {
     public V remove(Object key) {
 
         count(key, keysMap);
-        count(map.get(key), valueMap);
+        V value = map.remove(key);
+        count(value, valueMap);
 
-        return map.remove(key);
+        return value;
     }
 
     @Override
