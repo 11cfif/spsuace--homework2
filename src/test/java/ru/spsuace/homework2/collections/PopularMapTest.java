@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import ru.spsuace.homework2.TestObject;
 
@@ -16,6 +18,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PopularMapTest {
 
     private PopularMap<TestObject, TestObject> popularMap1;
