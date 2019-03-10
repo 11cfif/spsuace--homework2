@@ -3,7 +3,7 @@ package ru.spsuace.homework2.objects.analyzer;
 import java.util.Collection;
 
 public class FilterSpam implements TextAnalyzer {
-    protected final FilterType filter;
+    private final FilterType filter;
     protected Collection<String> str;
 
 
@@ -26,5 +26,10 @@ public class FilterSpam implements TextAnalyzer {
             }
         }
         return FilterType.GOOD;
+    }
+
+    @Override
+    public int getId() {
+        return filter.getNumber();
     }
 }

@@ -16,4 +16,8 @@ public class FilterToLong implements TextAnalyzer {
         }
         return FilterType.GOOD;
     }
+    @Override
+    public int getId() {
+        return filter.getNumber();
+    }
 }

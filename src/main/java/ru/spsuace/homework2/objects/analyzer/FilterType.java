@@ -19,24 +19,5 @@ public enum FilterType {
         return number;
     }
 
-    public FilterType getValue(int number) {
-        switch (number) {
-            case 1:
-                return SPAM;
 
-            case 2:
-                return TOO_LONG;
-
-            case 3:
-                return NEGATIVE_TEXT;
-
-            case 4:
-                return CUSTOM;
-
-            case 5:
-                return GOOD;
-
-        }
-        return GOOD;
-    }
 }

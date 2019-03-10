@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FilterCustom implements TextAnalyzer {
-    String pat = "(.*)(\\d+)(.*)";
-    Pattern pattern = Pattern.compile(pat);
+    private String pat = "(.*)(\\d+)(.*)";
+    private Pattern pattern = Pattern.compile(pat);
 
 
     @Override
@@ -15,5 +15,10 @@ public class FilterCustom implements TextAnalyzer {
             return FilterType.CUSTOM;
         }
         return FilterType.GOOD;
+    }
+
+    @Override
+    public int getId() {
+        return FilterType.GOOD.getNumber();
     }
 }

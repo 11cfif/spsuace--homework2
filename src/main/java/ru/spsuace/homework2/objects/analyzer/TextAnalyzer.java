@@ -28,7 +28,7 @@ public interface TextAnalyzer<T> {
     static TextAnalyzer createNegativeTextAnalyzer() {
         return new FilterNegative();
     }
-
+    int getId();
     /**
      * Дополнительное задание: придумать свой фильтр
      */

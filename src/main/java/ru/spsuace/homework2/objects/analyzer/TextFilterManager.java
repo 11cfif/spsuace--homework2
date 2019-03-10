@@ -1,7 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -19,7 +19,7 @@ import java.util.Collection;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
 public class TextFilterManager {
-    private Collection<TextAnalyzer> filters;
+    private Collection<TextAnalyzer> filter;
 
     /**
      * Для работы с каждым элементом коллекцией, нужно использовать цикл for-each
@@ -27,32 +27,38 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(Collection<TextAnalyzer> filters) {
-        this.filters = filters;
+        this.filter = filters;
     }
 
-    /**
-     * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
-     */
-    public FilterType analyze(String text) {
-        int min = 5;
 
-        int numberPriority = 5;
-        if (text == null || filters == null) {
+    public FilterType analyze(String text) {
+
+        if (text == null || filter == null) {
             return FilterType.GOOD;
         }
-        FilterType filterType = FilterType.GOOD;
-
-        for (TextAnalyzer filter : filters) {
-            numberPriority = filter.analyzeText(text).getNumber();
-            if (min > numberPriority) {
-                min = numberPriority;
-
+        FilterType filterType;
+        for (TextAnalyzer filter : filter) {
+            filterType = filter.analyzeText(text);
+            if (filterType != FilterType.GOOD) {
+                return filterType;
             }
-
         }
-
-        return filterType.getValue(min);
+        return FilterType.GOOD;
     }
+
+    private void sorting() {
+        Comparator<TextAnalyzer> comparator = new Comparator<TextAnalyzer>() {
+            @Override
+            public int compare(TextAnalyzer o1, TextAnalyzer o2) {
+                return o1.getId() - o2.getId();
+            }
+        };
+
+        List<TextAnalyzer> sortedList = new ArrayList<>(filter);
+        Collections.sort(sortedList, comparator);
+        filter = sortedList;
+    }
+
 }
 
 
