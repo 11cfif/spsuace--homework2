@@ -28,8 +28,7 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(Collection<TextAnalyzer> filtersList) {
-        this.filterList = filtersList;
-        sorting();
+        this.filterList = sorting(filtersList);
     }
 
     /**
@@ -55,7 +54,7 @@ public class TextFilterManager {
         return filterType;
     }
 
-    private void sorting() {
+    private Collection<TextAnalyzer> sorting(Collection<TextAnalyzer> list) {
         Comparator<TextAnalyzer> comparator = new Comparator<TextAnalyzer>() {
             @Override
             public int compare(TextAnalyzer o1, TextAnalyzer o2) {
@@ -63,8 +62,8 @@ public class TextFilterManager {
             }
         };
 
-        List<TextAnalyzer> sortedList = new ArrayList<>(filterList);
-        Collections.sort(sortedList, comparator);
-        filterList = sortedList;
+        List<TextAnalyzer> sortedList = new ArrayList<>(list);
+        sortedList.sort(comparator);
+        return sortedList;
     }
 }
