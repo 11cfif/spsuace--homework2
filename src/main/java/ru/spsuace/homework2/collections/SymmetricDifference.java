@@ -15,11 +15,11 @@ public class SymmetricDifference {
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
 
         Set<T> symmetricDifference = new HashSet<>(set1);
-        Set<T> set2_copy = new HashSet<>(set2);
+        Set<T> set2Copy = new HashSet<>(set2);
 
         symmetricDifference.removeAll(set2);
-        set2_copy.removeAll(set1);
-        symmetricDifference.addAll(set2_copy);
+        set2Copy.removeAll(set1);
+        symmetricDifference.addAll(set2Copy);
 
         return symmetricDifference;
     }

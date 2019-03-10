@@ -12,6 +12,7 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
+
         if (str == null || str.isEmpty()) {
             return null;
         }
@@ -19,8 +20,6 @@ public class RepeatingCharacters {
         char ch = str.charAt(0);
         int currentIndex = 1;
         int maxIndex = 1;
-
-
 
         for (int k = 1; k < str.length(); k++) {
 

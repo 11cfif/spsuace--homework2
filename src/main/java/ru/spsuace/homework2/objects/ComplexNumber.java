@@ -9,10 +9,10 @@ public class ComplexNumber {
     private final double realPart;
     private final double imaginaryPart;
 
-    ComplexNumber(double rp, double ip) {
+    ComplexNumber(double realPart, double imaginaryPart) {
 
-        realPart = rp;
-        imaginaryPart = ip;
+        this.realPart = realPart;
+        this.imaginaryPart = imaginaryPart;
     }
 
     public double getRealPart() {
@@ -25,10 +25,7 @@ public class ComplexNumber {
 
     public String toString() {
 
-        String sign = "+";
-        if (imaginaryPart < 0){
-            sign = "-";
-        }
+        String sign = imaginaryPart < 0 ? "-" : "+";
 
         return realPart + " " + sign + " " + Math.abs(imaginaryPart) + "i";
     }
