@@ -22,18 +22,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public boolean contains(Object o) {
 
-        LinksAndData<T> currentElement = first;
-
-        for (int i = 0; i < count; i++) {
-
-            if (currentElement.data.equals(o)) {
-
-                return true;
-            }
-            currentElement = currentElement.next;
-        }
-
-        return false;
+        return (indexOf((T)o) != -1) ? true : false;
     }
 
     public void clear() {
@@ -49,32 +38,24 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException();
         }
 
-        LinksAndData<T> newElement = new LinksAndData(element);
+        if (index == count) {
+            addLast(element);
 
-        if (first == null) {
-            first = newElement;
-            last = newElement;
+        } else if (index == 0) {
+            addFirst(element);
 
-            count++;
         } else {
 
-            if (index == count) {
-                addLast(element);
+            LinksAndData<T> newElement = new LinksAndData(element);
 
-            } else if (index == 0) {
-                addFirst(element);
+            LinksAndData<T> currentElement = findElement(index);
 
-            } else {
+            currentElement.previous.next = newElement;
+            newElement.previous = currentElement.previous;
+            currentElement.previous = newElement;
+            newElement.next = currentElement;
 
-                LinksAndData<T> currentElement = findElement(index);
-
-                currentElement.previous.next = newElement;
-                newElement.previous = currentElement.previous;
-                currentElement.previous = newElement;
-                newElement.next = currentElement;
-
-                count++;
-            }
+            count++;
         }
     }
 
