@@ -3,7 +3,7 @@ package ru.spsuace.homework2.objects.analyzer;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class NegativeFilter extends Analyzing implements TextAnalyzer {
+public class NegativeFilter extends Analyzing {
     Collection<String> emoticons = Arrays.asList("=(", ":(", ":|");
 
     @Override
@@ -12,7 +12,7 @@ public class NegativeFilter extends Analyzing implements TextAnalyzer {
     }
 
     @Override
-    public int backId() {
+    public int getFilterNumber() {
         return FilterType.NEGATIVE_TEXT.getNumber();
     }
 }

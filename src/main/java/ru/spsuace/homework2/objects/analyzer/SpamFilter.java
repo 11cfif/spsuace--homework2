@@ -15,7 +15,7 @@ public class SpamFilter extends Analyzing {
     }
 
     @Override
-    public int backId() {
+    public int getFilterNumber() {
         return FilterType.SPAM.getNumber();
     }
 }

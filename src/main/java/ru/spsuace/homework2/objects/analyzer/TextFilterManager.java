@@ -58,7 +58,7 @@ public class TextFilterManager {
         Comparator<TextAnalyzer> comparator = new Comparator<TextAnalyzer>() {
             @Override
             public int compare(TextAnalyzer o1, TextAnalyzer o2) {
-                return o1.backId() - o2.backId();
+                return o1.getFilterNumber() - o2.getFilterNumber();
             }
         };
 

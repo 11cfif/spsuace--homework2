@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class TooLongFilter implements TextAnalyzer {
+public class TooLongFilter extends Analyzing {
     private long masLenght;
 
     public TooLongFilter(long masLenght) {
@@ -17,7 +17,7 @@ public class TooLongFilter implements TextAnalyzer {
     }
 
     @Override
-    public int backId() {
+    public int getFilterNumber() {
         return FilterType.TOO_LONG.getNumber();
     }
 }

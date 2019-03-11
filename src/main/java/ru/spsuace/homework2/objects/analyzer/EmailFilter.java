@@ -3,7 +3,7 @@ package ru.spsuace.homework2.objects.analyzer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EmailFilter implements TextAnalyzer {
+public class EmailFilter extends Analyzing {
     private FilterType filter = FilterType.CUSTOM;
 
     @Override
@@ -18,7 +18,7 @@ public class EmailFilter implements TextAnalyzer {
     }
 
     @Override
-    public int backId() {
+    public int getFilterNumber() {
         return filter.getNumber();
     }
 }

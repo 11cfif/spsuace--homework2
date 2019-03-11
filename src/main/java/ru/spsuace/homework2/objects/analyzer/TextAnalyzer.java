@@ -29,7 +29,7 @@ public interface TextAnalyzer {
         return new NegativeFilter();
     }
 
-    int backId();
+    int getFilterNumber();
 
     /**
      * Дополнительное задание: придумать свой фильтр
