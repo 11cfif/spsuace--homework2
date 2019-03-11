@@ -246,6 +246,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         public void remove() {
 
             DoubleLinkedList.this.remove(currentIndex);
+            currentIndex--;
         }
     }
 }
