@@ -41,7 +41,7 @@ import java.util.*;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
-    private Map<K, Integer> counter = new HashMap<>();
+    private Map<K, Integer> counterMap = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -63,15 +63,14 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        counter_f(key, counter);
+        counter(key, counterMap);
         return map.containsKey(key);
     } //Проверить наличие «ключа»
 
 
-    public void counter_f(Object obj, Map map){
+    public void counter(Object obj, Map map){
 
         if (!map.containsKey(obj)){
-            map.put(obj, 1);
         }else {
             map.put(obj, (int) map.get(obj) + 1);
         }
@@ -84,36 +83,25 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        counter_f(key, counter);
+        counter(key, counterMap);
         return map.get(key);
     } //Получить значение по ключу
 
     @Override
     public V put(K key, V value) {
-        counter_f(key, counter);
+        counter(key, counterMap);
         return map.put(key,value);
     } //Добавить пару
 
     @Override
     public V remove(Object key) {
-       counter_f(key, counter);
+        counter(key, counterMap);
         return map.remove(key);
     } //Удалить элемент по ключу
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-
         map.putAll(m);
-
-
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-
-            counter_f(entry.getKey(), counter);
-             //entry.getValue();
-
-         }
-
-        //throw new UnsupportedOperationException("putAll");
     }
 
     @Override
@@ -145,7 +133,7 @@ public class PopularMap<K, V> implements Map<K, V> {
         int counter = 0;
         K key = null;
 
-        for (Map.Entry<K, Integer> pair : this.counter.entrySet()) {
+        for (Map.Entry<K, Integer> pair : counterMap.entrySet()) {
 
             int value = pair.getValue();
 
@@ -154,7 +142,7 @@ public class PopularMap<K, V> implements Map<K, V> {
                 key = pair.getKey(); //ключ
             }
 
-          }
+        }
 
         return key;
     }
@@ -164,7 +152,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        return counter.get(key);
+        return counterMap.get(key);
     }
 
     /**
