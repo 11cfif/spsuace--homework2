@@ -1,11 +1,11 @@
 package ru.spsuace.homework2.collections;
 
 
-import java.util.Collection;
+/*import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.Map;*/
+import java.util.*;
 
 
 /**
@@ -41,6 +41,7 @@ import java.util.Set;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
+    private Map<K, Integer> counter = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -52,69 +53,110 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public int size() {
-        return 0;
-    }
+        return map.size();
+    } //Размер
 
     @Override
     public boolean isEmpty() {
-        return false;
-    }
+        return map.isEmpty();
+    } //Проверить что Map — пустой
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
-    }
+        counter_f(key, counter);
+        return map.containsKey(key);
+    } //Проверить наличие «ключа»
 
+
+    public void counter_f(Object obj, Map map){
+
+        if (!map.containsKey(obj)){
+            map.put(obj, 1);
+        }else {
+            map.put(obj, (int) map.get(obj) + 1);
+        }
+
+    }
     @Override
     public boolean containsValue(Object value) {
-        return false;
-    }
+        return map.containsValue(value);
+    } //Проверить наличие «значения»
 
     @Override
     public V get(Object key) {
-        return null;
-    }
+        counter_f(key, counter);
+        return map.get(key);
+    } //Получить значение по ключу
 
     @Override
     public V put(K key, V value) {
-        return null;
-    }
+        counter_f(key, counter);
+        return map.put(key,value);
+    } //Добавить пару
 
     @Override
     public V remove(Object key) {
-        return null;
-    }
+       counter_f(key, counter);
+        return map.remove(key);
+    } //Удалить элемент по ключу
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+
+        map.putAll(m);
+
+
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+
+            counter_f(entry.getKey(), counter);
+             //entry.getValue();
+
+         }
+
+        //throw new UnsupportedOperationException("putAll");
     }
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
+    //Зачем это написано?
     @Override
     public Set<K> keySet() {
-        return null;
+        return map.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return map.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return map.entrySet() ;
     }
 
     /**
      * Возвращает самый популярный, на данный момент, ключ
      */
     public K getPopularKey() {
-        return null;
+
+        int counter = 0;
+        K key = null;
+
+        for (Map.Entry<K, Integer> pair : this.counter.entrySet()) {
+
+            int value = pair.getValue();
+
+            if(counter < value){
+                counter = value;
+                key = pair.getKey(); //ключ
+            }
+
+          }
+
+        return key;
     }
 
 
@@ -122,7 +164,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        return 0;
+        return counter.get(key);
     }
 
     /**
