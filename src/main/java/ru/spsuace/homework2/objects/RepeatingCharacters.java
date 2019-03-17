@@ -12,7 +12,31 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return null;
+
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        char ch = str.charAt(0);
+        int index = 1;
+        int maxIndex = 1;
+
+        for (int k = 0; k < str.length() - 1; k++) {
+
+            if (str.charAt(k) == str.charAt(k + 1)) {
+                index++;
+
+                if (index > maxIndex) {
+                    ch = str.charAt(k);
+                    maxIndex = index;
+                }
+
+            } else {
+                index = 1;
+            }
+        }
+
+        return new Pair(ch, maxIndex);
     }
 
     public static class Pair<T, V> {
@@ -43,6 +67,5 @@ public class RepeatingCharacters {
             Pair<?, ?> pair = (Pair<?, ?>) o;
             return Objects.equals(first, pair.first) && Objects.equals(second, pair.second);
         }
-
     }
 }
