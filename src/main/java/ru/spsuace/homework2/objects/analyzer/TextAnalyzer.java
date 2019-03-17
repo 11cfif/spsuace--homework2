@@ -21,11 +21,11 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createSpamAnalyzer(Collection<String> spam) {
-        return new GeneralAnalyzer(spam);
+        return new SpamAndNegativeAnalyzer(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new GeneralAnalyzer();
+        return new SpamAndNegativeAnalyzer();
     }
 
     FilterType analyzer(String str);

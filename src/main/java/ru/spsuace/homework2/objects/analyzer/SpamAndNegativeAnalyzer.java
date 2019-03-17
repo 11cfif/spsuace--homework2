@@ -3,16 +3,16 @@ package ru.spsuace.homework2.objects.analyzer;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class GeneralAnalyzer implements TextAnalyzer {
+public class SpamAndNegativeAnalyzer implements TextAnalyzer {
     FilterType filter;
     Collection<String> things;
 
-    GeneralAnalyzer() {
+    SpamAndNegativeAnalyzer() {
         this.filter = FilterType.NEGATIVE_TEXT;
-        this.things = Arrays.asList( "=(", ":(", ":|");
+        this.things = Arrays.asList("=(", ":(", ":|");
     }
 
-    GeneralAnalyzer(Collection<String> spam) {
+    SpamAndNegativeAnalyzer(Collection<String> spam) {
         this.filter = FilterType.SPAM;
         this.things = spam;
     }
