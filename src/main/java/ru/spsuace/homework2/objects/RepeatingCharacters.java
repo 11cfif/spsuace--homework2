@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects;
 
-
 import java.util.Objects;
 
 /**
@@ -9,10 +8,35 @@ import java.util.Objects;
  * Если строка пустая или null, то вернуть null
  * Пример abbasbdlbdbfklsssbb -> (s, 3)
  */
+
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return null;
+        //проверка на "Если строка пустая или null, то вернуть null"
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        char ch = str.charAt(0); //символ из строки по индексу
+        int current = 1; //начальное значение текущего количество повторений
+        int max = 1; //начальное значение максимального количество повторов
+
+        for (int k = 1; k < str.length(); k++) {
+
+            if (str.charAt(k - 1) == str.charAt(k)) {
+                current++;
+
+                if (current > max) {
+                    ch = str.charAt(k);
+                    max = current;
+                }
+
+            } else {
+                current = 1;
+            }
+
+        }
+        return new Pair(ch, max);
     }
 
     public static class Pair<T, V> {
