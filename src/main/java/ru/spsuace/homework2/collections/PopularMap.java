@@ -63,18 +63,16 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        counter(key, counterMap);
+        counter(key);
         return map.containsKey(key);
     } //Проверить наличие «ключа»
 
 
-    public void counter(Object obj, Map map){
-
-        if (!map.containsKey(obj)){
+    public void counter(Object obj){
+        if (!counterMap.containsKey(obj)){
         }else {
-            map.put(obj, (int) map.get(obj) + 1);
+            counterMap.put((K)obj, (int) counterMap.get(obj) + 1);
         }
-
     }
     @Override
     public boolean containsValue(Object value) {
@@ -83,19 +81,19 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        counter(key, counterMap);
+        counter(key);
         return map.get(key);
     } //Получить значение по ключу
 
     @Override
     public V put(K key, V value) {
-        counter(key, counterMap);
+        counter(key);
         return map.put(key,value);
     } //Добавить пару
 
     @Override
     public V remove(Object key) {
-        counter(key, counterMap);
+        counter(key);
         return map.remove(key);
     } //Удалить элемент по ключу
 
@@ -134,16 +132,12 @@ public class PopularMap<K, V> implements Map<K, V> {
         K key = null;
 
         for (Map.Entry<K, Integer> pair : counterMap.entrySet()) {
-
             int value = pair.getValue();
-
             if(counter < value){
                 counter = value;
                 key = pair.getKey(); //ключ
             }
-
         }
-
         return key;
     }
 
