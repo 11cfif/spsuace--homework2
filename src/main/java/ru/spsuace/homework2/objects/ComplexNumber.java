@@ -8,29 +8,29 @@ import java.util.Objects;
  */
 
 public class ComplexNumber {
-    private final double Re; //real part
-    private final double Im; //imaginary part
+    private final double re; //real part
+    private final double im; //imaginary part
 
     //конструктор
-    public ComplexNumber(double Re, double Im) {
-        this.Re = Re;
-        this.Im = Im;
+    public ComplexNumber(double re, double im) {
+        this.re = re;
+        this.im = im;
     }
 
     //геттер Im
     public double getIm() {
-        return Im;
+        return im;
     }
 
     //геттер Re
     public double getRe() {
-        return Re;
+        return re;
     }
 
     //в string
     public String toString() {
 
-        return Re + " + i( " + Im + ")";
+        return re + " + i( " + im + ")";
     }
 
     //присваивание и сравнение
@@ -42,14 +42,14 @@ public class ComplexNumber {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        ComplexNumber CoNum = (ComplexNumber) obj;
-        return (Re == CoNum.Re && Im == CoNum.Im);
+        ComplexNumber coNum = (ComplexNumber) obj;
+        return (re == coNum.re && im == coNum.im);
 
     }
 
     //HashCode для HashMap
     @Override
     public int hashCode() {
-        return Objects.hash(Re, Im);
+        return Objects.hash(re, im);
     }
 }
