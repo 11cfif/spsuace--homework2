@@ -10,13 +10,13 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
     private int length;
-    Element<T> first;
-    Element<T> last;
+    private Element<T> first;
+    private Element<T> last;
 
     private class Element<T> {
-        T data;
-        Element<T> next;
-        Element<T> prev;
+        private T data;
+        private Element<T> next;
+        private Element<T> prev;
 
         Element(T data) {
             this.data = data;
@@ -80,8 +80,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         } else {
 
             Element<T> newElement = new Element<>(element);
-            Element<T> oldElement;
-            oldElement = getElement(index);
+            Element<T> oldElement = getElement(index);
             newElement.next = oldElement;
             oldElement.prev.next = newElement;
             newElement.prev = oldElement.prev;
@@ -130,16 +129,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public T get(int index) {
         Element<T> newElement = getElement(index);
-        if (newElement == null) {
-            return null;
-
-        } else {
-            return newElement.data;
-        }
+        return newElement.data;
     }
 
     public int indexOf(T o) {
         Element<T> newElement = first;
+        if (o.equals(null)) {
+            throw new NullPointerException();
+        }
         for (int i = 0; i <= length - 1; i++) {
             if (o.equals(newElement.data)) {
                 return i;
