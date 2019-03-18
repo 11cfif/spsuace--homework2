@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects;
 
-
 import java.util.Objects;
 
 /**
@@ -12,7 +11,28 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return null;
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        char ch = str.charAt(0);
+        int counter = 1;
+        char chMax = ch;
+        int counterMax = counter;
+
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == ch) {
+                counter++;
+                if (counter > counterMax) {
+                    counterMax = counter;
+                    chMax = ch;
+                }
+            } else {
+                ch = str.charAt(i);
+                counter = 1;
+            }
+        }
+        return new Pair(chMax, counterMax);
     }
 
     public static class Pair<T, V> {
