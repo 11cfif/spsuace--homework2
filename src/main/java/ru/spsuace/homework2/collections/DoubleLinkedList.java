@@ -16,7 +16,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         private Node prev;
         private T value;
 
-        public Node(T value) {
+        Node(T value) {
             next = null;
             prev = null;
             this.value = value;
@@ -28,9 +28,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     private int counter;
 
     public DoubleLinkedList() {
-        last = null;
-        first = null;
-        counter = 0;
     }
 
     public DoubleLinkedList(T element) {
@@ -48,7 +45,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (indexOf((T) o) != -1) {
             return true;
         }
-
         return false;
     }
 
@@ -63,12 +59,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if ((index < 0 || index > size())) {
             throw new IndexOutOfBoundsException();
         }
-
         if (index == 0) {
             addFirst(element);
-        } else if (index == counter) {
+            return;
+        }
+        if (index == counter) {
             addLast(element);
-        } else {
+            return;
+        }else {
             Node<T> node = new Node<>(element);
             Node temp = search(index);
 
@@ -79,8 +77,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
             counter++;
         }
-
-
     }
 
     public void addLast(T element) {
@@ -90,15 +86,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             first = node;
             last = node;
         } else {
-
             node.prev = last;
-
             last.next = node;
-
             last = node;
-
         }
-
         counter++;
     }
 
@@ -106,20 +97,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Node<T> node = new Node<>(element);
 
         if (counter == 0) {
-
             first = node;
             last = node;
-
         } else {
-
             node.next = first;
             first.prev = node;
             first = node;
-
         }
-
         counter++;
-
     }
 
     public Node search(int index) {
@@ -146,49 +131,39 @@ public class DoubleLinkedList<T> implements Iterable<T> {
                 temp = temp.prev;
             }
         }
-
         return null;
     }
 
-
     public T set(int index, T element) {
-
         Node temp = search(index);
         T result = (T) temp.value;
         temp.value = element;
         return result;
-
     }
 
     public T get(int index) {
-
         Node result = search(index);
         return (T) result.value;
-
     }
 
     public int indexOf(T o) {
-
         Node temp = first;
+
+        if (o == null){ return -1;}
 
         for (int i = 0; i < size(); i++) {
             if (o.equals(temp.value)) {
                 return i;
             }
-
             temp = temp.next;
-
         }
-
         return -1;
     }
 
     public T remove(int index) {
-
         Node temp = search(index);
 
         if (index == 0) {
-
             first = temp.next;
             first.prev = null;
 
@@ -196,8 +171,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             return (T) temp.value;
         }
         if (index == size() - 1) {
-
-            temp = last;
             last = temp.prev;
             last.next = null;
 
