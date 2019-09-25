@@ -38,7 +38,7 @@ public class ComplexNumber {
     }
 
     public boolean equals(ComplexNumber num) {
-        return ((Math.abs(this.re - num.re) < 1e-4) && (Math.abs(this.im - num.re) < 1e-4));
+        return ((Math.abs(this.re - num.re) < 1e-4) && (Math.abs(this.im - num.im) < 1e-4));
     }
 
     public int hashCode() {
