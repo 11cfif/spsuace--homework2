@@ -54,6 +54,12 @@ public class ComplexNumber {
 
     @Override
     public String toString() {
-        return "Complex: real part=" + realPart + "?, imaginary part=*" + imaginaryPart;
+        char sign;
+        if (imaginaryPart > 0) {
+            sign = '+';
+        } else {
+            sign = '-';
+        }
+        return "Complex: " + realPart + sign + imaginaryPart + "i";
     }
 }
