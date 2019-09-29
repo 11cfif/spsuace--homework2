@@ -7,18 +7,17 @@ package ru.spsuace.homework2.objects;
 public class ComplexNumber {
     private final double realPart;
     private final double imaginaryPart;
-    private static final double EPS = 0.0001; // Точность вычислений
 
-    public ComplexNumber(double re, double im) {
-        realPart = re;
-        imaginaryPart = im;
+    public ComplexNumber(double realPart, double imaginaryPart) {
+        this.realPart = realPart;
+        this.imaginaryPart = imaginaryPart;
     }
 
-    public double getRe() {
+    public double getRealPart() {
         return realPart;
     }
 
-    public double getIm() {
+    public double getImaginaryPart() {
         return imaginaryPart;
     }
 
@@ -55,6 +54,6 @@ public class ComplexNumber {
 
     @Override
     public String toString() {
-        return "Complex: " + realPart + "+ i*" + imaginaryPart;
+        return "Complex: real part=" + realPart + "?, imaginary part=*" + imaginaryPart;
     }
 }
