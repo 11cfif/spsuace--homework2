@@ -28,13 +28,15 @@ public class ComplexNumber {
         } else {
             throw new ArithmeticException("denominator = 0");
         }
-
-    }public double abs() {
+    }
+    public double abs() {
         return Math.sqrt(re * re + im * im);
+
     }
 
     @Override
     public String toString() {
         return "Re = " + re + ", Im = " + im;
+
     }
 }
