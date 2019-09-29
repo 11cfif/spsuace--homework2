@@ -1,43 +1,49 @@
 package ru.spsuace.homework2.objects;
 
+import java.util.Objects;
+
 /**
  * Опишите иммутабельное комплексное число, с геттерами и методами toString()
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
  */
 public class ComplexNumber {
-    private final double valid;
-    private final double complex;
+    private final double real;
+    private final double imaginary;
 
-    public ComplexNumber(double valid, double complex) {
-        this.valid = valid;
-        this.complex = complex;
+    public ComplexNumber(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
     }
 
-    public double getValid() {
-        return this.valid;
+    public double getReal() {
+        return this.real;
     }
 
-    public double getComplex() {
-        return this.complex;
+    public double getImaginary() {
+        return this.imaginary;
     }
 
     @Override
     public String toString() {
-        double si;
-        if (complex > 0) {
-            si = '+';
+        double sign;
+        if (imaginary > 0) {
+            sign = '+';
         } else {
-            si = '-';
+            sign = '-';
         }
-        return "" + valid + si + Math.abs(complex) + 'i';
+        return "" + real + sign + Math.abs(imaginary) + 'i';
     }
 
+    @Override
     public int hashCode() {
-        String n = toString();
-        return n.hashCode();
+        return Objects.hash(real, imaginary);
     }
 
-    public boolean equlars(ComplexNumber num) {
-        return ((Math.abs(this.complex - num.complex) < 1e-4) && (Math.abs(this.valid - num.valid) < 1e-4));
+    public boolean equals(Object o) {
+        if (o instanceof ComplexNumber) {
+            ComplexNumber num = (ComplexNumber)o;
+            return ((Math.abs(this.imaginary - num.imaginary) < 1e-4) && (Math.abs(this.real - num.real) < 1e-4));
+        }
+        return false;
     }
 }

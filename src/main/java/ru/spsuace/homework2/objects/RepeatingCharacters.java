@@ -18,18 +18,18 @@ public class RepeatingCharacters {
         }
 
         char symbol = str.charAt(0);
-        int index = 1;
+        int characterNumber = 1;
         int max = 1;
 
-        for (int k = 0; k < str.length() - 1; k++) {
-            if (str.charAt(k) == str.charAt(k + 1)) {
-                index++;
-                if (index > max) {
-                    symbol = str.charAt(k);
-                    max = index;
+        for (int i = 0; i < str.length() - 1; i++) {
+            if (str.charAt(i) == str.charAt(i + 1)) {
+                characterNumber++;
+                if (characterNumber > max) {
+                    symbol = str.charAt(i);
+                    max = characterNumber;
                 }
             } else {
-                index = 1;
+                characterNumber = 1;
             }
         }
 
