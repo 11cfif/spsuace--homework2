@@ -47,11 +47,11 @@ public class ComplexNumber {
         }
     }
 
-    public boolean equals(ComplexNumber number) {
-        if (number == null) {
+    public boolean equals(ComplexNumber num) {
+        if (num == null) {
             return false;
         } else {
-            return this == number;
+            return this == num;
         }
     }
 
