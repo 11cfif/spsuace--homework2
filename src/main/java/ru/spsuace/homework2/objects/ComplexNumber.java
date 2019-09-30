@@ -29,6 +29,7 @@ public class ComplexNumber {
             throw new ArithmeticException("denominator = 0");
         }
     }
+
     public double abs() {
         return Math.sqrt(re * re + im * im);
 
@@ -46,10 +47,14 @@ public class ComplexNumber {
     @Override
     public int hashCode() {
         String result = toString();
-        return  result.hashCode();
+        return result.hashCode();
     }
 
-    public boolean equals(ComplexNumber complex) {
-        return ((Math.abs(re - complex.re) < 1e-4) && (Math.abs(im - complex.re) < 1e-4));
+    public boolean equals(Object complex) {
+        if (complex instanceof ComplexNumber) {
+            ComplexNumber com = (ComplexNumber) complex;
+            return (re == com.re && im == com.im);
+        }
+        return false;
     }
 }
