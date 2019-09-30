@@ -5,15 +5,15 @@ package ru.spsuace.homework2.objects;
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
  */
 public class ComplexNumber {
-    public double re;
-    public double im;
+    private final double re;
+    private final double im;
 
     public ComplexNumber(double re, double im) {
         this.re = re;
         this.im = im;
     }
 
-        public double getRe() {
+    public double getRe() {
         return re;
     }
 
@@ -24,7 +24,7 @@ public class ComplexNumber {
     public ComplexNumber getReciprocal() {
         double denominator = re * re + im * im;
         if (denominator != 0) {
-            return new ComplexNumber(re / denominator, -im / denominator);
+            return new ComplexNumber(re / denominator, im / denominator);
         } else {
             throw new ArithmeticException("denominator = 0");
         }
@@ -36,7 +36,20 @@ public class ComplexNumber {
 
     @Override
     public String toString() {
-        return "Re = " + re + ", Im = " + im;
+        if (im >= 0) {
+            return "Re = " + re + ", Im = i * " + im;
+        } else {
+            return "Re = " + re + ", Im = - i * " + Math.abs(im);
+        }
+    }
 
+    @Override
+    public int hashCode() {
+        String result = toString();
+        return  result.hashCode();
+    }
+
+    public boolean equals(ComplexNumber complex) {
+        return ((Math.abs(re - complex.re) < 1e-4) && (Math.abs(im - complex.re) < 1e-4));
     }
 }
