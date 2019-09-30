@@ -60,6 +60,6 @@ public class ComplexNumber {
         } else {
             sign = '-';
         }
-        return "Complex: " + realPart + sign + imaginaryPart + "i";
+        return "Complex: " + realPart + sign + Math.abs(imaginaryPart) + "i";
     }
 }

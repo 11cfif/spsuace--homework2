@@ -12,17 +12,21 @@ package ru.spsuace.homework2.objects.analyzer;
  * Так же необходимо создать все необходимы методы, которые будут вам нужны для прогона текста
  * по всем фильтрам в классе TextFilterManager
  */
+
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
+
         return null;
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
+
         return null;
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
+
         return null;
     }
 
