@@ -23,7 +23,7 @@ public class ComplexNumber {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "ComplexNumber{" +
                 "Im=" + supposed +
                 ", Re=" + real +
