@@ -51,14 +51,14 @@ public class ComplexNumber {
                 (realPart * current.imaginaryPart + imaginaryPart * current.realPart));
     }
 
-    private static int lengthOfNuber(double number) {
+    private static int lengthOfNumber(double number) {
         return String.valueOf((int) number).length();
     }
 
     @Override
     public int hashCode() {
-        return (int) (555 * Math.pow(10, lengthOfNuber(realPart) + lengthOfNuber(imaginaryPart)) +
-                Math.pow(10, lengthOfNuber(realPart)) * realPart + imaginaryPart);
+        return (int) (555 * Math.pow(10, lengthOfNumber(realPart) + lengthOfNumber(imaginaryPart)) +
+                Math.pow(10, lengthOfNumber(realPart)) * realPart + imaginaryPart);
     }
 
     @Override
