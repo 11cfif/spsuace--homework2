@@ -25,16 +25,13 @@ public class ComplexNumber {
     @Override
     public String toString() {
 
-        String signAndImagine = " + i*";
-        if (imaginaryPart < 0) {
-            signAndImagine = " - i*";
-        }
-        String real = String.valueOf((int)realPart);
+        String signAndImagine = imaginaryPart > 0 ? " + i*" : " - i*";
+        String real = String.valueOf(realPart);
         if (realPart == 0) {
             real = "";
             signAndImagine = "i";
         }
-        String imagin = String.valueOf((int)Math.abs(imaginaryPart));
+        String imagin = String.valueOf(Math.abs(imaginaryPart));
         if (imaginaryPart == 0) {
             imagin = "";
             signAndImagine = "";
@@ -45,25 +42,28 @@ public class ComplexNumber {
         return real + signAndImagine + imagin;
     }
 
-    public final void output() {
-        System.out.println(toString());
-    }
-
     public double module() {
         return Math.sqrt(realPart * realPart + imaginaryPart * imaginaryPart);
     }
 
-    public String multiplication(ComplexNumber number1, ComplexNumber number2) {
-        ComplexNumber current = new ComplexNumber((number1.realPart * number2.realPart - number1.imaginaryPart * number2.imaginaryPart), number1.realPart * number2.imaginaryPart + number1.imaginaryPart * number2.realPart);
-        return current.toString();
+    public ComplexNumber multiplication(ComplexNumber current) {
+        return new ComplexNumber((realPart * current.realPart - imaginaryPart * current.imaginaryPart),
+                (realPart * current.imaginaryPart + imaginaryPart * current.realPart));
     }
 
-    public int lengthOfNuber(double number) {
-        return String.valueOf((int)number).length();
+    private static int lengthOfNuber(double number) {
+        return String.valueOf((int) number).length();
     }
 
     @Override
     public int hashCode() {
-        return (int) (555 * Math.pow(10, lengthOfNuber(realPart) + lengthOfNuber(imaginaryPart)) + Math.pow(10, lengthOfNuber(realPart)) * realPart + imaginaryPart);
+        return (int) (555 * Math.pow(10, lengthOfNuber(realPart) + lengthOfNuber(imaginaryPart)) +
+                Math.pow(10, lengthOfNuber(realPart)) * realPart + imaginaryPart);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (realPart - ((ComplexNumber) obj).realPart < 1e-4) &&
+                (imaginaryPart - ((ComplexNumber) obj).imaginaryPart < 1e-4);
     }
 }
