@@ -22,23 +22,23 @@ public class ComplexNumber {
         return real;
     }
 
-    @java.lang.Override
+    @Override
     public java.lang.String toString() {
         return "ComplexNumber{" +
-                "supposed=" + supposed +
-                ", real=" + real +
+                "Im=" + supposed +
+                ", Re=" + real +
                 '}';
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         ComplexNumber that = (ComplexNumber) o;
         return Double.compare(that.supposed, supposed) == 0 &&
                 Double.compare(that.real, real) == 0;
