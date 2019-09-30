@@ -14,22 +14,28 @@ public class ComplexNumber {
         this.im = im;
     }
 
-    public double getReal() {
+    public double getRe() {
 
         return re;
     }
 
-    public double getImaginary() {
+    public double getIm() {
         return im;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ComplexNumber that = (ComplexNumber) o;
-        return Double.compare(that.re, re) == 0 &&
-                Double.compare(that.im, im) == 0;
+        if (this == o) { //если сравниваем сами с собой, то равны
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) { //если o пустой или его класс не совпадает с текущим объектом, то false
+            return false;
+        }
+        ComplexNumber that = (ComplexNumber) o; // смело приводим к классу ComplexNumber, потому что иначе предыдущее условие
+        {
+            return Double.compare(that.re, re) == 0 && //используем метод compare для сравнения double, чтобы избежать проблем с точностью double
+                    Double.compare(that.im, im) == 0;
+        }
     }
 
     @Override
