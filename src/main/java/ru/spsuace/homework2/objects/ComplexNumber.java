@@ -14,11 +14,11 @@ public class ComplexNumber {
     }
 
     public double getReal(){
-        return this.real;
+        return real;
     }
 
     public double getImaginary(){
-        return this.imaginary;
+        return imaginary;
     }
 
     public double module(){
@@ -48,19 +48,20 @@ public class ComplexNumber {
         }
     }
 
-    public boolean equals(ComplexNumber num) {
-        if (num == null) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
             return false;
         } else {
-            return this == num;
+            return this == o;
         }
     }
 
     public int hashCode(){
         final int prime = 17;
         double result = 1;
-        result = (prime * result + this.real);
-        result = (prime * result + this.imaginary);
+        result = (prime * result + real);
+        result = (prime * result + imaginary);
         return (int) result;
     }
 
