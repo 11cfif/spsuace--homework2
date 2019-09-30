@@ -46,6 +46,7 @@ public class ComplexNumber {
         }
     }
 
+    @Override
     public boolean equals(Object complex) {
         if (complex instanceof ComplexNumber) {
             ComplexNumber com = (ComplexNumber) complex;
