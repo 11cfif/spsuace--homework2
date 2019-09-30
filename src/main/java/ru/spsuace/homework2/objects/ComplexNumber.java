@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects;
 
+import java.util.Objects;
+
 /**
  * Опишите иммутабельное комплексное число, с геттерами и методами toString()
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
@@ -25,9 +27,14 @@ public class ComplexNumber {
     @Override
     public String toString() {
         return "ComplexNumber{" +
-                "Im=" + supposed +
+                "i" + supposed +
                 ", Re=" + real +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(supposed, real);
     }
 
     @Override
