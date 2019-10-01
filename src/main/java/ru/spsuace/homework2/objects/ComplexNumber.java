@@ -21,8 +21,9 @@ public class ComplexNumber {
     public double getImPart() {
         return imPart;
     }
+
     public double module() {
-        return Math.sqrt(Math.pow(rePart,2)+Math.pow(imPart,2));
+        return Math.sqrt(Math.pow(rePart, 2) + Math.pow(imPart, 2));
     }
 
     @Override
