@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.objects;
 
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,7 @@ public class RepeatingCharacters {
         int max = 0;
         char s = 0;
         char[] array = str.toCharArray();
-
+        Arrays.sort(array);
         for (int i = 1; array.length > i; i++) {
             if (array[i] == array[i - 1]) {
                 number++;
