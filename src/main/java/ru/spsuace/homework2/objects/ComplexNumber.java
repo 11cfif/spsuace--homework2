@@ -39,6 +39,12 @@ public class ComplexNumber {
     }
 
     public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
         ComplexNumber num = (ComplexNumber) o;
         return ((Math.abs(this.re - num.re) < 1e-4) && (Math.abs(this.im - num.im) < 1e-4));
     }
