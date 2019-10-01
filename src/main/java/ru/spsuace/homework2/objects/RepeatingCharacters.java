@@ -12,8 +12,31 @@ import java.util.Objects;
  */
 public class RepeatingCharacters {
 
-    public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return new Pair<>('s', 4);
+    public static Pair getMaxRepeatingCharacters(String str) {
+        if (str == null || str.equals("")) {
+            return null;
+        } else {
+            Pair maxPair = new Pair<>(' ', 0);
+            Pair pair;
+            int offset = 0;
+            while (offset < str.length()) {
+                pair = getPair(offset, str);
+                if ((int) pair.getSecond() > (int) maxPair.getSecond()) {
+                    maxPair = pair;
+                }
+                offset = offset + (int) pair.getSecond();
+            }
+            return maxPair;
+        }
+    }
+
+    private static Pair<Character, Integer> getPair(int offset, String str) {
+        char symbol = str.charAt(offset);
+        int count = 0;
+        for (int i = offset; i < str.length() && symbol == str.charAt(i); i++) {
+            count++;
+        }
+        return new Pair<>(symbol, count);
     }
 
     public static class Pair<T, V> {
@@ -25,11 +48,11 @@ public class RepeatingCharacters {
             this.second = second;
         }
 
-        public T getFirst() {
+        T getFirst() {
             return first;
         }
 
-        public V getSecond() {
+        V getSecond() {
             return second;
         }
 
@@ -45,5 +68,9 @@ public class RepeatingCharacters {
             return Objects.equals(first, pair.first) && Objects.equals(second, pair.second);
         }
 
+        @Override
+        public String toString() {
+            return "(" + getFirst() + ";" + getSecond() + ")";
+        }
     }
 }
