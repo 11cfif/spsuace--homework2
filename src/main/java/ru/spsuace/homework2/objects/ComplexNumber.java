@@ -7,19 +7,19 @@ package ru.spsuace.homework2.objects;
  */
 public class ComplexNumber {
 
-    private final int real;
-    private final int complex;
+    private final double real;
+    private final double complex;
 
-    public ComplexNumber(int real, int complex) {
+    public ComplexNumber(double real, double complex) {
         this.real = real;
         this.complex = complex;
     }
 
-    public int getReal() {
+    public double getReal() {
         return real;
     }
 
-    public int getComplex() {
+    public double getComplex() {
         return complex;
     }
 
@@ -37,15 +37,15 @@ public class ComplexNumber {
 
     @Override
     public int hashCode() {
-        return Math.abs(this.real) + Math.abs(this.complex);
+        return (int) (Math.abs(real) + Math.abs(complex));
     }
 
     @Override
     public String toString() {
         if (this.complex < 0) {
-            return this.real + " - " + Math.abs(this.complex) + "i";
+            return real + " - " + Math.abs(complex) + "i";
         } else {
-            return this.real + " + " + this.complex + "i";
+            return real + " + " + complex + "i";
         }
     }
 
