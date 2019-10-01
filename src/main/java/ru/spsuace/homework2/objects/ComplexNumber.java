@@ -6,11 +6,10 @@ import java.util.Objects;
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
  */
 public class ComplexNumber {
-
     private final  double realPart;
     private final double imPart;
 
-    public ComplexNumber(Double realPart, Double imPart) {
+    public ComplexNumber(double realPart, double imPart) {
         this.realPart = realPart;
         this.imPart = imPart;
     }
@@ -40,6 +39,7 @@ public class ComplexNumber {
         return  Objects.hash(realPart, imPart);
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof ComplexNumber) {
             ComplexNumber number = (ComplexNumber)o;
