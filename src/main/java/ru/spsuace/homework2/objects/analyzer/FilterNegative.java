@@ -1,10 +1,17 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-import java.util.Arrays;
-
 public class FilterNegative extends FilterSpam implements TextAnalyzer {
+    protected String[] badEmotions = {"=(", ":(", ":|"};
     FilterNegative() {
-        String emotions[] = {"=(", ":(", ":|"};
+        super("=(", ":(", ":|");
         wordFilter = FilterType.NEGATIVE_TEXT;
+    }
+    public FilterType TextAnalyzer(String text) {
+        for (String emotions : badEmotions) {
+            if (text.contains(emotions)) {
+                return wordFilter;
+            }
+        }
+        return FilterType.GOOD;
     }
 }

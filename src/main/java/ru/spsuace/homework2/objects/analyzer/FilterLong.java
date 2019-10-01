@@ -1,7 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 public class FilterLong implements TextAnalyzer {
-    private long maxLenght;
+    public long maxLenght;
 
     FilterLong(long maxLenght) {
         this.maxLenght = maxLenght;
