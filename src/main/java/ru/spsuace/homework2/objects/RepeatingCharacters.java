@@ -17,27 +17,26 @@ public class RepeatingCharacters {
 
         if (str == null || str.isEmpty()) {
             return null;
-    }
+        }
         int number = 1;
-        int max = 0;
-        char s = 0;
+        int max = 1;
         char[] array = str.toCharArray();
-        Arrays.sort(array);
+        char s = array[0];
+
         for (int i = 1; array.length > i; i++) {
             if (array[i] == array[i - 1]) {
                 number++;
+                if (number > max) {
+                    s = array[i];
+                    max = number;
+                }
             } else {
                 number = 1;
             }
         }
-
-        if (number > max) {
-            max = number;
-            s = array[array.length - 1];
-        }
+        System.out.println(max);
         return new Pair<>(s, max);
     }
-
     public static class Pair<T, V> {
         private final T first;
         private final V second;
