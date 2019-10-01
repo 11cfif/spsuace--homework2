@@ -36,7 +36,11 @@ public class ComplexNumber {
 
     @Override
     public int hashCode() {
-        return Objects.hash(real, imaginary);
+        final int prime = 31;
+        double result = 1;
+        result = prime * result + real;
+        result = prime * result + imaginary;
+        return (int) result;
     }
 
     public boolean equals(Object o) {
