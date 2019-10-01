@@ -1,13 +1,11 @@
 package ru.spsuace.homework2;
 
-import org.jetbrains.annotations.Contract;
-
 import java.util.Objects;
 
 public class TestObject {
     private final String str;
 
-    @Contract(pure = true)
+
     public TestObject(String str) {
         this.str = str;
     }
