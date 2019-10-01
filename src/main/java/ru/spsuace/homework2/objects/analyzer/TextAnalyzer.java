@@ -15,7 +15,7 @@ package ru.spsuace.homework2.objects.analyzer;
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new TooLongAnalyzer(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
@@ -25,6 +25,8 @@ public interface TextAnalyzer {
     static TextAnalyzer createNegativeTextAnalyzer() {
         return null;
     }
+
+    FilterType analyze(String text);
 
     /**
      * Дополнительное задание: придумать свой фильтр
