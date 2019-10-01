@@ -13,16 +13,19 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        if (str.equals(null)){
+        if (str == null || str == ""){
             return null;
         } else {
             char letterMax = str.charAt(0);
             int numberMax = 0;
-            for (int i = 0; i < str.length(); i++) {
+            for (int i = 0; i < str.length() - 1; i++) {
                 char letterCurrent = str.charAt(i);
-                int numberCurrent = 1;
-                for (int j = i; j < str.length(); j++) {
-                    if (letterCurrent == str.charAt(j)) {
+                int numberCurrent = 0;
+                int j = i;
+                while (letterCurrent == str.charAt(j) && j < str.length() - 1) {
+                    numberCurrent++;
+                    j++;
+                    if (j == str.length() - 1 && numberCurrent != 1) {
                         numberCurrent++;
                     }
                 }
@@ -30,8 +33,9 @@ public class RepeatingCharacters {
                     numberMax = numberCurrent;
                     letterMax = letterCurrent;
                 }
+                i = j - 1;
             }
-            return new Pair<>(letterMax, numberMax);
+            return new Pair<Character, Integer>((Character)letterMax, (Integer)numberMax);
         }
     }
 
