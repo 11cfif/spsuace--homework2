@@ -49,12 +49,12 @@ public class ComplexNumber {
         }
     }
 
-    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
         } else {
-            return this == o;
+            ComplexNumber number = (ComplexNumber) o;
+            return (Math.abs(this.real - number.real) == 10e-5 && Math.abs(this.imaginary - number.imaginary) == 10e-5);
         }
     }
 
