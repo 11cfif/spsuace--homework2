@@ -37,6 +37,7 @@ public class RepeatingCharacters {
         System.out.println(max);
         return new Pair<>(s, max);
     }
+    
     public static class Pair<T, V> {
         private final T first;
         private final V second;
