@@ -34,5 +34,5 @@ public interface TextAnalyzer {
         return null;
     }
 
-    FilterType TextAnalyzer(String text);
+    FilterType textAnalyzer(String text);
 }

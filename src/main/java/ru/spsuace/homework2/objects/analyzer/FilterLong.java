@@ -7,7 +7,7 @@ public class FilterLong implements TextAnalyzer {
         this.maxLenght = maxLenght;
     }
 
-    public FilterType TextAnalyzer(String text) {
+    public FilterType textAnalyzer(String text) {
         if (text.length() > maxLenght) {
             return FilterType.TOO_LONG;
         }
