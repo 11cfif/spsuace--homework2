@@ -49,6 +49,7 @@ public class ComplexNumber {
         }
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
@@ -58,6 +59,7 @@ public class ComplexNumber {
         }
     }
 
+    @Override
     public int hashCode(){
         final int prime = 17;
         double result = 1;

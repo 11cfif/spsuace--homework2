@@ -13,30 +13,30 @@ import java.util.Objects;
 public class RepeatingCharacters {
 
     public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        if (str == null || str == ""){
+        if (str.isEmpty() || str == null) {
             return null;
-        } else {
-            char letterMax = str.charAt(0);
-            int numberMax = 0;
-            for (int i = 0; i < str.length() - 1; i++) {
-                char letterCurrent = str.charAt(i);
-                int numberCurrent = 0;
-                int j = i;
-                while (letterCurrent == str.charAt(j) && j < str.length() - 1) {
-                    numberCurrent++;
-                    j++;
-                    if (j == str.length() - 1 && numberCurrent != 1) {
-                        numberCurrent++;
-                    }
-                }
-                if (numberCurrent > numberMax) {
-                    numberMax = numberCurrent;
-                    letterMax = letterCurrent;
-                }
-                i = j - 1;
-            }
-            return new Pair<Character, Integer>((Character)letterMax, (Integer)numberMax);
         }
+        char letterMax = str.charAt(0);
+        int numberMax = 0;
+        for (int i = 0; i < str.length() - 1; i++) {
+            char letterCurrent = str.charAt(i);
+            int numberCurrent = 0;
+            int j = i;
+            while (letterCurrent == str.charAt(j) && j < str.length() - 1) {
+                numberCurrent++;
+                j++;
+                if (j == str.length() - 1 && numberCurrent != 1) {
+                    numberCurrent++;
+                }
+            }
+            if (numberCurrent > numberMax) {
+                numberMax = numberCurrent;
+                letterMax = letterCurrent;
+            }
+            i = j - 1;
+        }
+        return new Pair<>(letterMax, numberMax);
+
     }
 
     public static class Pair<T, V> {
