@@ -13,8 +13,8 @@ public class TooLongAnalyzer implements TextAnalyzer {
         }
         if (text.length() > maxLength) {
             return FilterType.TOO_LONG;
-        } else {
-            return FilterType.GOOD;
         }
+        return FilterType.GOOD;
     }
 }
+
