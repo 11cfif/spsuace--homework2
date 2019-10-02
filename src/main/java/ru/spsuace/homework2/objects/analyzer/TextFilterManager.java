@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-
 /**
  * Задание написать систему фильтрации комментариев.
  * Надо реализовать три типа обязательных фильтров
@@ -16,7 +15,9 @@ package ru.spsuace.homework2.objects.analyzer;
  * + в качестве доп задания, можно всем типам фильтров задать приоритет
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
+
 public class TextFilterManager {
+    private TextAnalyzer[] filters;
 
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
@@ -24,13 +25,26 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
-
+        this.filters = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+        if (text == null || text.isEmpty()) {
+            return FilterType.GOOD;
+        }
+
+        FilterType filterType;
+
+        for (TextAnalyzer currentFilter : filters) {
+
+            filterType = currentFilter.doFilter(text);
+            if (filterType != FilterType.GOOD) {
+                return filterType;
+            }
+        }
+        return FilterType.GOOD;
     }
 }
