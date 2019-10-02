@@ -18,24 +18,23 @@ public class RepeatingCharacters {
         if (str == null || str.isEmpty()) {
             return null;
         }
-        int number = 1;
+        int count = 1;
         int max = 1;
         char[] array = str.toCharArray();
-        char s = array[0];
+        char maxChar = array[0];
 
-        for (int i = 1; array.length > i; i++) {
+        for (int i = 1; i < array.length; i++) {
             if (array[i] == array[i - 1]) {
-                number++;
-                if (number > max) {
-                    s = array[i];
-                    max = number;
+                count++;
+                if (count > max) {
+                    maxChar = array[i];
+                    max = count;
                 }
             } else {
-                number = 1;
+                count = 1;
             }
         }
-        System.out.println(max);
-        return new Pair<>(s, max);
+        return new Pair<>(maxChar, max);
     }
     
     public static class Pair<T, V> {
