@@ -2,7 +2,6 @@ package ru.spsuace.homework2.objects;
 
 
 import java.util.Objects;
-import java.util.Vector;
 
 /**
  * Нужно найти символ, который встречается подряд в строке чаще всего, и указать количество повторений.
@@ -17,17 +16,18 @@ public class RepeatingCharacters {
 
         if (str == null || str.isEmpty()) {
             return null;
-        };
+        }
+        ;
 
 
         char[] array = str.toCharArray();
 
         char resultSymbol = ' ';
         int resultValue = 0;
-        int  count = 1;
+        int count = 1;
 
-        for (int i = 1; i < str.length(); i++){
-            if (array[i]==array[i-1]){
+        for (int i = 1; i < str.length(); i++) {
+            if (array[i] == array[i - 1]) {
                 count++;
             } else {
                 count = 1;
@@ -35,7 +35,7 @@ public class RepeatingCharacters {
 
             if (count > resultValue) {
                 resultValue = count;
-                resultSymbol =  array[i-1];
+                resultSymbol = array[i - 1];
             }
         }
 
