@@ -27,15 +27,13 @@ public class RepeatingCharacters {
 
             if (strChars[i] == strChars[i-1]) {
                 currentNumberOfRepeats++;
+            } else {
+                currentNumberOfRepeats = 1;
             }
 
             if (currentNumberOfRepeats > maxNumberOfRepeats) {
                 maxNumberOfRepeats = currentNumberOfRepeats;
                 maxRepeatingChar = strChars[i];
-            }
-
-            if (strChars[i] != strChars[i-1]) {
-                currentNumberOfRepeats = 1;
             }
         }
         return new Pair<>(maxRepeatingChar, maxNumberOfRepeats);
