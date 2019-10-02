@@ -16,23 +16,28 @@ public class RepeatingCharacters {
         if (str == null || str.isEmpty()) {
             return null;
         }
-        char sym = str.charAt(0);
-        int max = 1;
-        int num = 1;
-        for (int i = 1; i < str.length(); i++) {
-            if (str.charAt(i) == str.charAt(i + 1)) {
-                num = num + 1;
-                if (num > max) {
-                    sym = str.charAt(i);
-                    max = num;
-                }
+        int i;
+        int max = 0;
+        int number = 1;
+        char maxSym = 0;
+        char[] array = str.toCharArray();
+        for (i = 1; i < array.length; i++) {
+            if (array[i] == array[i - 1]) {
+                number++;
             } else {
-                num = 1;
+                if (number > max) {
+                    max = number;
+                    maxSym = array[i - 1];
+                }
+                number = 1;
             }
         }
-        return new Pair<>(sym, max);
+        if (number > max) {
+            max = number;
+            maxSym = array[array.length - 1];
+        }
+        return new Pair<>(maxSym, max);
     }
-
     public static class Pair<T, V> {
         private final T first;
         private final V second;
