@@ -26,10 +26,7 @@ public class TextFilterManager {
     private TextAnalyzer[] filters;
 
     public TextFilterManager(TextAnalyzer[] filters) {
-        this.filters = new TextAnalyzer[filters.length];
-        for(int i = 0; i < filters.length; i++) {
-            this.filters[i] = filters[i]; // это неверно
-        }
+        this.filters = filters;
     }
 
     /**
