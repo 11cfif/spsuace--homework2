@@ -9,7 +9,7 @@ import java.util.Vector;
  * Если более одного символа с максимальным значением, то нужно вернуть тот символ,
  * который первый встречается в строчке
  * Если строка пустая или null, то вернуть null
- * Пример abbasbdlbdbfklsssbb -> (s, 4)
+ * Пример abbasbdlbdbfklsssbb -> (s, 3)
  */
 public class RepeatingCharacters {
 
