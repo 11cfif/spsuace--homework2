@@ -4,13 +4,13 @@ public class FilterSpam implements TextAnalyzer {
     protected String[] badWords; //модификатор видимости
     protected FilterType wordFilter;
 
-    public  FilterSpam(String[] badWords) { //название совпадает с названием класса
+    public FilterSpam(String[] badWords) { //название совпадает с названием класса
         this.badWords = badWords; //название параметра совпадает с названием поля/ параметры
         wordFilter = FilterType.SPAM;
     }
 
-    public  FilterSpam(String[] badWords, FilterType wordFilter) {
-        this.badWords = badWords;
+    protected FilterSpam(String[] badWords, FilterType wordFilter) {
+        this(badWords);
         this.wordFilter = wordFilter;
     }
 
