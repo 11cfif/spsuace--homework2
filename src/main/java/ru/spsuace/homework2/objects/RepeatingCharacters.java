@@ -27,8 +27,9 @@ public class RepeatingCharacters {
                 maxSymbolRepeat++;
             } else {
                 maxSymbolRepeat = 1;
+                symbol = str.charAt(symbolPosition);
             }
-            symbol = str.charAt(symbolPosition);
+
             if (maxSymbolRepeat > maxSymbolRepeatFinal) {
                 maxSymbolRepeatFinal = maxSymbolRepeat;
                 symbolFinal = symbol;
