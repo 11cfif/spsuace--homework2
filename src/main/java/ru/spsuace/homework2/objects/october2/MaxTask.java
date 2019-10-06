@@ -26,7 +26,6 @@ public class MaxTask {
                     currentMax = arrayCopy[j];
                     currentIndex = j;
                 }
-
             }
             arrayForAnswer[i] = currentMax;
             Array.setInt(arrayCopy, currentIndex, 0);
