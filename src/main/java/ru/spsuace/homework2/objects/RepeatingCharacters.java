@@ -23,15 +23,16 @@ public class RepeatingCharacters {
         for (int i = 0; i < length - 1; i++) {
             char previousSymbol = str.charAt(i);
             char nextSymbol = str.charAt(i + 1);
+            if (previousSymbol != nextSymbol) {
+                repeatingCharacterCounter = 1;
+                continue;
+            }
             if (previousSymbol == nextSymbol) {
                 repeatingCharacterCounter += 1;
             }
             if (repeatingCharacterCounter > maxRepeatingCharacters){
                 maxRepeatingCharacters = repeatingCharacterCounter;
                 charMax = previousSymbol;
-            }
-            if (previousSymbol != nextSymbol) {
-                repeatingCharacterCounter = 1;
             }
         }
             return new Pair<>(charMax, maxRepeatingCharacters);
