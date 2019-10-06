@@ -13,71 +13,16 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 
 public interface TextAnalyzer {
-    public class FilterLong implements TextAnalyzer {
-
-        private long maxLength;
-
-        FilterLong(long maxLength) {
-            this.maxLength = maxLength;
-        }
-
-        @Override
-        public FilterType doFilter(String str) {
-            if (str.length() > maxLength) {
-                return FilterType.TOO_LONG;
-            }
-            return FilterType.GOOD;
-        }
-    }
-
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
         return new FilterLong(maxLength);
     }
-
-    public class FilterSpam implements TextAnalyzer {
-
-        private String[] spamWord;
-
-        public FilterSpam(String[] spamWord) {
-            this.spamWord = spamWord;
-        }
-
-        @Override
-        public FilterType doFilter(String str) {
-            for (String word : spamWord) {
-                if (str.contains(word)) {
-                    return FilterType.SPAM;
-                }
-            }
-            return FilterType.GOOD;
-        }
-    }
-
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
         return new FilterSpam(spam);
     }
-
-    public class FilterNegative implements TextAnalyzer {
-
-        String emotions[] = {"=(", ":(", ":|"};
-
-        @Override
-        public FilterType doFilter(String str) {
-            for (String smile : emotions) {
-                if (str.contains(smile)) {
-                    return FilterType.NEGATIVE_TEXT;
-                }
-            }
-            return FilterType.GOOD;
-        }
-    }
-
     static TextAnalyzer createNegativeTextAnalyzer() {
         return new FilterNegative();
     }
-
     public FilterType doFilter(String str);
-
     /**
      * Дополнительное задание: придумать свой фильтр
      */
