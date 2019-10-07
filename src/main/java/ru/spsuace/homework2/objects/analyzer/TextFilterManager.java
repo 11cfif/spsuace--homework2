@@ -28,6 +28,7 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public class TextFilterManager {
 
+
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
