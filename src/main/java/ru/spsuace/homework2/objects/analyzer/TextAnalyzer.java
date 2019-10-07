@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
 
 public interface TextAnalyzer {
 
-    FilterType ApplyFilter(String text);
+    FilterType applyFilter(String text);
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
 
@@ -45,69 +44,3 @@ public interface TextAnalyzer {
     }
 }
 
-class TooLongText implements TextAnalyzer {
-    private final long maxLength;
-
-    public TooLongText(long maxLength) {
-        this.maxLength = maxLength;
-    }
-
-    @Override
-    public FilterType ApplyFilter(String text) {
-        if (text.length() > maxLength) {
-            return FilterType.TOO_LONG;
-        }
-        return FilterType.GOOD;
-    }
-}
-
-class BadWordsInText implements TextAnalyzer {
-    private final String[] arrayBadWords;
-
-    public BadWordsInText(String[] arrayBadWords) {
-        this.arrayBadWords = arrayBadWords;
-    }
-
-    @Override
-    public FilterType ApplyFilter(String text) {
-        for (String elementArray : arrayBadWords)
-            if (text.contains(elementArray)) {
-                return FilterType.SPAM;
-            }
-        return FilterType.GOOD;
-    }
-}
-
-class BadEmotionsInText implements TextAnalyzer {
-    private final String[] arrayBadEmotions = {"=(", ":(", ":|"};
-
-    public BadEmotionsInText() {
-    }
-
-    @Override
-    public FilterType ApplyFilter(String text) {
-        for (String elementArray : arrayBadEmotions) {
-            if (text.contains(elementArray)) {
-                return FilterType.NEGATIVE_TEXT;
-            }
-        }
-        return FilterType.GOOD;
-    }
-}
-
-class LinksInText implements TextAnalyzer {
-    final String regexLink = "(http://|https://)(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?";
-
-    public LinksInText() {
-    }
-
-    final Pattern pattern = Pattern.compile(regexLink);
-
-    public FilterType ApplyFilter(String text) {
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            return FilterType.CUSTOM;
-        }
-        return FilterType.GOOD;
-    }
-}

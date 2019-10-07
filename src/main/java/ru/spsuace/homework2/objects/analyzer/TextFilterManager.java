@@ -43,12 +43,12 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        if (text == null || text == "" || filters.length == 0) {
+        if (text == null || text.isEmpty() || filters.length == 0) {
             return FilterType.GOOD;
         }
         FilterType[] arrayOfResults = new FilterType[filters.length];
         for (int i = 0; i < filters.length; i++) {
-            arrayOfResults[i] = filters[i].ApplyFilter(text);
+            arrayOfResults[i] = filters[i].applyFilter(text);
         }
         Arrays.sort(arrayOfResults, Enum::compareTo);
 
