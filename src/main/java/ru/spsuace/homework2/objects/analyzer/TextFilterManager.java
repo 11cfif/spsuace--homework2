@@ -18,6 +18,7 @@ import java.util.Collection;
  * + в качестве доп задания, можно всем типам фильтров задать приоритет
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  */
+
 public class TextFilterManager {
     private Collection<TextAnalyzer> filters;
     FilterType filterType = FilterType.GOOD;

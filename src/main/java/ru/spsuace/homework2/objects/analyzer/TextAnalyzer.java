@@ -13,6 +13,7 @@ import java.util.Collection;
  * Так же необходимо создать все необходимы методы, которые будут вам нужны для прогона текста
  * по всем фильтрам в классе TextFilterManager
  */
+
 public interface TextAnalyzer {
 
     FilterType startFilter(String text);

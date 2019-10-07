@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
+
 public class TooLongFilter implements TextAnalyzer{
     private long length;
     public TooLongFilter(long length) {

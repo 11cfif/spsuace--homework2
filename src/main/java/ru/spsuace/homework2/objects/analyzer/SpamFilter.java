@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public class SpamFilter implements TextAnalyzer {
     private Collection<String> spam;
+
     public SpamFilter(Collection<String> spam) {
         this.spam = spam;
     }
