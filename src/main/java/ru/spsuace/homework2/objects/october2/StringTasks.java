@@ -8,12 +8,49 @@ public class StringTasks {
      * Если '.' и 'e' больше чем 1, возвращаем null
      * Любой класс-обертка над примитивами наследуется от Number
      * Можно использовать функции Double.valueOf() и другие такие же.
-     *
+     * <p>
      * Работайте со строкой, НЕ надо ее переводить в массив байт (это можно использовать только для цикла)
      * У класса Character есть полезные методы, например Character.isDigit()
      */
+
     public static Number simpleValueOf(String str) {
-        return null;
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        str = str.replaceAll("[^0-9.e-]", "");
+        int eCount = countSymbol(str, 'e');
+        int dotCount = countSymbol(str, '.');
+        int minusCount = countSymbol(str, '-');
+
+        if (dotCount > 1 || eCount > 1) {
+            return null;
+        }
+
+        if (dotCount == 0 && eCount == 0) {
+            if (minusCount <= 1) {
+                Long strToLong = Long.valueOf(str);
+                if (Math.abs(strToLong) > Integer.MAX_VALUE) {
+                    return strToLong;
+                } else {
+                    return Integer.valueOf(str);
+                }
+            } else {
+                return null;
+            }
+        }
+
+        return Double.valueOf(str);
+    }
+
+    private static int countSymbol(String str, char symbol) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == symbol) {
+                count++;
+            }
+        }
+        return count;
     }
 
 
@@ -21,6 +58,32 @@ public class StringTasks {
      * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf()
      */
     public static Number valueOf(String str) {
-        return null;
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        str = str.replaceAll("[^0-9.e-]", "");
+        int eCount = countSymbol(str, 'e');
+        int dotCount = countSymbol(str, '.');
+        int minusCount = countSymbol(str, '-');
+
+        if (dotCount > 1 || eCount > 1) {
+            return null;
+        }
+
+        if (dotCount == 0 && eCount == 0) {
+            if (minusCount <= 1) {
+                long strToLong = new Long(str);
+                if (Math.abs(strToLong) > Integer.MAX_VALUE) {
+                    return strToLong;
+                } else {
+                    return new Integer(str);
+                }
+            } else {
+                return null;
+            }
+        }
+
+        return new Double(str);
     }
 }
