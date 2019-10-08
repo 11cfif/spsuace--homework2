@@ -49,4 +49,8 @@ public class ComplexNumber {
         }
         return  false;
     }
+
+    public double mod(){
+        return (double)Math.sqrt(realPart * realPart + imagPart * imagPart);
+    }
 }
