@@ -37,6 +37,7 @@ public class TextFilterManager {
      */
 
     private TextAnalyzer[] filters;
+
     public TextFilterManager(TextAnalyzer[] filters) {
         this.filters = filters;
         Arrays.sort(filters, (TextAnalyzer filter1, TextAnalyzer filter2) -> {
