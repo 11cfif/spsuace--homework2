@@ -20,18 +20,24 @@ public class RepeatingCharacters {
         char maxChar = str.charAt(0);
         int maxRepeat = 1;
 
-        for (int nowCh = 0; nowCh < str.length(); nowCh++) {
-            int nowMax = 0;
-            for (int nowNextCh = nowCh; nowNextCh < str.length(); nowNextCh++) {
-                if (str.charAt(nowCh) == str.charAt(nowNextCh)) {
-                    nowMax++;
+        int numberChar = 0;
+        int nowCh = 0;
+        int nowMaxRepeat = 0;
+
+        while (nowCh + nowMaxRepeat < str.length() - 1) {
+            nowCh = numberChar;
+            nowMaxRepeat = 1;
+            for (int nextCh = numberChar + 1; nextCh < str.length(); nextCh++) {
+                if (str.charAt(nowCh) == str.charAt(nextCh)) {
+                    nowMaxRepeat++;
                 } else {
+                    numberChar = nextCh;
                     break;
                 }
             }
-            if (nowMax > maxRepeat) {
+            if (nowMaxRepeat > maxRepeat) {
                 maxChar = str.charAt(nowCh);
-                maxRepeat = nowMax;
+                maxRepeat = nowMaxRepeat;
             }
         }
 
