@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.objects;
 
 import java.util.Objects;
+
 /**
  * Опишите иммутабельное комплексное число, с геттерами и методами toString()
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
@@ -36,21 +37,21 @@ public class ComplexNumber {
 
     @Override
     public int hashCode() {
-        return  Objects.hash(realPart, imagPart);
+        return Objects.hash(realPart, imagPart);
     }
 
-     @Override
+    @Override
     public boolean equals(Object o) {
         if (o instanceof ComplexNumber) {
-            ComplexNumber number = (ComplexNumber)o;
+            ComplexNumber number = (ComplexNumber) o;
             if ((number.getRealPart() == realPart) && (number.getImagPart() == imagPart)) {
-                return  true;
+                return true;
             }
         }
-        return  false;
+        return false;
     }
 
-    public double mod(){
-        return (double)Math.sqrt(realPart * realPart + imagPart * imagPart);
+    public double mod() {
+        return (double) Math.sqrt(realPart * realPart + imagPart * imagPart);
     }
 }
