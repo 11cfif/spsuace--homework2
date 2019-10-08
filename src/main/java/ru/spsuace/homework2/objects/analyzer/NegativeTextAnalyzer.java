@@ -6,9 +6,6 @@ public class NegativeTextAnalyzer implements TextAnalyzer {
     private final int priority = 3;
 
     public FilterType analyze(String text) {
-        if (text == null || text.isEmpty()) {
-            return FilterType.GOOD;
-        }
         for (String str : negativeStrings) {
             if (text.contains(str)) {
                 return FilterType.NEGATIVE_TEXT;

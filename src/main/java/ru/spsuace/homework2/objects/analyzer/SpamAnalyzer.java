@@ -10,10 +10,7 @@ public class SpamAnalyzer implements TextAnalyzer {
     }
 
     public FilterType analyze(String text) {
-        if (text == null || text.isEmpty()) {
-            return FilterType.GOOD;
-        }
-        for (String str : spamStrings) {
+        for(String str : spamStrings) {
             if (text.contains(str)) {
                 return FilterType.SPAM;
             }
