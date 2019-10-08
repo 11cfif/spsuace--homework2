@@ -17,12 +17,12 @@ public class MaxTask {
         if (array.length < count) {
             return null;
         }
-        if (count == 0 || array.length == 0) {
-            int[] arrNull = new int[0];
-            return arrNull;
-        }
+
         Arrays.sort(array);
-        int[] newSortArr = Arrays.copyOfRange(array, 0, count );
+        int[] newSortArr = new int[count];
+        for (int i = 0; i < count; i++) {
+            newSortArr[i] = array[array.length - i - 1];
+        }
         return newSortArr;
     }
 
