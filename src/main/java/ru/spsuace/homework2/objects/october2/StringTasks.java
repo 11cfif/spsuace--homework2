@@ -15,43 +15,26 @@ public class StringTasks {
      */
 
     public static Number simpleValueOf(String str) {
-        if (str == null || str.isEmpty()) {
+        if (checkNullOrEmpty(str)) {
             return null;
         }
 
-        str = str.replaceAll("[^0-9.e-]", "");
-        int eCount = countSymbol(str, 'e');
-        int dotCount = countSymbol(str, '.');
-        int minusCount = countSymbol(str, '-');
+        str = firstPassReplace(str);
 
-        if (dotCount > 1 || eCount > 1) {
-            return null;
-        }
-
-        if (dotCount == 0 && eCount == 0) {
-            if (minusCount <= 1) {
-                Long strToLong = Long.valueOf(str);
-                if (Math.abs(strToLong) > Integer.MAX_VALUE) {
-                    return strToLong;
-                } else {
-                    return Integer.valueOf(str);
-                }
+        if (checkIntegerMatch(str)) {
+            Long strToLong = Long.valueOf(str);
+            if (strToLong > Integer.MAX_VALUE || strToLong < Integer.MIN_VALUE) {
+                return strToLong;
             } else {
-                return null;
+                return Integer.valueOf(str);
             }
         }
 
-        return Double.valueOf(str);
-    }
-
-    private static int countSymbol(String str, char symbol) {
-        int count = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == symbol) {
-                count++;
-            }
+        if (checkSimpleDoubleMatch(str) || checkScientificDoubleMatch(str)) {
+            return Double.valueOf(str);
         }
-        return count;
+
+        return null;
     }
 
 
@@ -60,32 +43,96 @@ public class StringTasks {
      * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf() и new Integer и тд
      */
     public static Number valueOf(String str) {
-        if (str == null || str.isEmpty()) {
+        if (checkNullOrEmpty(str)) {
             return null;
         }
 
-        str = str.replaceAll("[^0-9.e-]", "");
-        int eCount = countSymbol(str, 'e');
-        int dotCount = countSymbol(str, '.');
-        int minusCount = countSymbol(str, '-');
+        str = firstPassReplace(str);
 
-        if (dotCount > 1 || eCount > 1) {
-            return null;
-        }
-
-        if (dotCount == 0 && eCount == 0) {
-            if (minusCount <= 1) {
-                long strToLong = new Long(str);
-                if (Math.abs(strToLong) > Integer.MAX_VALUE) {
-                    return strToLong;
-                } else {
-                    return new Integer(str);
-                }
+        if (checkIntegerMatch(str)) {
+            long result = parseInteger(str);
+            if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
+                return result;
             } else {
-                return null;
+                return (int) result;
             }
         }
 
-        return new Double(str);
+        if (checkSimpleDoubleMatch(str)) {
+            return parseSimpleDouble(str);
+        }
+
+        if (checkScientificDoubleMatch(str)) {
+            String[] strParts = str.split("e");
+            String mantissaStr = strParts[0];
+            String exponentStr = strParts[1];
+
+            double mantissa;
+            if (mantissaStr.indexOf('.') == -1) {
+                mantissa = (double) parseInteger(mantissaStr);
+            } else {
+                mantissa = parseSimpleDouble(mantissaStr);
+            }
+
+            double exponent = (double) parseInteger(exponentStr);
+
+            return mantissa * Math.pow(10., exponent);
+        }
+
+        return null;
+    }
+
+    private static String firstPassReplace(String str) {
+        return str.replaceAll("[^0-9.e-]", "");
+    }
+
+    private static boolean checkNullOrEmpty(String str) {
+        return (str == null || str.isEmpty());
+    }
+
+    private static boolean checkIntegerMatch(String str) {
+        return str.matches("-?[0-9]+");
+    }
+
+    private static boolean checkSimpleDoubleMatch(String str) {
+        return str.matches("-?[0-9]+\\.[0-9]+");
+    }
+
+    private static boolean checkScientificDoubleMatch(String str) {
+        return str.matches("-?([0-9]+\\.[0-9]+|[0-9]+)e-?[0-9]+");
+    }
+
+    private static int getDigit(String str, int index) {
+        return Character.digit(str.charAt(index), 10);
+    }
+
+    private static long parseInteger(String str) {
+        long result = 0;
+        int sign = 1;
+        if (str.charAt(0) == '-') {
+            sign = -1;
+            str = str.substring(1, str.length() - 1);
+        }
+        for (int i = str.length() - 1; i >= 0; i--) {
+            result = result * 10 + getDigit(str, i);
+        }
+        result *= sign;
+        return result;
+    }
+
+    private static double parseSimpleDouble(String str) {
+        double result;
+        int sign = 1;
+
+        if (str.charAt(0) == '-') {
+            sign = -1;
+            str = str.substring(0, str.length() - 1);
+        }
+
+        String[] strParts = str.split("\\.");
+        long intPart = parseInteger(strParts[0]);
+        double fracPart = parseInteger(strParts[1]) * Math.pow(10., - strParts[1].length());
+        result = sign * (intPart + fracPart);
+        return result;
     }
 }
