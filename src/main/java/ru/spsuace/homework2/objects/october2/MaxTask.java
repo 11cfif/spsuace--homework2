@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.objects.october2;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MaxTask {
 
@@ -14,26 +15,44 @@ public class MaxTask {
      */
     public static int[] getMaxArray(int[] array, int count) {
 
-        int[] arrayCopy = array;
+        int[] arrayCopy = new int[array.length];
         int[] arrayForAnswer = new int[count];
+        for (int i = 0; i < array.length; i++){
+            arrayCopy[i] = array[i];
+        }
+        ArrayList<Integer> maxList = new ArrayList<>(0);
+
         int currentMax = 0;
         int currentIndex = 0;
-        for (int i = 0; i < count; i++) {
-
-            for (int j = 0; j < arrayCopy.length; j++) {
-
-                if (currentMax < arrayCopy[j]) {
-                    currentMax = arrayCopy[j];
-                    currentIndex = j;
-                }
-            }
-            arrayForAnswer[i] = currentMax;
-            Array.setInt(arrayCopy, currentIndex, 0);
-            currentMax = 0;
-        }
+        int buffer = 0;
         if (count > array.length) {
             return null;
         }
+        //for (int i = 0; i < count; i++) {
+            for (int j = 1; j < arrayCopy.length; j++) {
+
+                if (currentMax < arrayCopy[j]) {
+                    currentMax = arrayCopy[j];
+                    maxList.add(currentMax);
+                    currentIndex = j;
+                }
+//                if(arrayCopy[j-1] > arrayCopy[j]){
+//                    buffer = arrayCopy[j-1];
+//                    arrayCopy[j-1] = arrayCopy[j];
+//                    arrayCopy[j-1] = buffer;
+//                }
+
+            }
+            //arrayForAnswer[i] = currentMax;
+            arrayCopy[currentIndex] = 0;
+            currentMax = 0;
+
+        //}
+
+
+
+
+
         return arrayForAnswer;
     }
 }
