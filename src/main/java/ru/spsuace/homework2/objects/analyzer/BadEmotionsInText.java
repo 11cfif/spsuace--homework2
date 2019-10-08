@@ -1,16 +1,16 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-class BadEmotionsInText implements TextAnalyzer {
-    private final String[] arrayBadEmotions = {"=(", ":(", ":|"};
+class BadEmotionsInText extends BadWordsInText {
 
+    public BadEmotionsInText() {
+        super(new String [] {"=(", ":(", ":|"});
+    }
 
-    @Override
     public FilterType applyFilter(String text) {
-        for (String elementArray : arrayBadEmotions) {
-            if (text.contains(elementArray)) {
-                return FilterType.NEGATIVE_TEXT;
-            }
+        if (super.applyFilter(text) == FilterType.SPAM) {
+            return FilterType.NEGATIVE_TEXT;
         }
         return FilterType.GOOD;
     }
+
 }

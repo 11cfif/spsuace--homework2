@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
+import org.w3c.dom.Text;
+
 import java.util.Arrays;
 
 /**
@@ -36,6 +38,7 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
+
         this.filters = filters;
     }
 
@@ -46,12 +49,20 @@ public class TextFilterManager {
         if (text == null || text.isEmpty() || filters.length == 0) {
             return FilterType.GOOD;
         }
-        FilterType[] arrayOfResults = new FilterType[filters.length];
-        for (int i = 0; i < filters.length; i++) {
-            arrayOfResults[i] = filters[i].applyFilter(text);
-        }
-        Arrays.sort(arrayOfResults, Enum::compareTo);
+//        FilterType[] arrayOfResults = new FilterType[filters.length];
+//        for (int i = 0; i < filters.length; i++) {
+//            arrayOfResults[i] = filters[i].applyFilter(text);
+//        }
+//        Arrays.sort(arrayOfResults, Enum::compareTo);
+//
+//        return arrayOfResults[0];
 
-        return arrayOfResults[0];
+        for (TextAnalyzer currentFilter : filters) {
+            FilterType filterType = currentFilter.applyFilter(text);
+            if (filterType != FilterType.GOOD) {
+                return filterType;
+            }
+        }
+        return FilterType.GOOD;
     }
 }

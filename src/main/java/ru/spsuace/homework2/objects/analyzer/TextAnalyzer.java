@@ -1,7 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
