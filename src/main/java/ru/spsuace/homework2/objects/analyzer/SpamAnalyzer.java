@@ -1,17 +1,21 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class NegativeTextAnalyzer implements TextAnalyzer {
+public class SpamAnalyzer implements TextAnalyzer {
 
-    private final String[] negativeStrings = new String[] {"=(", ":(", ":|"};
-    private final int priority = 3;
+    private final String[] spamStrings;
+    private final int priority = 1;
+
+    public SpamAnalyzer(String[] spam) {
+        spamStrings = spam;
+    }
 
     public FilterType analyze(String text) {
         if (text == null || text.isEmpty()) {
             return FilterType.GOOD;
         }
-        for (String str : negativeStrings) {
+        for (String str : spamStrings) {
             if (text.contains(str)) {
-                return FilterType.NEGATIVE_TEXT;
+                return FilterType.SPAM;
             }
         }
         return FilterType.GOOD;
@@ -21,3 +25,4 @@ public class NegativeTextAnalyzer implements TextAnalyzer {
         return priority;
     }
 }
+

@@ -19,19 +19,22 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+        return new SpamAnalyzer(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new NegativeTextAnalyzer();
     }
-
-    FilterType analyze(String text);
 
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+
+    static TextAnalyzer createCustomAnalyzer() {
+        return new CustomAnalyzer();
     }
+
+    FilterType analyze(String text);
+    int getPriority();
+
 }
