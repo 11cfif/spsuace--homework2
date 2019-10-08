@@ -1,16 +1,22 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-import java.util.Collection;
 
 public class SpamFilter implements TextAnalyzer {
-    private Collection<String> spam;
+    protected String[] spam;
+    protected FilterType FilterWords;
 
-    public SpamFilter(Collection<String> spam) {
+    public SpamFilter(String[] spam) {
         this.spam = spam;
+        FilterWords = FilterType.SPAM;
+    }
+
+    protected SpamFilter(String[] spam, FilterType FilterWords) {
+        this(spam);
+        this.FilterWords = FilterWords;
     }
 
     @Override
-    public FilterType startFilter(String text) {
+    public FilterType textAnalyzer(String text) {
         for (String item : spam) {
             if (text.contains(item)) {
                 return FilterType.SPAM;
