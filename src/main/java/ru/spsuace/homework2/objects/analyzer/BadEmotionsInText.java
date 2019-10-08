@@ -6,8 +6,9 @@ class BadEmotionsInText extends BadWordsInText {
         super(new String [] {"=(", ":(", ":|"});
     }
 
+    @Override
     public FilterType applyFilter(String text) {
-        if (super.applyFilter(text) == FilterType.SPAM) {
+        if (super.applyFilter(text) != FilterType.GOOD) {
             return FilterType.NEGATIVE_TEXT;
         }
         return FilterType.GOOD;
