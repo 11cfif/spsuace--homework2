@@ -5,13 +5,12 @@ public class FilterSpam implements TextAnalyzer {
     protected FilterType wordFilter;
 
     public FilterSpam(String[] badWords) { //название совпадает с названием класса//название параметра совпадает с названием поля/ параметры
-        this.badWords = badWords;
-        wordFilter = FilterType.SPAM;
+        this(badWords, FilterType.SPAM);
     }
 
     protected FilterSpam(String[] badWords, FilterType wordFilter) {
-        this(badWords);
-        this.wordFilter = wordFilter;/*я не знаю как это исправить, даже в интернете нет по этому поводу нормальной информации*/
+        this.badWords = badWords;/*я не знаю как это исправить, даже в интернете нет по этому поводу нормальной информации*/
+        this.wordFilter = wordFilter;
     }
 
     public FilterType textAnalyzer(String text) {
