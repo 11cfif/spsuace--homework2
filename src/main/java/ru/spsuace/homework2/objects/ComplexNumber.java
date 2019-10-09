@@ -23,7 +23,6 @@ public class ComplexNumber {
         return realPart;
     }
 
-
     @Override
     public String toString() {
 
@@ -32,19 +31,18 @@ public class ComplexNumber {
                 return realPart + "+" + imgPart + "i";
             } else if (imgPart == 0) {
                 return String.valueOf(realPart);
-            } else if (imgPart < 0) {
+            } else {
                 return realPart + "-" + Math.abs(imgPart) + "i";
             }
-        } else if (realPart == 0) {
+        } else {
             if (imgPart > 0) {
                 return imgPart + "i";
             } else if (imgPart == 0) {
                 return "0";
-            } else if (imgPart < 0) {
+            } else {
                 return "-" + Math.abs(imgPart) + "i";
             }
         }
-        return "Error";
     }
 
     public double modulus() {
@@ -57,13 +55,14 @@ public class ComplexNumber {
         }
         return Math.atan2(imgPart, realPart);
     }
-
+    @Override
     public int hashCode() {
         return (int) (1000 + modulus() + argument());
     }
 
-    public boolean equals(ComplexNumber Number) {
-        return ((Math.abs(this.realPart - Number.realPart) < 1e-4) && (Math.abs(this.imgPart - Number.imgPart) < 1e-4));
+    public boolean equals(Object object) {
+        return ((Math.abs(realPart - ((ComplexNumber)object).realPart) < 1e-4)
+                && (Math.abs(imgPart - ((ComplexNumber)object).imgPart) < 1e-4));
     }
 
 }

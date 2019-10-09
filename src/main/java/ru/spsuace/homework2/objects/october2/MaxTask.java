@@ -36,5 +36,4 @@ public class MaxTask {
 
         return maxCount;
     }
-
 }
