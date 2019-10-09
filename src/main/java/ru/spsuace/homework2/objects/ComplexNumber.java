@@ -60,11 +60,14 @@ public class ComplexNumber {
         return (int) (1000 + modulus() + argument());
     }
 
+    @Override
     public boolean equals(Object object) {
-        return ((Math.abs(realPart - ((ComplexNumber)object).realPart) < 1e-4)
-                && (Math.abs(imgPart - ((ComplexNumber)object).imgPart) < 1e-4));
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ComplexNumber that = (ComplexNumber) object;
+        return Double.compare(that.realPart, realPart) == 0 &&
+                Double.compare(that.imgPart, imgPart) == 0;
     }
-
 }
 
 
