@@ -1,23 +1,19 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class TooLongAnalyzer implements TextAnalyzer {
+public class TooLongAnalyzer extends Analyzer {
 
     private final long maxLength;
-    private final int priority = 2;
 
-    public TooLongAnalyzer(long maxLength) {
+    public TooLongAnalyzer(long maxLength, FilterType filter) {
+        super(filter);
         this.maxLength = maxLength;
     }
 
     public FilterType analyze(String text) {
         if (text.length() > maxLength) {
-            return FilterType.TOO_LONG;
+            return filter;
         }
         return FilterType.GOOD;
-    }
-
-    public int getPriority() {
-        return priority;
     }
 }
 

@@ -1,25 +1,23 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class SpamAnalyzer implements TextAnalyzer {
+import java.util.logging.Filter;
 
-    private final String[] spamStrings;
-    private final int priority = 1;
+public class SpamAnalyzer extends Analyzer {
 
-    public SpamAnalyzer(String[] spam) {
+    private String[] spamStrings;
+
+    public SpamAnalyzer(String[] spam, FilterType filter) {
+        super(filter);
         spamStrings = spam;
     }
 
     public FilterType analyze(String text) {
         for(String str : spamStrings) {
             if (text.contains(str)) {
-                return FilterType.SPAM;
+                return filter;
             }
         }
         return FilterType.GOOD;
-    }
-
-    public int getPriority() {
-        return priority;
     }
 }
 

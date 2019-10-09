@@ -131,8 +131,8 @@ public class StringTasks {
 
         String[] strParts = str.split("\\.");
         long intPart = parseInteger(strParts[0]);
-        double fracPart = parseInteger(strParts[1]) * Math.pow(10., - strParts[1].length());
-        result = sign * (intPart + fracPart);
+        double fractionalPart = parseInteger(strParts[1]) * Math.pow(10., - strParts[1].length());
+        result = sign * (intPart + fractionalPart);
         return result;
     }
 }

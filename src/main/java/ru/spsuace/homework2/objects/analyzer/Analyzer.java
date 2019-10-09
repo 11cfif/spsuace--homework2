@@ -1,5 +1,13 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class Analyzer implements TextAnalyzer{
+abstract public class Analyzer implements TextAnalyzer{
+    protected FilterType filter;
 
+    public Analyzer(FilterType filter) {
+        this.filter = filter;
+    }
+
+    public int getPriority() {
+        return filter.getPriority();
+    }
 }
