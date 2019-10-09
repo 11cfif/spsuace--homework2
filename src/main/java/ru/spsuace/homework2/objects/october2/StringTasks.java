@@ -24,38 +24,36 @@ public class StringTasks {
         String resulString = "";
         int valueMinus = 0;
         int valueE = 0;
+        int valueT = 0;
 
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e') {
+            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e' || str.charAt(i)=='.') {
                     resulString += str.charAt(i);
             }
         }
 
-        for (int i = 0; i < resulString.length(); i++) {
-            if (resulString.charAt(i) == '-'){
-                valueMinus++;
+        if (resulString.matches("-?[0-9]+")) {
+            if (Long.valueOf(resulString) > Integer.MAX_VALUE || Long.valueOf(resulString) < Integer.MIN_VALUE){
+                return Long.valueOf(resulString);
             }
-            if (valueMinus > 1){
-                return null;
-            }
-            if (resulString.charAt(i) == 'e'){
-                valueE++;
-            }
-            if (valueE > 1){
-                return null;
-            }
-
+            return Integer.valueOf(resulString);
         }
 
-        if (valueE == 1 ){
-            return Float.valueOf(resulString) * (int) 1;
+        if (resulString.matches("-?[0-9]+e-?[0-9]+")){
+            return Double.valueOf(resulString);
         }
 
-        if (Long.valueOf(resulString) > Integer.MAX_VALUE || Long.valueOf(resulString) < Integer.MIN_VALUE){
-            return Long.valueOf(resulString);
+        if (resulString.matches("-?[0-9]+\\.[0-9]+e-?[0-9]+")){
+            return Double.valueOf(resulString);
         }
 
-        return Integer.valueOf(resulString);
+        if (resulString.matches("-?[0-9]+\\.[0-9]")){
+            return Double.valueOf(resulString);
+        }
+
+//
+//        return Integer.valueOf(resulString);
+        return null;
     }
 
 
