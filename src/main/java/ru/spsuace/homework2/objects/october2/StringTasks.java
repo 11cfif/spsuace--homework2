@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.october2;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+
 public class StringTasks {
 
     /**
@@ -18,27 +20,28 @@ public class StringTasks {
         char[] strCopy = new char[str.length()];
         char[] strAnswerCopy = new char[str.length()];
         String strAnswer = "";
-        char[] allowedSymbols = {'e', '-', '.'};
+        char[] allowedSymbols = {'e', '.', '-'};
         int[] ammountOfAllowedSybols = new int[3];
 
         for (int i = 0; i < str.length(); i++) {
             strCopy[i] = str.charAt(i);
         }
-
         for (char element : strCopy) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 3; i++) {
                 if (element == allowedSymbols[i]) {
                     ammountOfAllowedSybols[i]++;
                 }
             }
-        }
-
-        for (int ammountOfAllowedSymb : ammountOfAllowedSybols) {
-            if (ammountOfAllowedSymb > 1) {
+            if (((ammountOfAllowedSybols[2] > 1) && (ammountOfAllowedSybols[0] == 0)) ||
+                    ((ammountOfAllowedSybols[2] > 2) && (ammountOfAllowedSybols[0] == 1))) {
                 return null;
             }
         }
-
+        for (int i = 0; i < 2; i++) {
+            if (ammountOfAllowedSybols[i] > 1) {
+                return null;
+            }
+        }
         for (int i = 0; i < str.length(); i++) {
 
             if (!(strCopy[i] >= '0' && strCopy[i] <= '9')) {
@@ -52,14 +55,12 @@ public class StringTasks {
                 strAnswer += str.charAt(i);
             }
         }
-        double test = 1e2;
-        Number o;
-        if (Float.valueOf(strAnswer) > Integer.MAX_VALUE) {
-            return Float.valueOf(strAnswer) * (int) 1;
+
+        if ((ammountOfAllowedSybols[0] > 0) || (ammountOfAllowedSybols[1] > 0)) {
+            return Double.valueOf(strAnswer);
         }
-        int currentIntAnswer = Integer.valueOf(strAnswer);
-        if ((Double.valueOf(strAnswer) / currentIntAnswer) != 1) {
-            return Float.valueOf(strAnswer);
+        if ((Long.valueOf(strAnswer) > Integer.MAX_VALUE) || (Long.valueOf(strAnswer) < Integer.MIN_VALUE)) {
+            return Long.valueOf(strAnswer);
         }
         return Integer.valueOf(strAnswer);
     }
