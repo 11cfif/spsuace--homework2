@@ -46,8 +46,8 @@ public class StringTasks {
                 return null;
             }
             if ((ammountOfAllowedSybols[2] > 1) && (ammountOfAllowedSybols[0] == 1) &&
-                    (str.indexOf(allowedSymbols[0]) < str.indexOf(allowedSymbols[2]) ) ){
-                
+                    (str.indexOf(allowedSymbols[0]) < str.indexOf(allowedSymbols[2]))) {
+                return null;
             }
         }
         for (int i = 0; i < 2; i++) {
@@ -68,7 +68,9 @@ public class StringTasks {
                 strAnswer += str.charAt(i);
             }
         }
-
+        if (strAnswer.charAt(strAnswer.length() - 1) == '-') {
+            return null;
+        }
         if ((ammountOfAllowedSybols[0] > 0) || (ammountOfAllowedSybols[1] > 0)) {
             return Double.valueOf(strAnswer);
         }
