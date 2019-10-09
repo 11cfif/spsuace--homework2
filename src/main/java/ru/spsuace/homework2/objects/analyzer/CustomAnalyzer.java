@@ -3,16 +3,16 @@ package ru.spsuace.homework2.objects.analyzer;
 public class CustomAnalyzer implements TextAnalyzer {
     //проверка на ALL CAPS
 
-    private final int priority = 4;
+    private final FilterType filter = FilterType.CUSTOM;
 
     public FilterType analyze(String text) {
         if (text.equals(text.toUpperCase())) {
-            return FilterType.CUSTOM;
+            return filter;
         }
         return FilterType.GOOD;
     }
 
     public int getPriority() {
-        return priority;
+        return filter.getPriority();
     }
 }
