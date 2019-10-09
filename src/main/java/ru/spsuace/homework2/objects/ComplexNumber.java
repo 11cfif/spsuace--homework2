@@ -62,8 +62,12 @@ public class ComplexNumber {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         ComplexNumber that = (ComplexNumber) object;
         return Double.compare(that.realPart, realPart) == 0 &&
                 Double.compare(that.imgPart, imgPart) == 0;
