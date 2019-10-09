@@ -17,8 +17,6 @@ public class RepeatingCharacters {
         if (str == null || str.isEmpty()) {
             return null;
         }
-        ;
-
 
         char[] array = str.toCharArray();
 
