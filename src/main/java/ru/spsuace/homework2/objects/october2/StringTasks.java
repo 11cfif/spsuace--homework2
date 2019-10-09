@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.october2;
 
+import java.util.regex.Pattern;
+
 public class StringTasks {
 
     /**
@@ -14,7 +16,46 @@ public class StringTasks {
      * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
-        return null;
+
+        if (str == null || str.isEmpty()){
+            return null;
+        }
+
+        String resulString = "";
+        int valueMinus = 0;
+        int valueE = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e') {
+                    resulString += str.charAt(i);
+            }
+        }
+
+        for (int i = 0; i < resulString.length(); i++) {
+            if (resulString.charAt(i) == '-'){
+                valueMinus++;
+            }
+            if (valueMinus > 1){
+                return null;
+            }
+            if (resulString.charAt(i) == 'e'){
+                valueE++;
+            }
+            if (valueE > 1){
+                return null;
+            }
+
+        }
+
+        if (valueE == 1 ){
+            return Float.valueOf(resulString) * (int) 1;
+        }
+
+        if (Long.valueOf(resulString) > Integer.MAX_VALUE || Long.valueOf(resulString) < Integer.MIN_VALUE){
+            return Long.valueOf(resulString);
+        }
+
+        return Integer.valueOf(resulString);
     }
 
 
