@@ -8,8 +8,12 @@ public class StringTasks {
      * Убрать все лишние символы из строки и вернуть получившееся число.
      * Разрешенные символы: цифры, '-', '.', 'e'
      * Если '.' и 'e' больше чем 1, возвращаем null
+     * Правила на '-' является валидность числа. --3 не валидно. -3e-1 валдино
      * Любой класс-обертка над примитивами наследуется от Number
-     * Можно использовать функции Double.valueOf() и другие такие же
+     * Можно использовать функции Double.valueOf() и другие такие же.
+     *
+     * Работайте со строкой, НЕ надо ее переводить в массив байт (это можно использовать только для цикла)
+     * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
 
@@ -26,6 +30,11 @@ public class StringTasks {
         for (int i = 0; i < str.length(); i++) {
             strCopy[i] = str.charAt(i);
         }
+        for (int i = 1; i < str.length(); i++) {
+            if (strCopy[i-1] == allowedSymbols[2] && strCopy[i] == allowedSymbols[0]){
+                return null;
+            }
+        }
         for (char element : strCopy) {
             for (int i = 0; i < 3; i++) {
                 if (element == allowedSymbols[i]) {
@@ -35,6 +44,10 @@ public class StringTasks {
             if (((ammountOfAllowedSybols[2] > 1) && (ammountOfAllowedSybols[0] == 0)) ||
                     ((ammountOfAllowedSybols[2] > 2) && (ammountOfAllowedSybols[0] == 1))) {
                 return null;
+            }
+            if ((ammountOfAllowedSybols[2] > 1) && (ammountOfAllowedSybols[0] == 1) &&
+                    (str.indexOf(allowedSymbols[0]) < str.indexOf(allowedSymbols[2]) ) ){
+                
             }
         }
         for (int i = 0; i < 2; i++) {
@@ -67,7 +80,8 @@ public class StringTasks {
 
 
     /**
-     * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf()
+     * Дополнительно задание
+     * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf() и new Integer и тд
      */
     public static Number valueOf(String str) {
 
