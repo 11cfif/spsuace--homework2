@@ -14,11 +14,11 @@ public enum FilterType {
 
     private final int priority;
 
-    private FilterType(int priority) {
+    FilterType(int priority) {
         this.priority = priority;
     }
 
     public int getPriority() {
-        return this.priority;
+        return priority;
     }
 }
