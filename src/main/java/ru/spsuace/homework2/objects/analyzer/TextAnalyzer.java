@@ -26,6 +26,7 @@ public interface TextAnalyzer {
         return null;
     }
 
+    FilterType Analyze(String text);
     /**
      * Дополнительное задание: придумать свой фильтр
      */

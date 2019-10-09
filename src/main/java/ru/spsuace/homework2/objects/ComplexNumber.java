@@ -37,7 +37,7 @@ public class ComplexNumber {
     }
 
     public static void main(String[] args) {
-        System.out.println(new ComplexNumber(13, -13));
+        System.out.println(new ComplexNumber( 13, -13));
     }
 
     @Override
