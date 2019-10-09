@@ -6,5 +6,6 @@ package ru.spsuace.homework2.objects.analyzer;
 public enum FilterType {
     TooLongAnalyzer,
     SpamAnalyzer,
-    NegativeTextAnalyzer
+    NegativeTextAnalyzer,
+    Good
 }
