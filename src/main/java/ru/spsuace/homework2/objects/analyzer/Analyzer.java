@@ -1,16 +1,17 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 public class Analyzer implements TextAnalyzer {
-    private String[] Spam;
-    private String[] Negativ= {"=(",":(",":|"};
+    private static String[] Spam;
+    private final static String[] Negativ = {"=(", ":(", ":|"};
     private long MaxLength;
     private final FilterType Type;
 
-    public Analyzer(FilterType type){
-        Type=type;
+    public Analyzer(FilterType type) {
+        Type = type;
     }
-    public boolean ApplyFilter(String Text){
-        switch (Type){
+
+    public boolean ApplyFilter(String Text) {
+        switch (Type) {
 
             case TooLongAnalyzer:
                 if (Text.length() > MaxLength) {
@@ -23,11 +24,11 @@ public class Analyzer implements TextAnalyzer {
                         return true;
                     }
                 }
-                    break;
+                break;
 
             case NegativeTextAnalyzer:
-                for (String mask: Negativ){
-                    if (Text.contains(mask)){
+                for (String mask : Negativ) {
+                    if (Text.contains(mask)) {
                         return true;
                     }
                 }
@@ -35,13 +36,16 @@ public class Analyzer implements TextAnalyzer {
         }
         return false;
     }
-    public void SetSpam (String[] spam){
-        Spam=spam;
+
+    public void SetSpam(String[] spam) {
+        Spam = spam;
     }
-    public FilterType GetFilterType(){
+
+    public FilterType GetFilterType() {
         return Type;
     }
-    public void SetMaxLength(long maxLength){
-        MaxLength=maxLength;
+
+    public void SetMaxLength(long maxLength) {
+        MaxLength = maxLength;
     }
 }

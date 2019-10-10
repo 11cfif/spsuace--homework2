@@ -36,7 +36,7 @@ public interface TextAnalyzer {
         return null;
     }
 
-    boolean ApplyFilter (String Text);
+    boolean ApplyFilter(String Text);
 
     FilterType GetFilterType();
 }
