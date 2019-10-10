@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-
+import java.util.logging.Filter;
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
  * анализа текста.
@@ -15,21 +15,23 @@ package ru.spsuace.homework2.objects.analyzer;
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new TooLongAnalyzer(maxLength, FilterType.TOO_LONG);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+        return new SpamAnalyzer(spam, FilterType.SPAM);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new NegativeTextAnalyzer(FilterType.NEGATIVE_TEXT);
     }
-
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
-    }
+//    static <T> TextAnalyzer createCustomAnalyzer(T something) {
+//        return null;
+//    }
+
+    FilterType analyze(String text);
+    int getPriority();
 }
