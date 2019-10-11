@@ -107,29 +107,34 @@ public class StringTasks {
     }
 
     private static long parseInteger(String str) {
+        String tempStr = str;
         long result = 0;
         int sign = 1;
-        if (str.charAt(0) == '-') {
+
+        if (tempStr.charAt(0) == '-') {
             sign = -1;
-            str = str.substring(1, str.length() - 1);
+            tempStr = tempStr.substring(1);
         }
-        for (int i = str.length() - 1; i >= 0; i--) {
-            result = result * 10 + getDigit(str, i);
+
+        for (int i = 0; i < tempStr.length(); i++) {
+            result = result * 10 + getDigit(tempStr, i);
         }
+
         result *= sign;
         return result;
     }
 
     private static double parseSimpleDouble(String str) {
+        String tempStr = str;
         double result;
         int sign = 1;
 
-        if (str.charAt(0) == '-') {
+        if (tempStr.charAt(0) == '-') {
             sign = -1;
-            str = str.substring(0, str.length() - 1);
+            tempStr = tempStr.substring(1);
         }
 
-        String[] strParts = str.split("\\.");
+        String[] strParts = tempStr.split("\\.");
         long intPart = parseInteger(strParts[0]);
         double fractionalPart = parseInteger(strParts[1]) * Math.pow(10., - strParts[1].length());
         result = sign * (intPart + fractionalPart);
