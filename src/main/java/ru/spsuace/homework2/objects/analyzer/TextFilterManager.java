@@ -41,8 +41,11 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        for (TextAnalyzer Meth : Methods) {
-            Meth.Analyze(text);
+        for (TextAnalyzer textAnalyzer : Methods) {
+            FilterType result = textAnalyzer.analyze(text);
+            if (result != FilterType.GOOD) {
+                return result;
+            }
         }
         return FilterType.GOOD;
     }

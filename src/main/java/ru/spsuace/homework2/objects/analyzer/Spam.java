@@ -1,11 +1,11 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class TooLong implements TextAnalyzer {
+public class Spam implements TextAnalyzer {
 
-    private final long maxLenght;
+    private String[] spam;
 
-    TooLong(long maxLenght) {
-        this.maxLenght = maxLenght;
+    Spam(String[] spam) {
+        this.spam = spam;
     }
 
     @Override
@@ -13,8 +13,10 @@ public class TooLong implements TextAnalyzer {
         if (text == null || text.length() == 0) {
             return FilterType.GOOD;
         }
-        if (text.length() > maxLenght) {
-            return FilterType.TOO_LONG;
+        for (String s : spam) {
+            if (text.contains(s)) {
+                return FilterType.SPAM;
+            }
         }
         return FilterType.GOOD;
     }
