@@ -11,7 +11,7 @@ public class CustomAnalyzer extends Analyzer {
 
     @Override
     public FilterType analyze(String text) {
-        if (!text.matches("\\+7?8?921?931?[0-9]{7}")) {
+        if (!text.matches("\\+7|8?921|931?[0-9]{7}")) {
             return filter;
         }
         return FilterType.GOOD;

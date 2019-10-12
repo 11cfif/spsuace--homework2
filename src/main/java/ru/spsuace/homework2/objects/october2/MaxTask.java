@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.october2;
 
-import org.graalvm.compiler.lir.StandardOp;
+//import org.graalvm.compiler.lir.StandardOp;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
