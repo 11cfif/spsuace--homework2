@@ -15,21 +15,26 @@ package ru.spsuace.homework2.objects.analyzer;
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+
+        return new ChackToLongText(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+
+        return new ChackToSpamText(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+
+        return new ChackToNegativeText();
     }
+
+    FilterType Analyzer(String text);
 
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+    static <T> TextAnalyzer createCustomAnalyzer() {
+        return new ChackToExclamationPoint();
     }
 }

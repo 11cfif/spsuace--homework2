@@ -28,19 +28,30 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public class TextFilterManager {
 
+    private final TextAnalyzer[] filtersAnalyze;
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
-
+        this.filtersAnalyze = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        if (text == null || text.length() == 0) {
+            return FilterType.GOOD;
+        }
+
+        for (TextAnalyzer textAnalyzer : filtersAnalyze) {
+            if (textAnalyzer.Analyzer(text) != FilterType.GOOD){
+                return textAnalyzer.Analyzer(text);
+            }
+        }
+        return FilterType.GOOD;
     }
 }
