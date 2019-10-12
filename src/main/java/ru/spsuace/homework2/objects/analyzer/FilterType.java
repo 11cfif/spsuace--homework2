@@ -1,7 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 /**
- * РўРёРїС‹ С„РёР»СЊС‚СЂРѕРІ
+ * Типы фильтров
  */
 public enum FilterType {
     TOO_LONG,
