@@ -28,9 +28,9 @@ public interface TextAnalyzer {
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-//    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-//        return null;
-//    }
+    static TextAnalyzer createCustomAnalyzer() {
+        return new CustomAnalyzer(FilterType.CUSTOM);
+    }
 
     FilterType analyze(String text);
     int getPriority();
