@@ -14,7 +14,7 @@ public class StringTasksTest {
         assertEquals(0, StringTasks.simpleValueOf("0"));
         assertEquals(0, StringTasks.simpleValueOf("a0"));
         assertEquals(-1, StringTasks.simpleValueOf("-a1"));
-        assertEquals(-1, StringTasks.simpleValueOf("--a1")); // в задании сказано - если '.' и 'e' больше чем 1, возвращаем null
+        assertEquals(null, StringTasks.simpleValueOf("--a1"));
         assertEquals(-12, StringTasks.simpleValueOf("-a1bsc2"));
         assertEquals(132, StringTasks.simpleValueOf("a-132a"));
         assertEquals(2147483649L, StringTasks.simpleValueOf("asddgsdf2fg1474asdfg8364asd9asd"));
@@ -35,7 +35,7 @@ public class StringTasksTest {
         assertEquals(0, StringTasks.simpleValueOf("0"));
         assertEquals(0, StringTasks.simpleValueOf("a0"));
         assertEquals(-1, StringTasks.simpleValueOf("-a1"));
-        assertEquals(-1, StringTasks.simpleValueOf("--a1"));
+        assertEquals(null, StringTasks.simpleValueOf("--a1"));
         assertEquals(-12, StringTasks.simpleValueOf("-a1bsc2"));
         assertEquals(132, StringTasks.simpleValueOf("a-132a"));
         assertEquals(2147483649L, StringTasks.simpleValueOf("asddgsdf2fg1474asdfg8364asd9asd"));
