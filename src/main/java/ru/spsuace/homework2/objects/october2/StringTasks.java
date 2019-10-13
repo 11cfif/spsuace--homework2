@@ -1,5 +1,8 @@
 package ru.spsuace.homework2.objects.october2;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringTasks {
 
     /**
@@ -18,18 +21,27 @@ public class StringTasks {
             return null;
         }
         int countDots = str.length() - str.replace(".", "").length();
-        if ((countDots) > 1 || (str.length() - str.replace("e", "").length()) > 1) {
+        int countE = str.length() - str.replace("e", "").length();
+        if (countDots > 1 || countE > 1) {
             return null;
         }
 
-        str = str.replaceAll("(?<!^)[\\-]+", "");
         str = str.replaceAll("[^0-9e\\-.]+", "");
+        Pattern pattern = Pattern.compile("(?<!^)(?<!e)[\\-]");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return null;
+        }
 
-
-        if (countDots > 0) {
+        if (countDots > 0 || countE > 0) {
             return Double.valueOf(str);
         }
-        return Integer.valueOf(str);
+        try {
+            return Integer.valueOf(str);
+        }
+        catch(NumberFormatException exception) {
+            return Long.valueOf(str);
+        }
     }
 
 
