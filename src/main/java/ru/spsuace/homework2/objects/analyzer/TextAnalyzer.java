@@ -17,12 +17,12 @@ public interface TextAnalyzer {
         return new FilterLong(maxLength);
     }
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return new FilterSpam(spam);
+        return new CombinationFilter(spam);
     }
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new FilterNegative();
+        return new CombinationFilter();
     }
-    public FilterType doFilter(String str);
+    FilterType doFilter(String str);
     /**
      * Дополнительное задание: придумать свой фильтр
      */
