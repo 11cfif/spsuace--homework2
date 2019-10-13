@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
  * анализа текста.
@@ -8,23 +7,24 @@ package ru.spsuace.homework2.objects.analyzer;
  * прием ООП, где нам не важна конкретная реализация, а важен только контракт, что результат статических методов
  * умеет как-то анализировать текст). Сами статические методы мне нужны для создания тестов,
  * что бы без реальных классов (которые вы напишите) я смог "сэмулировать" их создание.
- *
+ * <p>
  * Так же необходимо создать все необходимы методы, которые будут вам нужны для прогона текста
  * по всем фильтрам в классе TextFilterManager
  */
 public interface TextAnalyzer {
-
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new LengthFilter(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+        return new NegativeSpamFilter(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new NegativeSpamFilter();
     }
+
+    FilterType doFilter(String str);
 
     /**
      * Дополнительное задание: придумать свой фильтр
