@@ -10,7 +10,30 @@ public class StringTasks {
      * Можно использовать функции Double.valueOf() и другие такие же
      */
     public static Number simpleValueOf(String str) {
-        return null;
+        if (str == null | str == "") {
+            return null;
+        }
+        String[] strCopy = new String[str.length()];
+        String strNewLine = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            strCopy[i] = String.valueOf(str.charAt(i));
+            if (strCopy[i].matches("[-e.]*[0-9]*")) {
+                strNewLine += str.charAt(i);
+            }
+        }
+
+        if (!strNewLine.matches("-?[0-9]+")){
+            if (strNewLine.matches("-?[0-9]+\\.[0-9]+") || strNewLine.matches("-?([0-9]+\\.[0-9]+|[0-9]+)e-?[0-9]+")){
+                return Double.valueOf(strNewLine);
+            }
+            return null;
+        }
+
+        if ((Long.valueOf(strNewLine) > Integer.MAX_VALUE) || (Long.valueOf(strNewLine) < Integer.MIN_VALUE)) {
+                return Long.valueOf(strNewLine);
+        }
+        return Integer.valueOf(strNewLine);
     }
 
 
