@@ -14,21 +14,24 @@ public class StringTasks {
             return null;
         }
         str = str.replaceAll("[^0-9.e-]", "");
-        int countdot = 0;
-        int counte = 0;
-        int countmin = 0;
+        int countDot = 0;
+        int countE = 0;
+        int countMin = 0;
         char[] array = str.toCharArray();
         int length = array.length;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '.') {
-                countdot++;
+                countDot++;
             }
             if (str.charAt(i) == 'e') {
-                counte++;
+                countE++;
             }
             if (str.charAt(i) == '-') {
-                countmin++;
+                countMin++;
             }
+        }
+        if (countDot > 1 || countE > 1) {
+            return null;
         }
         for (int i = 1; i < array.length; i++) {
             if (array[i] == '-' && array[i - 1] == '-') {
@@ -43,11 +46,8 @@ public class StringTasks {
         if (str.charAt(str.length() - 1) == '-') {
             return null;
         }
-        if (countdot > 1 || counte > 1) {
-            return null;
-        }
-        if (countdot == 0 && counte == 0) {
-            if (countmin <= 1) {
+        if (countDot == 0 && countE == 0) {
+            if (countMin <= 1) {
                 Long strToLong = Long.valueOf(str);
                 if ((strToLong > Integer.MAX_VALUE) || (strToLong < Integer.MIN_VALUE)) {
                     return strToLong;

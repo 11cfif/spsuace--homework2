@@ -2,9 +2,9 @@ package ru.spsuace.homework2.objects.analyzer;
 
 public class CombinationFilter implements TextAnalyzer {
     FilterType filter;
-    public String[] badThings;
+    private String[] badThings;
     private final static String[] badEmotions = {"=(", ":(", ":|"};
-    CombinationFilter(){
+    public CombinationFilter(){
         this.filter = FilterType.NEGATIVE_TEXT;
         this.badThings = badEmotions;
     }
