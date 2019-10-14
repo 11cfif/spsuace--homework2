@@ -1,7 +1,5 @@
 package ru.spsuace.homework2.objects.october2;
 
-import java.awt.geom.Path2D;
-
 public class StringTasks {
 
     /**
@@ -19,6 +17,8 @@ public class StringTasks {
         int countdot = 0;
         int counte = 0;
         int countmin = 0;
+        char[] array = str.toCharArray();
+        int length = array.length;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '.') {
                 countdot++;
@@ -30,24 +30,36 @@ public class StringTasks {
                 countmin++;
             }
         }
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] == '-' && array[i - 1] == '-') {
+                return null;
+            }
+        }
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] == 'e' && array[i - 1] == '-') {
+                return null;
+            }
+        }
+        if (str.charAt(str.length() - 1) == '-') {
+            return null;
+        }
         if (countdot > 1 || counte > 1) {
             return null;
         }
         if (countdot == 0 && counte == 0) {
             if (countmin <= 1) {
-                if ((Long.valueOf(str) > Integer.MAX_VALUE) || (Long.valueOf(str) < Integer.MIN_VALUE)) {
-                    return Long.valueOf(str);
+                Long strToLong = Long.valueOf(str);
+                if ((strToLong > Integer.MAX_VALUE) || (strToLong < Integer.MIN_VALUE)) {
+                    return strToLong;
                 } else {
                     return Integer.valueOf(str);
                 }
-            }
-            else {
+            } else {
                 return null;
             }
         }
         return Double.valueOf(str);
     }
-
 
     /**
      * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf()
