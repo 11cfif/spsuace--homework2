@@ -48,8 +48,9 @@ public class TextFilterManager {
         }
 
         for (TextAnalyzer textAnalyzer : filtersAnalyze) {
-            if (textAnalyzer.Analyzer(text) != FilterType.GOOD){
-                return textAnalyzer.Analyzer(text);
+            FilterType answer = textAnalyzer.Analyzer(text);
+            if (answer != FilterType.GOOD) {
+                return answer;
             }
         }
         return FilterType.GOOD;

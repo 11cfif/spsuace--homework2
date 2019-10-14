@@ -4,7 +4,7 @@ public class ChackToSpamText implements TextAnalyzer {
 
     private final String[] spam;
 
-    ChackToSpamText(String[] spam) {
+    public ChackToSpamText(String[] spam) {
         this.spam = spam;
     }
 

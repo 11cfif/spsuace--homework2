@@ -4,7 +4,7 @@ public class ChackToLongText implements TextAnalyzer {
 
     private final long maximumLength;
 
-    ChackToLongText(long maxLength) {
+    public ChackToLongText(long maxLength) {
         this.maximumLength = maxLength;
     }
 
