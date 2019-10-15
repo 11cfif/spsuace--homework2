@@ -40,6 +40,7 @@ public class StringTasks {
             return null;
         }
         if (newStr.contains("e") || newStr.contains(".")){
+            int compos =1;
             return Double.parseDouble(newStr);
         } else if (Long.parseLong(newStr) > Integer.MAX_VALUE || Long.parseLong(newStr) < Integer.MIN_VALUE) {
             return Long.parseLong(newStr);
