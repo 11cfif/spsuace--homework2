@@ -18,9 +18,6 @@ public class MaxTask {
         if (count == 0){
             return maxArray;
         }
-        if (array.length == count){
-            return array;
-        }
 
             for (int i = 0; i < array.length; i++) {
                 int maxElement = array[i];

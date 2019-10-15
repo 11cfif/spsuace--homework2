@@ -1,5 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
-
+/*
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -143,3 +143,5 @@ public class TextFilterManagerTest {
 
 
 }
+
+ */
