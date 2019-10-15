@@ -39,7 +39,7 @@ public class StringTasks {
             }
             return null;
         }
-        if ((Long.valueOf(strAnswer) > Integer.MAX_VALUE) || (Long.valueOf(strAnswer) < Integer.MIN_VALUE)) {
+        if ((StrToLong(current[1], current[0]) > Integer.MAX_VALUE) || (StrToLong(current[1], current[0]) < Integer.MIN_VALUE)) {
             return StrToLong(current[1], current[0]);
         }
         return strToInt(current[1], current[0]);
@@ -126,46 +126,7 @@ public class StringTasks {
      * Тоже самое, что и выше, но нельзя пользоваться функциями valueOf() и new Integer и тд
      */
     public static Number valueOf(String str) {
-
-        if (str == null || str == "") {
-            return null;
-        }
-        String[] strCopy = new String[str.length()];
-        String strAnswer = "";
-        String[] allowedSymbols = {"e", ".", "-"};
-        int[] ammountOfAllowedSybols = new int[3];
-
-        for (int i = 0; i < str.length(); i++) {
-            strCopy[i] = String.valueOf(str.charAt(i));
-        }
-
-        for (int i = 0; i < str.length(); i++) {
-            if (strCopy[i].matches("[-e.]*[0-9]*")) {
-                strAnswer += str.charAt(i);
-            }
-        }
-        long longAnswer = 0;
-        double doubleAnswer = 0;
-        int intAnswer = 0;
-        if (strAnswer.matches("-?[0-9]+")) {
-            if (strAnswer.matches("-?[0-9]+\\.[0-9]+")) {
-                if (strAnswer.matches("-?([0-9]+\\.[0-9]+|[0-9]+)e-?[0-9]+")) {
-                    return Double.valueOf(strAnswer);
-                }
-                return null;
-            }
-
-            return null;
-        }
         return null;
-
-//        if ((Long.valueOf(strAnswer) > Integer.MAX_VALUE) || (Long.valueOf(strAnswer) < Integer.MIN_VALUE)) {
-//            return Long.valueOf(strAnswer);
-//        }
-
-//        if (strAnswer.indexOf('e') != -1) {
-//            String[] strExp = strAnswer.split("e");
-//        }
     }
 
 
