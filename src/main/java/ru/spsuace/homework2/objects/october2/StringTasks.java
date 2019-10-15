@@ -11,48 +11,43 @@ public class StringTasks {
      * Правила на '-' является валидность числа. --3 не валидно. -3e-1 валдино
      * Любой класс-обертка над примитивами наследуется от Number
      * Можно использовать функции Double.valueOf() и другие такие же.
-     *
+     * <p>
      * Работайте со строкой, НЕ надо ее переводить в массив байт (это можно использовать только для цикла)
      * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
 
-        if (str == null || str.isEmpty()){
+        if (str == null || str.isEmpty()) {
             return null;
         }
 
-        String resulString = "";
-        int valueMinus = 0;
-        int valueE = 0;
-        int valueT = 0;
+        String resultString = "";
 
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e' || str.charAt(i)=='.') {
-                    resulString += str.charAt(i);
+            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e' || str.charAt(i) == '.') {
+                resultString += str.charAt(i);
             }
         }
 
-        if (resulString.matches("-?[0-9]+")) {
-            if (Long.valueOf(resulString) > Integer.MAX_VALUE || Long.valueOf(resulString) < Integer.MIN_VALUE){
-                return Long.valueOf(resulString);
+        if (resultString.matches("-?[0-9]+")) {
+            if (Long.valueOf(resultString) > Integer.MAX_VALUE || Long.valueOf(resultString) < Integer.MIN_VALUE) {
+                return Long.valueOf(resultString);
             }
-            return Integer.valueOf(resulString);
+            return Integer.valueOf(resultString);
         }
 
-        if (resulString.matches("-?[0-9]+e-?[0-9]+")){
-            return Double.valueOf(resulString);
+        if (resultString.matches("-?[0-9]+e-?[0-9]+")) {
+            return Double.valueOf(resultString);
         }
 
-        if (resulString.matches("-?[0-9]+\\.[0-9]+e-?[0-9]+")){
-            return Double.valueOf(resulString);
+        if (resultString.matches("-?[0-9]+\\.[0-9]+e-?[0-9]+")) {
+            return Double.valueOf(resultString);
         }
 
-        if (resulString.matches("-?[0-9]+\\.[0-9]")){
-            return Double.valueOf(resulString);
+        if (resultString.matches("-?[0-9]+\\.[0-9]")) {
+            return Double.valueOf(resultString);
         }
 
-//
-//        return Integer.valueOf(resulString);
         return null;
     }
 

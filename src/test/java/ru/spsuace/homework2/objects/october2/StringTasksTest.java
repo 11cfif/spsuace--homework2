@@ -19,17 +19,17 @@ public class StringTasksTest {
         assertEquals(-2147483648, StringTasks.simpleValueOf("a-d21s474asd83648sad"));
         assertEquals(2147483649L, StringTasks.simpleValueOf("asddgsdf2fg1474asdfg8364asd9asd"));
         assertEquals(-2147483649L, StringTasks.simpleValueOf("asd-dgsdf2fg1474asdfg8364asd9asd"));
-//        assertEquals(1e2, StringTasks.simpleValueOf("1e2"));
-//        assertEquals(-1e-2, StringTasks.simpleValueOf("asd-asd1asddecvxv-dsf2fsdv"));
-//        assertEquals(1e-3, StringTasks.simpleValueOf("1e-asdsad3"));
-//        assertEquals(null, StringTasks.simpleValueOf("1-easdsad3"));
-//        assertEquals(null, StringTasks.simpleValueOf("1e--asdsad3"));
-//        assertEquals(null, StringTasks.simpleValueOf("--1easdsad3"));
-//        assertEquals(null, StringTasks.simpleValueOf("-1e-asdsad3-"));
-//        assertEquals(null, StringTasks.simpleValueOf("1easdsad3-"));
-//        assertEquals(1.2e-3, StringTasks.simpleValueOf("ccz1asd.zc2deg-h3j"));
-//        assertEquals(null, StringTasks.simpleValueOf("ccz1asd.zc2de.g-h3j"));
-//        assertEquals(1.3, StringTasks.simpleValueOf("fff1fdf.asdsad3"));
+        assertEquals(1e2, StringTasks.simpleValueOf("1e2"));
+        assertEquals(-1e-2, StringTasks.simpleValueOf("asd-asd1asddecvxv-dsf2fsdv"));
+        assertEquals(1e-3, StringTasks.simpleValueOf("1e-asdsad3"));
+        assertEquals(null, StringTasks.simpleValueOf("1-easdsad3"));
+        assertEquals(null, StringTasks.simpleValueOf("1e--asdsad3"));
+        assertEquals(null, StringTasks.simpleValueOf("--1easdsad3"));
+        assertEquals(null, StringTasks.simpleValueOf("-1e-asdsad3-"));
+        assertEquals(null, StringTasks.simpleValueOf("1easdsad3-"));
+        assertEquals(1.2e-3, StringTasks.simpleValueOf("ccz1asd.zc2deg-h3j"));
+        assertEquals(null, StringTasks.simpleValueOf("ccz1asd.zc2de.g-h3j"));
+        assertEquals(1.3, StringTasks.simpleValueOf("fff1fdf.asdsad3"));
     }
 
     @Test
