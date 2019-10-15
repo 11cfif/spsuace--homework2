@@ -2,10 +2,10 @@ package ru.spsuace.homework2.objects.analyzer;
 
 public class NegativeTextFilter extends SpamFilter implements TextAnalyzer {
 
-    private static final String[] negativeText = {"=(", ":(", ":|"};
+    private static final String[] NEGATIVETEXT = {"=(", ":(", ":|"};
 
     public NegativeTextFilter() {
-        super(negativeText);
+        super(NEGATIVETEXT);
     }
 
     @Override
