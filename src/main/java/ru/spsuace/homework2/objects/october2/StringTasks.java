@@ -10,7 +10,7 @@ public class StringTasks {
      * Можно использовать функции Double.valueOf() и другие такие же
      */
     public static Number simpleValueOf(String str) {
-        if (str == null | str == "") {
+        if (str == null || str == "") {
             return null;
         }
         String[] strCopy = new String[str.length()];
@@ -18,6 +18,9 @@ public class StringTasks {
 
         for (int i = 0; i < str.length(); i++) {
             strCopy[i] = String.valueOf(str.charAt(i));
+        }
+
+        for (int i = 0; i < str.length(); i++) {
             if (strCopy[i].matches("[-e.]*[0-9]*")) {
                 strNewLine += str.charAt(i);
             }
