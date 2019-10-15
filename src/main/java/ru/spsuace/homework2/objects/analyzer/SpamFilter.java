@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
+import java.util.Arrays;
+
 public class SpamFilter implements TextAnalyzer {
     private final String[] spam;
 
@@ -13,9 +15,18 @@ public class SpamFilter implements TextAnalyzer {
             return FilterType.GOOD;
         }
 
+        boolean check = false;
+        if (Arrays.equals(spam, new String[]{"=(", ":(", ":|"})){
+            check = true;
+        }
+
         for (String spam : spam) {
             if (text.contains(spam)) {
-                return FilterType.SPAM;
+                if (check) {
+                    return FilterType.NEGATIVE_TEXT;
+                } else {
+                    return FilterType.SPAM;
+                }
             }
         }
 

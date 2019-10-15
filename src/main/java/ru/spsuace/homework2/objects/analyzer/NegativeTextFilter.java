@@ -1,23 +1,9 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class NegativeTextFilter extends SpamFilter implements TextAnalyzer {
-
-    private static final String[] NEGATIVETEXT = {"=(", ":(", ":|"};
+public class NegativeTextFilter extends SpamFilter {
 
     public NegativeTextFilter() {
-        super(NEGATIVETEXT);
+        super(new String[]{"=(", ":(", ":|"});
     }
 
-    @Override
-    public FilterType Analyze(String text) {
-        if (text == null || text.length() == 0) {
-            return FilterType.GOOD;
-        }
-
-        if (super.Analyze(text) == FilterType.SPAM){
-            return FilterType.NEGATIVE_TEXT;
-        }
-
-        return FilterType.GOOD;
-    }
 }
