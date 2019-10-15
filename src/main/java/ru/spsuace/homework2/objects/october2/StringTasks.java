@@ -3,6 +3,7 @@ package ru.spsuace.homework2.objects.october2;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.text.NumberFormat;
 
 public class StringTasks {
 
@@ -30,17 +31,17 @@ public class StringTasks {
             res += str.substring(matcher.start(), matcher.end());
         }
         pattern = Pattern.compile("e");
-        int count = GetCount(pattern, str);
+        int count = getCount(pattern, str);
         if (count > 1) {
             return null;
         }
         pattern = Pattern.compile("\\.");
-        count = GetCount(pattern, str);
+        count = getCount(pattern, str);
         if (count > 1) {
             return null;
         }
         pattern = Pattern.compile("-");
-        count = GetCount(pattern, str);
+        count = getCount(pattern, str);
         if (count > 1) {
             if (res.toCharArray()[0] == '-' && res.toCharArray()[1] == '-') {
                 return null;
@@ -48,20 +49,20 @@ public class StringTasks {
         }
         try {
             return Integer.valueOf(res);
-        } catch (Exception e1) {
+        } catch (NumberFormatException e1) {
             try {
                 return Long.valueOf(res);
-            } catch (Exception e2) {
+            } catch (NumberFormatException e2) {
                 try {
                     return Double.valueOf(res);
-                } catch (Exception e3) {
+                } catch (NumberFormatException e3) {
                     return null;
                 }
             }
         }
     }
 
-    private static int GetCount(Pattern pattern, String str) {
+    private static int getCount(Pattern pattern, String str) {
         int count = 0;
         Matcher matcher = pattern.matcher(str);
         while (matcher.find()) {
@@ -85,24 +86,24 @@ public class StringTasks {
             res += str.substring(matcher.start(), matcher.end());
         }
         pattern = Pattern.compile("e");
-        int count = GetCount(pattern, str);
+        int count = getCount(pattern, str);
         if (count > 1) {
             return null;
         }
         pattern = Pattern.compile("\\.");
-        count = GetCount(pattern, str);
+        count = getCount(pattern, str);
         if (count > 1) {
             return null;
         }
         pattern = Pattern.compile("-");
-        count = GetCount(pattern, str);
+        count = getCount(pattern, str);
         if (count > 1) {
             if (res.toCharArray()[0] == '-' && res.toCharArray()[1] == '-') {
                 return null;
             }
         }
         try {
-            return null;
+            return NumberFormat.getInstance().parse(res);
         } catch (Exception e) {
             return null;
         }
