@@ -1,11 +1,11 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-class NegativeSpamFilter implements TextAnalyzer {
+public class NegativeSpamFilter implements TextAnalyzer {
     FilterType filter;
-    protected String[] negativeSpam;
-    private static String[] emotions = {"=(", ":(", ":|"};
+    private final String[] negativeSpam;
+    private final static String[] emotions = {"=(", ":(", ":|"};
 
-    NegativeSpamFilter() {
+    public NegativeSpamFilter() {
         this.filter = FilterType.NEGATIVE_TEXT;
         this.negativeSpam = emotions;
     }
