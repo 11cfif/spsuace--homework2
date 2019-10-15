@@ -33,14 +33,25 @@ public class TextFilterManager {
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    public TextFilterManager(TextAnalyzer[] filters) {
+    private final TextAnalyzer[] filtersAnalyze;
 
+    public TextFilterManager(TextAnalyzer[] filters) {
+        this.filtersAnalyze = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+        if (text == null || text.length() == 0) {
+            return FilterType.GOOD;
+        }
+        for (TextAnalyzer textAnalyzer : filtersAnalyze) {
+            FilterType result = textAnalyzer.processText(text);
+            if (result != FilterType.GOOD) {
+                return result;
+            }
+        }
+        return FilterType.GOOD;
     }
 }
