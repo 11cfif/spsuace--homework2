@@ -32,6 +32,7 @@ public class TextFilterManagerTest {
         assertEquals("TOO_LONG", manager.analyze("Привет, я Петя").toString());
         assertEquals("GOOD", manager.analyze("").toString());
         assertEquals("GOOD", manager.analyze(null).toString());
+        assertEquals("GOOD", manager.analyze(null).toString());
         assertEquals("TOO_LONG", manager.analyze("Скажите код из смс  ").toString());
         assertEquals("TOO_LONG", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
 

@@ -14,10 +14,9 @@ public class ToLongAnalyzer implements TextAnalyzer {
         if (text != null) {
             length = text.length();
         }
-        if(length > maxLength){
+        if (length > maxLength) {
             return FilterType.TOO_LONG;
-        }
-        else{
+        } else {
             return FilterType.GOOD;
         }
     }
