@@ -18,9 +18,9 @@ public class StringTasks {
         if (str == "" || str == null) {
             return null;
         }
-        for (int Ch = 0; Ch < newStr.length(); Ch++) {
-            if (!Character.isDigit(newStr.charAt(Ch)) && newStr.charAt(Ch) != 'e' && newStr.charAt(Ch) != '-' && newStr.charAt(Ch) != '.') {
-                newStr = newStr.replace(newStr.charAt(Ch), ' ');
+        for (int ch = 0; ch < newStr.length(); ch++) {
+            if (!Character.isDigit(newStr.charAt(ch)) && newStr.charAt(ch) != 'e' && newStr.charAt(ch) != '-' && newStr.charAt(ch) != '.') {
+                newStr = newStr.replace(newStr.charAt(ch), ' ');
             }
         }
         newStr = newStr.replaceAll("\\s+", "");

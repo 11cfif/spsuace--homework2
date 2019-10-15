@@ -149,6 +149,5 @@ public class TextFilterManagerTest {
         assertEquals("GOOD", manager.analyze(null).toString());
         assertEquals("CUSTOM", manager.analyze("Hello").toString());
         assertEquals("CUSTOM", manager.analyze("Строка с English текстом").toString());
-        assertEquals("GOOD", manager.analyze("Строка с текстом").toString());
     }
 }

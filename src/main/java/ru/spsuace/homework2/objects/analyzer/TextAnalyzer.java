@@ -28,9 +28,6 @@ public interface TextAnalyzer {
 
     FilterType analyze(String text);
 
-    /**
-     * Дополнительное задание: придумать свой фильтр
-     */
     static TextAnalyzer createCustomAnalyzer() {
         return new Custom();
     }

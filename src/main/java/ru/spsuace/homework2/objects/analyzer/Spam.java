@@ -2,9 +2,9 @@ package ru.spsuace.homework2.objects.analyzer;
 
 public class Spam implements TextAnalyzer {
 
-    private String[] spam;
+    private final String[] spam;
 
-    Spam(String[] spam) {
+    public Spam(String[] spam) {
         this.spam = spam;
     }
 

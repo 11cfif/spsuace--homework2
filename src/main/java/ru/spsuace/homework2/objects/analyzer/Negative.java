@@ -1,10 +1,8 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class Negative implements TextAnalyzer {
+public class Negative implements TextAnalyzer{
 
     private final String[] negative = new String[] {"=(", ":(", ":|"};
-
-    Negative() {}
 
     @Override
     public FilterType analyze(String text) {
