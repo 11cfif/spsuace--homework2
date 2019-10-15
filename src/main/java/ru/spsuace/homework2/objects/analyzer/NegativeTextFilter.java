@@ -4,6 +4,7 @@ public class NegativeTextFilter extends SpamFilter {
 
     public NegativeTextFilter() {
         super(new String[]{"=(", ":(", ":|"});
+        super.setNegativeCheck(true);
     }
 
 }
