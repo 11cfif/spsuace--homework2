@@ -24,6 +24,7 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     private TextAnalyzer[] filters;
+
     public TextFilterManager(TextAnalyzer[] filters) {
         this.filters = filters;
     }
@@ -32,12 +33,12 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        if(text==null){
+        if (text == null) {
             return FilterType.GOOD;
         }
-        for (TextAnalyzer filter: filters){
+        for (TextAnalyzer filter : filters) {
             FilterType result = filter.analyzeText(text);
-            if(result!=FilterType.GOOD){
+            if (result != FilterType.GOOD) {
                 return result;
             }
         }

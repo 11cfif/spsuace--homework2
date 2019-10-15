@@ -6,8 +6,8 @@ public class NegativeAnalyzer implements TextAnalyzer {
 
     @Override
     public FilterType analyzeText(String text) {
-        for(String negative: negatives){
-            if(text.contains(negative)){
+        for (String negative : negatives) {
+            if (text.contains(negative)) {
                 return FilterType.NEGATIVE_TEXT;
             }
         }
