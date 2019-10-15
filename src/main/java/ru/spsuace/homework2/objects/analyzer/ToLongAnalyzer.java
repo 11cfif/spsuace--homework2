@@ -14,7 +14,6 @@ public class ToLongAnalyzer implements TextAnalyzer {
         if (text != null) {
             length = text.length();
         }
-        System.out.println("Бля");
         if(length > maxLength){
             return FilterType.TOO_LONG;
         }
