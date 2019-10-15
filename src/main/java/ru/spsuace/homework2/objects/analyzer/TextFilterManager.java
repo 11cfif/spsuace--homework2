@@ -33,17 +33,17 @@ public class TextFilterManager {
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    private final TextAnalyzer[] Methods;
+    private final TextAnalyzer[] methods;
 
     public TextFilterManager(TextAnalyzer[] filters) {
-        this.Methods = filters;
+        this.methods = filters;
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        for (TextAnalyzer textAnalyzer : Methods) {
+        for (TextAnalyzer textAnalyzer : methods) {
             FilterType result = textAnalyzer.Analyze(text);
             if (result != FilterType.GOOD) {
                 return result;
