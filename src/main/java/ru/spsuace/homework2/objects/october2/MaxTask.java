@@ -24,7 +24,11 @@ public class MaxTask {
             return maxNumbers;
         }
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < count; i++) {
+            maxNumbers[i] = array[i];
+        }
+
+        for (int i = count; i < array.length; i++) {
             int positionMinNum = 0;
             chackMaxNum = array[i];
             for (int j = 1; j < count; j++) {
