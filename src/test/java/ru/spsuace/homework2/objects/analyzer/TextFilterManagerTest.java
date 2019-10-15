@@ -133,7 +133,7 @@ public class TextFilterManagerTest {
             assertEquals("SPAM", manager.analyze("смс пожалуйста           :|").toString());
         } else {
             assertTrue(Arrays.asList("SPAM", "TOO_LONG").contains(
-                    manager.analyze("Привет, я Петя вот мой cvv").toString()));
+                   manager.analyze("Привет, я Петя вот мой cvv").toString()));
             assertTrue(Arrays.asList("NEGATIVE_TEXT", "TOO_LONG").contains(
                     manager.analyze("Скажите Код Из Смс :(").toString()));
             assertTrue(Arrays.asList("NEGATIVE_TEXT", "TOO_LONG", "SPAM").contains(
