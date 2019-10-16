@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.collections;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,8 +34,8 @@ public class DoubleLinkedListTest {
         actualList.addLast(new TestObject("str1"));
         actualList.addLast(new TestObject("str2"));
 
-        expectedList.addLast( new TestObject("str0"));
-        expectedList.addLast( new TestObject("str1"));
+        expectedList.addLast(new TestObject("str0"));
+        expectedList.addLast(new TestObject("str1"));
         expectedList.addLast(new TestObject("str2"));
         assertEquals(expectedList.contains(new TestObject("str")), actualList.contains(new TestObject("str")));
         assertEquals(expectedList.contains(new TestObject("str1")), actualList.contains(new TestObject("str1")));
@@ -89,10 +90,9 @@ public class DoubleLinkedListTest {
         actualList.addLast(new TestObject("str1"));
         actualList.addLast(new TestObject("str2"));
 
-        expectedList.addLast( new TestObject("str0"));
-        expectedList.addLast( new TestObject("str1"));
+        expectedList.addLast(new TestObject("str0"));
+        expectedList.addLast(new TestObject("str1"));
         expectedList.addLast(new TestObject("str2"));
-
         assertList(expectedList, actualList);
     }
 
@@ -103,8 +103,8 @@ public class DoubleLinkedListTest {
         actualList.addFirst(new TestObject("str1"));
         actualList.addFirst(new TestObject("str2"));
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
 
         assertList(expectedList, actualList);
@@ -119,8 +119,8 @@ public class DoubleLinkedListTest {
         actualList.addFirst(new TestObject("str3"));
         actualList.addFirst(new TestObject("str4"));
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
         expectedList.addFirst(new TestObject("str3"));
         expectedList.addFirst(new TestObject("str4"));
@@ -146,16 +146,16 @@ public class DoubleLinkedListTest {
         actualList.addFirst(new TestObject("str2"));
         actualList.addFirst(new TestObject("str3"));
         actualList.addFirst(new TestObject("str4"));
-        actualList.set(0,new TestObject( "str2"));
-        actualList.set(4,new TestObject( "str6"));
+        actualList.set(0, new TestObject("str2"));
+        actualList.set(4, new TestObject("str6"));
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
         expectedList.addFirst(new TestObject("str3"));
         expectedList.addFirst(new TestObject("str4"));
-        expectedList.set(0,new TestObject( "str2"));
-        expectedList.set(4,new TestObject( "str6"));
+        expectedList.set(0, new TestObject("str2"));
+        expectedList.set(4, new TestObject("str6"));
 
         assertEquals(actualList.indexOf(new TestObject("str1")), expectedList.indexOf(new TestObject("str1")));
         assertEquals(actualList.indexOf(new TestObject("str0")), expectedList.indexOf(new TestObject("str0")));
@@ -178,12 +178,12 @@ public class DoubleLinkedListTest {
         actualList.set(0, new TestObject("str2"));
         actualList.set(4, new TestObject("str6"));
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
         expectedList.addFirst(new TestObject("str3"));
         expectedList.addFirst(new TestObject("str4"));
-        expectedList.set(0,new TestObject( "str2"));
+        expectedList.set(0, new TestObject("str2"));
         expectedList.set(4, new TestObject("str6"));
         assertEquals(expectedList.remove(4), actualList.remove(4));
 
@@ -206,11 +206,11 @@ public class DoubleLinkedListTest {
         actualList.addFirst(new TestObject("str3"));
         actualList.addFirst(new TestObject("str4"));
         actualList.set(0, new TestObject("str2"));
-        actualList.set(4,new TestObject( "str6"));
+        actualList.set(4, new TestObject("str6"));
         actualList.remove(4);
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
         expectedList.addFirst(new TestObject("str3"));
         expectedList.addFirst(new TestObject("str4"));
@@ -228,6 +228,8 @@ public class DoubleLinkedListTest {
         for (TestObject s : actualList) {
             actual[i++] = s;
         }
+        System.out.println(Arrays.toString(expected));
+        System.out.println(Arrays.toString(actual));
         assertArrayEquals(expected, actual);
     }
 
@@ -239,16 +241,15 @@ public class DoubleLinkedListTest {
         actualList.addFirst(new TestObject("str3"));
         actualList.addFirst(new TestObject("str4"));
         actualList.set(0, new TestObject("str2"));
-        actualList.set(4,new TestObject( "str6"));
+        actualList.set(4, new TestObject("str6"));
 
-        expectedList.addFirst( new TestObject("str0"));
-        expectedList.addFirst( new TestObject("str1"));
+        expectedList.addFirst(new TestObject("str0"));
+        expectedList.addFirst(new TestObject("str1"));
         expectedList.addFirst(new TestObject("str2"));
         expectedList.addFirst(new TestObject("str3"));
         expectedList.addFirst(new TestObject("str4"));
         expectedList.set(0, new TestObject("str2"));
         expectedList.set(4, new TestObject("str6"));
-
 
 
         int i = 0;
@@ -266,7 +267,8 @@ public class DoubleLinkedListTest {
                 it.remove();
             }
         }
-
+        System.out.println(expectedList);
+        System.out.println(actualList);
         assertList(expectedList, actualList);
     }
 
@@ -280,8 +282,8 @@ public class DoubleLinkedListTest {
 
         checkIndexExcepion(() -> actualList.add(2, new TestObject("")));
         checkIndexExcepion(() -> actualList.set(2, new TestObject("")));
-        checkIndexExcepion(() ->  actualList.get(2));
-        checkIndexExcepion(() ->  actualList.remove(2));
+        checkIndexExcepion(() -> actualList.get(2));
+        checkIndexExcepion(() -> actualList.remove(2));
     }
 
     private <T> void assertList(List<T> expected, DoubleLinkedList<T> actual) {
