@@ -17,11 +17,7 @@ public class StringTasks {
         String strNewLine = "";
 
         for (int i = 0; i < str.length(); i++) {
-            strCopy[i] = String.valueOf(str.charAt(i));
-        }
-
-        for (int i = 0; i < str.length(); i++) {
-            if (strCopy[i].matches("[-e.]*[0-9]*")) {
+            if (String.valueOf(str.charAt(i)).matches("[-e.]*[0-9]*")) {
                 strNewLine += str.charAt(i);
             }
         }
