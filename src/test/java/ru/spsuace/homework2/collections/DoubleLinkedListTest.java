@@ -228,8 +228,6 @@ public class DoubleLinkedListTest {
         for (TestObject s : actualList) {
             actual[i++] = s;
         }
-        System.out.println(Arrays.toString(expected));
-        System.out.println(Arrays.toString(actual));
         assertArrayEquals(expected, actual);
     }
 
