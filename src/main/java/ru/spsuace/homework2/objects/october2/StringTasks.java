@@ -1,4 +1,5 @@
 package ru.spsuace.homework2.objects.october2;
+import java.util.regex.*;
 
 public class StringTasks {
 
@@ -14,7 +15,32 @@ public class StringTasks {
      * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
-        return null;
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+
+        int countD = str.length() - str.replace(".", "").length();
+        int countE = str.length() - str.replace("e", "").length();
+        if (countD > 1 || countE > 1) {
+            return null;
+        }
+
+        str = str.replaceAll("[^0-9e\\-.]+", "");
+        Pattern pattern = Pattern.compile("(?<!^)(?<!e)[\\-]");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return null;
+        }
+
+        if (countD > 0 || countE > 0) {
+            return Double.valueOf(str);
+        }
+        try {
+            return Integer.valueOf(str);
+        }
+        catch(NumberFormatException exception) {
+            return Long.valueOf(str);
+        }
     }
 
 

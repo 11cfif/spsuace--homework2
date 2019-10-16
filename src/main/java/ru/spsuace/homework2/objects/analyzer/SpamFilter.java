@@ -3,14 +3,16 @@ package ru.spsuace.homework2.objects.analyzer;
 
 public class SpamFilter implements TextAnalyzer {
     private final String[] spam;
-    private boolean negativeCheck = false;
+    private final FilterType response;
 
-    public void setNegativeCheck(boolean negativeCheck) {
-        this.negativeCheck = negativeCheck;
+    protected SpamFilter(String[] spam, FilterType response) {
+        this.spam = spam;
+        this.response = response;
     }
 
     public SpamFilter(String[] spam) {
         this.spam = spam;
+        this.response = FilterType.SPAM;
     }
 
     @Override
@@ -21,11 +23,7 @@ public class SpamFilter implements TextAnalyzer {
 
         for (String spam : spam) {
             if (text.contains(spam)) {
-                if (negativeCheck) {
-                    return FilterType.NEGATIVE_TEXT;
-                } else {
-                    return FilterType.SPAM;
-                }
+                return response;
             }
         }
 
