@@ -163,14 +163,16 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private Element<T> current = header;
+            private Element<T> last = null;
 
             @Override
             public boolean hasNext() {
-                return current.next != null;
+                return current != null;
             }
 
             @Override
             public T next() throws IndexOutOfBoundsException {
+                last = current;
                 T result = current.element;
                 current = current.next;
                 return result;
@@ -178,12 +180,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
             @Override
             public void remove() {
-                if (current != null) {
-                    if (current.next != null) {
-                        current.next.prev = current.prev;
+                if (last != null) {
+                    if (last.next != null) {
+                        last.next.prev = last.prev;
                     }
-                    if (current.prev != null) {
-                        current.prev.next = current.next;
+                    if (last.prev != null) {
+                        last.prev.next = last.next;
                     }
                 }
             }
