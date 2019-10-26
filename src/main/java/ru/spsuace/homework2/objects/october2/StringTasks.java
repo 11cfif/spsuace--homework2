@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.october2;
 
+import java.util.stream.IntStream;
+
 public class StringTasks {
 
     /**
@@ -45,6 +47,7 @@ public class StringTasks {
         if (str == "" || str == null) {
             return null;
         }
+
         String newStr = str.replaceAll("[^(-?\\d+|e)]", "");
         if (!newStr.matches("^[+-]?(\\d+\\.\\d+|\\d+\\.|\\.\\d+|\\d+)([eE][+-]?\\d+)?")) {
             return null;
