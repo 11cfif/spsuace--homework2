@@ -1,7 +1,6 @@
 package ru.spsuace.homework2.collections;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * Реализовать двусвязный список, аналог LinkedList в java (то что я рассказывал на лекции)
@@ -11,12 +10,12 @@ import java.util.LinkedList;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
-    private static class ListElement<T> {
+    private static class Element<T> {
         T data;
-        ListElement<T> next, prev;
+        Element<T> next, prev;
     }
 
-    private ListElement<T> head, tail;
+    private Element<T> head, tail;
     private int count;
 
     public DoubleLinkedList() {
@@ -30,15 +29,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        if (o == null) {
-            throw new IndexOutOfBoundsException();
-        }
-        for (int i = 0; i < size(); i++) {
-            if (o.equals(get(i))) {
-                return true;
-            }
-        }
-        return false;
+        return indexOf((T) o) > -1;
     }
 
     public void clear() {
@@ -53,30 +44,28 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
         if (index == 0) {
             addFirst(element);
+        } else if (index == size()) {
+            addLast(element);
         } else {
-            ListElement<T> additionalList = new ListElement<T>();
-            additionalList = transitionToElement( index - 1);
-            ListElement<T> listElement = new ListElement<T>();
+            Element<T> additionalList = transitionToElement( index - 1);
+            Element<T> listElement = new Element<T>();
             listElement.next = additionalList.next;
-            listElement.data = element;
+            additionalList.next.prev = listElement;
             listElement.prev = additionalList;
+            listElement.data = element;
             additionalList.next = listElement;
-            if (index  == size()) {
-                tail = listElement;
-            }
             count++;
         }
     }
 
     public void addLast(T element) {
-        ListElement<T> listElement = new ListElement<T>();
+        Element<T> listElement = new Element<T>();
         listElement.data = element;
         listElement.prev = tail;
         if (size() == 0) {
             head = listElement;
             tail = listElement;
-        }
-        if (size() != 0) {
+        } else {
             tail.next = listElement;
         }
         tail = listElement;
@@ -84,7 +73,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void addFirst(T element) {
-        ListElement<T> listElement = new ListElement<T>();
+        Element<T> listElement = new Element<T>();
         listElement.data = element;
         if (size() == 0) {
             tail = listElement;
@@ -102,7 +91,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        ListElement<T> listElement = head;
+        Element<T> listElement = head;
         listElement = transitionToElement(index);
         T replaceableElement = listElement.data;
         listElement.data = element;
@@ -113,16 +102,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        ListElement<T> listElement = head;
-        for (int i = 0; i < index; i++) {
-            listElement = listElement.next;
-        }
+        Element<T> listElement = head;
+        listElement = transitionToElement(index);
         return listElement.data;
     }
 
     public int indexOf(T o) {
         int index = -1;
-        ListElement<T> listElement = head;
+        Element<T> listElement = head;
         for (int i = 0; i < size(); i++) {
             if (listElement.data.equals(o)) {
                 return i;
@@ -136,7 +123,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        ListElement<T> listElement = head;
+        Element<T> listElement = head;
         listElement =transitionToElement(index - 1);
         T removableElement = listElement.next.data;
         if (index == 0) {
@@ -153,8 +140,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return removableElement;
     }
 
-    public ListElement<T> transitionToElement(int index) {
-        ListElement<T> listElement = new ListElement<>();
+    public Element<T> transitionToElement(int index) {
+        Element<T> listElement = new Element<>();
         if (index < size()/2 + 1) {
             listElement = head;
             int i = 0;
