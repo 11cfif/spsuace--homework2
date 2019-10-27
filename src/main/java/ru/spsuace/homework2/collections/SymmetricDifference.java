@@ -21,6 +21,7 @@ public class SymmetricDifference {
         Set<T> answer = new HashSet<>(Arrays.asList());
         Set<T> set1Copy = new HashSet<>(Arrays.asList());
         Set<T> set2Copy = new HashSet<>(Arrays.asList());
+        
         set1Copy.addAll(set1);
         set2Copy.addAll(set2);
         for (T element : set1Copy) {
