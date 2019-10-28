@@ -7,7 +7,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
+import java.util.ArrayList;
+ import java.util.HashSet;
+import java.util.Stack;
+import java.util.LinkedList;
+import java.util.ArrayDeque;
 /**
  * Написать структуру данных, реализующую интерфейс мапы + набор дополнительных методов.
  * 2 дополнительных метода должны вовзращать самый популярный ключ и его популярность.
