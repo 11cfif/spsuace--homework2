@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.collections;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -11,10 +12,16 @@ import java.util.Iterator;
 public class DoubleLinkedList<T> implements Iterable<T> {
 
     public int size() {
-        return 0;
+
+        int ammount = 0;
+        for (T t : this){
+            ammount++;
+        }
+        return ammount;
     }
 
     public boolean contains(Object o) {
+
         return false;
     }
 
