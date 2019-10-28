@@ -12,10 +12,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     private static class Element<T> {
         T data;
-        Element<T> next, prev;
+        Element<T> next;
+        Element<T> prev;
     }
 
-    private Element<T> head, tail;
+    private Element<T> head;
+    private Element<T> tail;
     private int count;
 
     public DoubleLinkedList() {
@@ -41,19 +43,18 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public void add(int index, T element) {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
-        }
-        if (index == 0) {
+        } else  if (index == 0) {
             addFirst(element);
         } else if (index == size()) {
             addLast(element);
         } else {
-            Element<T> additionalList = transitionToElement( index - 1);
+            Element<T> additionalElement = transitionToElement( index - 1);
             Element<T> listElement = new Element<T>();
-            listElement.next = additionalList.next;
-            additionalList.next.prev = listElement;
-            listElement.prev = additionalList;
+            listElement.next = additionalElement.next;
+            additionalElement.next.prev = listElement;
+            listElement.prev = additionalElement;
             listElement.data = element;
-            additionalList.next = listElement;
+            additionalElement.next = listElement;
             count++;
         }
     }
@@ -77,12 +78,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         listElement.data = element;
         if (size() == 0) {
             tail = listElement;
-        }
-        if (size() != 0) {
+        } else {
             head.prev = listElement;
         }
         listElement.next = head;
-
         head = listElement;
         count++;
     }
@@ -132,6 +131,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         } else if (index == size() - 1) {
             listElement.next.data = null;
             listElement.next = null;
+            tail = listElement;
         } else {
             listElement.next = listElement.next.next;
             listElement.next.prev = listElement;
@@ -140,7 +140,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return removableElement;
     }
 
-    public Element<T> transitionToElement(int index) {
+    private Element<T> transitionToElement(int index) {
         Element<T> listElement = new Element<>();
         if (index < size()/2 + 1) {
             listElement = head;
