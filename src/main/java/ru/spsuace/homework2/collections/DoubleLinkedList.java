@@ -10,10 +10,10 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
     private int counter;
-    Node<T> firstElement;
-    Node<T> lastElement;
+    private Node<T> firstElement;
+    private Node<T> lastElement;
 
-    DoubleLinkedList() {
+    public DoubleLinkedList() {
         counter = 0;
         firstElement = null;
         lastElement = null;
@@ -80,7 +80,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             addLast(element);
             return;
         } else {
-            Node<T> oldListElement = indexElement(index);
+            Node<T> oldListElement = elementByIndex(index);
             Node<T> newListElement = new Node<T>(element, oldListElement.previousElement, oldListElement);
             oldListElement.previousElement.nextElement = newListElement;
             oldListElement.previousElement = newListElement;
@@ -90,9 +90,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public void addLast(T element) {
         if (size() == 0) {
-            firstElement = lastElement = new Node<T>(element, null, null);
-        }
-        else {
+            firstElement = new Node<T>(element, null, null);
+            lastElement = firstElement;
+        } else {
             Node<T> listElement = lastElement;
             lastElement = new Node<T>(element, listElement, null);
             listElement.nextElement = lastElement;
@@ -104,8 +104,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public void addFirst(T element) {
         if (size() == 0) {
             firstElement = lastElement = new Node<T>(element, null, null);
-        }
-        else {
+        } else {
             Node<T> listElement = firstElement;
             firstElement = new Node<T>(element, null, listElement);
             listElement.previousElement = firstElement;
@@ -113,14 +112,18 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         counter++;
     }
 
-    private Node<T> indexElement(int index) {
-        Node<T> indexElement = firstElement;
-        int i = 0;
-        while (i < index) {
-            if(indexElement.nextElement != null) {
+    private Node<T> elementByIndex(int index) {
+        Node<T> indexElement;
+        if (index < size()/2) {
+            indexElement = firstElement;
+            for (int i = 0; i < index; i++) {
                 indexElement = indexElement.nextElement;
             }
-            i++;
+        } else {
+            indexElement = lastElement;
+            for (int i = size() - 1; i > index; i--) {
+                indexElement = indexElement.previousElement;
+            }
         }
         return indexElement;
     }
@@ -130,7 +133,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
         }
 
-        Node<T> listElement = indexElement(index);
+        Node<T> listElement = elementByIndex(index);
         T oldVal = listElement.element;
         listElement.element = element;
         return oldVal;
@@ -140,7 +143,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
         }
-        return indexElement(index).element;
+        return elementByIndex(index).element;
     }
 
     public int indexOf(T o) {
@@ -160,7 +163,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
         }
 
-        Node<T> nodeToRemove = indexElement(index);
+        Node<T> nodeToRemove = elementByIndex(index);
         if (index == 0) {
             firstElement = firstElement.nextElement;
             firstElement.previousElement = null;
