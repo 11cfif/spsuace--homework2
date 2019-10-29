@@ -1,12 +1,7 @@
 package ru.spsuace.homework2.collections;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 
 /**
@@ -65,15 +60,8 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        count(key);
+        count(key, keysMap);
         return map.containsKey(key);
-    }
-
-    private void count(Object obj) {
-        if (!keysMap.containsKey(obj)) {
-        } else {
-            keysMap.put((K)obj, (int) keysMap.get(obj) + 1);
-        }
     }
 
     @Override
@@ -145,18 +133,6 @@ public class PopularMap<K, V> implements Map<K, V> {
         }
     }
 
-    public <T> T countMostPopular(Map<T, Integer> map) {
-        T mostPopular = null;
-        int count = 0;
-        for (Map.Entry<T, Integer> entry : map.entrySet()) {
-            if (entry.getValue() >= count) {
-                mostPopular = entry.getKey();
-                count = entry.getValue();
-            }
-        }
-        return mostPopular;
-    }
-
 
     /**
      * Возвращает самый популярный, на данный момент, ключ
@@ -165,12 +141,14 @@ public class PopularMap<K, V> implements Map<K, V> {
         return countMostPopular(keysMap);
     }
 
-
     /**
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        return keysMap.get(key);
+        if (keysMap.get(key) != null) {
+            return keysMap.get(key);
+        }
+        return 0;
     }
 
     /**
@@ -181,13 +159,28 @@ public class PopularMap<K, V> implements Map<K, V> {
         return countMostPopular(valuesMap);
     }
 
+    public <T> T countMostPopular(Map<T, Integer> map) {
+        T mostPopular = null;
+        int count = 0;
+        for (Entry <T, Integer> entry : map.entrySet()) {
+                if (entry.getValue() >= count) {
+                    mostPopular = entry.getKey();
+                    count = entry.getValue();
+                }
+        }
+        return mostPopular;
+    }
+
     /**
      * Дополнительное задание (1 балл)
      * Возвращает количество использований значений в методах: containsValue, get, put (учитывается 2 раза, если
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
     public int getValuePopularity(V value) {
-        return valuesMap.get(value);
+        if (valuesMap.get(value) != null) {
+            return valuesMap.get(value);
+        }
+        return 0;
     }
 
     /**
@@ -197,4 +190,5 @@ public class PopularMap<K, V> implements Map<K, V> {
     public Iterator<V> popularIterator() {
         return null;
     }
+
 }
