@@ -9,8 +9,8 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-    private LinksAndData first;
-    private LinksAndData last;
+    private Data first;
+    private Data last;
     private int count;
 
     public int size() {
@@ -18,7 +18,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        return (indexOf((T) o) != -1) ? true : false;
+        return (indexOf((T) o) != -1);
     }
 
     public void clear() {
@@ -36,8 +36,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         } else if (index == 0) {
             addFirst(element);
         } else {
-            LinksAndData<T> newElement = new LinksAndData(element);
-            LinksAndData<T> currentElement = findElement(index);
+            Data<T> newElement = new Data(element);
+            Data<T> currentElement = findElement(index);
             currentElement.previous.next = newElement;
             newElement.previous = currentElement.previous;
             currentElement.previous = newElement;
@@ -47,7 +47,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void addLast(T element) {
-        LinksAndData<T> newElement = new LinksAndData(element);
+        Data<T> newElement = new Data(element);
         if (last == null) {
             first = newElement;
             last = newElement;
@@ -60,7 +60,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void addFirst(T element) {
-        LinksAndData<T> newElement = new LinksAndData(element);
+        Data<T> newElement = new Data(element);
         if (first == null) {
             first = newElement;
             last = newElement;
@@ -76,7 +76,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        LinksAndData<T> currentElement = findElement(index);
+        Data<T> currentElement = findElement(index);
         T currentData = currentElement.data;
         currentElement.data = element;
 
@@ -87,12 +87,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        LinksAndData<T> currentElement = findElement(index);
+        Data<T> currentElement = findElement(index);
         return currentElement.data;
     }
 
     public int indexOf(T o) {
-        LinksAndData<T> currentElement = first;
+        Data<T> currentElement = first;
         for (int i = 0; i < count; i++) {
             if (currentElement.data.equals(o)) {
                 return i;
@@ -106,7 +106,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        LinksAndData<T> currentElement = findElement(index);
+        Data<T> currentElement = findElement(index);
         T currentData = currentElement.data;
         if (index == count - 1) {
             currentElement.previous.next = null;
@@ -122,8 +122,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return currentData;
     }
 
-    private LinksAndData<T> findElement(int index) {
-        LinksAndData<T> currentElement;
+    private Data<T> findElement(int index) {
+        Data<T> currentElement;
         if (index < (count / 2)) {
             currentElement = first;
             for (int i = 0; i < index; i++) {
@@ -138,12 +138,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return currentElement;
     }
 
-    private class LinksAndData<T> {
-        private LinksAndData<T> previous;
+    private class Data<T> {
+        private Data<T> previous;
         private T data;
-        private LinksAndData<T> next;
+        private Data<T> next;
 
-        LinksAndData(T data) {
+        Data(T data) {
             this.data = data;
         }
     }

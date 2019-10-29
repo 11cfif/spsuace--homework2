@@ -40,8 +40,8 @@ import java.util.Set;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
-    private Map<K, Integer> keysMap = new HashMap<>();
-    private Map<V, Integer> valuesMap = new HashMap<>();
+    private final Map<K, Integer> keysMap = new HashMap<>();
+    private final Map<V, Integer> valuesMap = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
