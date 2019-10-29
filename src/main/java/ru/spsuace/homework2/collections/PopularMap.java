@@ -120,16 +120,16 @@ public class PopularMap<K, V> implements Map<K, V> {
         return map.entrySet();
     }
 
-    private void count(Object type, Map map){
+    public <T> void count(Object type, Map<T, Integer> map){
         if (type == null) {
             return;
         }
         if (map.containsKey(type)) {
             int temp = (int) map.get(type);
             temp++;
-            map.put(type, temp);
+            map.put((T) type, temp);
         } else {
-            map.put(type, 1);
+            map.put((T) type, 1);
         }
     }
 
