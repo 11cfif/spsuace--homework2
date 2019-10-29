@@ -14,11 +14,12 @@ public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
 
-        Set<T> set3 = new HashSet<T>(set1);
-        set3.addAll(set2);
-        Set<T> set4=new HashSet<T>(set1);
-        set4.retainAll(set2);
-        set3.removeAll(set4);
-        return set3;
+        Set<T> answer = new HashSet<T>(set1);
+        answer.addAll(set2);
+        Set<T> retainTemp=new HashSet<T>(set1);
+        retainTemp.retainAll(set2);
+        answer.removeAll(retainTemp);
+        return answer;
+
     }
 }
