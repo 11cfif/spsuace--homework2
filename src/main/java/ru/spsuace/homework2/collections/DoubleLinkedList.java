@@ -9,48 +9,174 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
+    private int counter;
+    Node<T> firstElement;
+    Node<T> lastElement;
+
+    DoubleLinkedList() {
+        counter = 0;
+        firstElement = null;
+        lastElement = null;
+    }
+
+    private static class Node<E> {
+        E element;
+        Node<E> previousElement;
+        Node<E> nextElement;
+
+        Node(E element, Node<E> previousElement, Node<E> nextElement) {
+            this.element = element;
+            this.previousElement = previousElement;
+            this.nextElement = nextElement;
+        }
+
+        public Node<E> getPreviousElement() {
+            return previousElement;
+        }
+
+        public Node<E> getNextElement() {
+            return nextElement;
+        }
+
+        public E getElement() {
+            return element;
+        }
+
+        public void setPreviousElement(Node<E> previousElement) {
+            this.previousElement = previousElement;
+        }
+
+        public void setNextElement(Node<E> nextElement) {
+            this.nextElement = nextElement;
+        }
+
+        public void setElement(E element) {
+            this.element = element;
+        }
+    }
 
     public int size() {
-        return 0;
+        return counter;
     }
 
     public boolean contains(Object o) {
-        return false;
+
+        return indexOf((T) o) != -1;
     }
 
     public void clear() {
-
+        counter = 0;
+        firstElement = null;
+        lastElement = null;
     }
 
     public void add(int index, T element) {
-
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
+        } else if (index == 0) {
+            addFirst(element);
+            return;
+        } else if (index == size()) {
+            addLast(element);
+            return;
+        } else {
+            Node<T> oldListElement = indexElement(index);
+            Node<T> newListElement = new Node<T>(element, oldListElement.previousElement, oldListElement);
+            oldListElement.previousElement.nextElement = newListElement;
+            oldListElement.previousElement = newListElement;
+        }
+        counter++;
     }
 
     public void addLast(T element) {
-
+        if (size() == 0) {
+            firstElement = lastElement = new Node<T>(element, null, null);
+        }
+        else {
+            Node<T> listElement = lastElement;
+            lastElement = new Node<T>(element, listElement, null);
+            listElement.nextElement = lastElement;
+        }
+        counter++;
     }
 
 
     public void addFirst(T element) {
-
+        if (size() == 0) {
+            firstElement = lastElement = new Node<T>(element, null, null);
+        }
+        else {
+            Node<T> listElement = firstElement;
+            firstElement = new Node<T>(element, null, listElement);
+            listElement.previousElement = firstElement;
+        }
+        counter++;
     }
 
+    private Node<T> indexElement(int index) {
+        Node<T> indexElement = firstElement;
+        int i = 0;
+        while (i < index) {
+            if(indexElement.nextElement != null) {
+                indexElement = indexElement.nextElement;
+            }
+            i++;
+        }
+        return indexElement;
+    }
 
     public T set(int index, T element) {
-        return null;
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
+        }
+
+        Node<T> listElement = indexElement(index);
+        T oldVal = listElement.element;
+        listElement.element = element;
+        return oldVal;
     }
 
     public T get(int index) {
-        return null;
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
+        }
+        return indexElement(index).element;
     }
 
     public int indexOf(T o) {
-        return -1;
+        int index = -1;
+        Node<T> listElement = firstElement;
+        for (int i = 0; i < size(); i++) {
+            if (listElement.element.equals(o)) {
+                return i;
+            }
+            listElement = listElement.nextElement;
+        }
+        return index;
     }
 
     public T remove(int index) {
-        return null;
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Your index: " + index + ". " + "Size of list: " + size());
+        }
+
+        Node<T> nodeToRemove = indexElement(index);
+        if (index == 0) {
+            firstElement = firstElement.nextElement;
+            firstElement.previousElement = null;
+        } else if (index == size() - 1) {
+            lastElement = lastElement.previousElement;
+            lastElement.nextElement = null;
+        } else {
+            Node<T> beforeRemoveElement = nodeToRemove.previousElement;
+            Node<T> afterRemoveElement = nodeToRemove.nextElement;
+            beforeRemoveElement.nextElement = afterRemoveElement;
+            afterRemoveElement.previousElement = beforeRemoveElement;
+        }
+        counter--;
+        return nodeToRemove.element;
     }
+
 
     /**
      * Дополнительное задание
