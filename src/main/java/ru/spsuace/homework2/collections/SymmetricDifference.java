@@ -11,7 +11,10 @@ import java.util.Set;
  */
 public class SymmetricDifference {
 
-    public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
+    public static <T> Set<T> symmetricDifference(Set <? extends T> set1, Set<? extends T> set2) {
+        for(T element : set1){
+
+        }
         return null;
     }
 }

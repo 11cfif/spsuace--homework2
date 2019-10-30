@@ -170,11 +170,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
 
-
     /**
      * Дополнительное задание
      */
-    private class MyIterator implements Iterator<T>{
+    private class MyIterator implements Iterator<T> {
         private Element<T> current = header;
         private Element<T> last = null;
 
@@ -188,7 +187,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             last = current;
             T result = current.element;
             current = current.next;
-            return result;        }
+            return result;
+        }
 
         @Override
         public void remove() {
