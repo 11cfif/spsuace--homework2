@@ -1,7 +1,6 @@
 package ru.spsuace.homework2.collections;
 
 
-
 import javax.xml.crypto.Data;
 import java.util.Iterator;
 
@@ -13,9 +12,10 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-        private int N;
-        private Data head;
-        private Data tail;
+    private int N;
+    private Data head;
+    private Data tail;
+
     private class Data<T> {
         private Data<T> previous;
         private T data;
@@ -25,6 +25,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             this.data = data;
         }
     }
+
     private Data<T> findElement(int index) {
         Data<T> currentElement;
         if (index < (N / 2)) {
@@ -46,17 +47,17 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        return (indexOf((T)o)!=-1);
+        return (indexOf((T) o) != -1);
     }
 
     public void clear() {
-        head=null;
-        tail=null;
-        N=0;
+        head = null;
+        tail = null;
+        N = 0;
     }
 
     public void add(int index, T element) {
-        if((index>N)||(index<0)){
+        if ((index > N) || (index < 0)) {
             throw new IndexOutOfBoundsException();
         }
         if (index == N) {
