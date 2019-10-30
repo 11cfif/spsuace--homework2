@@ -98,13 +98,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public void addFirst(T element) {
         Node<T> listElement = new Node<T>();
         listElement.data = element;
-        if (size() == 0) {
+        if (first == null) {
             first = listElement;
+            last = listElement;
         } else {
             last.prev = listElement;
+            listElement.next = last;
+            last = listElement;
         }
-        listElement.next = last;
-        last = listElement;
         counter++;
     }
 
