@@ -1,7 +1,6 @@
 package ru.spsuace.homework2.collections;
 
 
-import javax.xml.crypto.Data;
 import java.util.Iterator;
 
 
@@ -12,7 +11,7 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-    private int N;
+    private int count;
     private Data head;
     private Data tail;
 
@@ -28,14 +27,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     private Data<T> findElement(int index) {
         Data<T> currentElement;
-        if (index < (N / 2)) {
+        if (index < (count / 2)) {
             currentElement = tail;
             for (int i = 0; i < index; i++) {
                 currentElement = currentElement.next;
             }
         } else {
             currentElement = head;
-            for (int i = N - 1; i > index; i--) {
+            for (int i = count - 1; i > index; i--) {
                 currentElement = currentElement.previous;
             }
         }
@@ -43,7 +42,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public int size() {
-        return N;
+        return count;
     }
 
     public boolean contains(Object o) {
@@ -53,14 +52,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public void clear() {
         head = null;
         tail = null;
-        N = 0;
+        count = 0;
     }
 
     public void add(int index, T element) {
-        if ((index > N) || (index < 0)) {
+        if ((index > count) || (index < 0)) {
             throw new IndexOutOfBoundsException();
         }
-        if (index == N) {
+        if (index == count) {
             addLast(element);
         } else if (index == 0) {
             addFirst(element);
@@ -71,7 +70,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             newElement.previous = currentElement.previous;
             currentElement.previous = newElement;
             newElement.next = currentElement;
-            N++;
+            count++;
         }
     }
 
@@ -85,7 +84,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             newElement.previous = head;
             head = newElement;
         }
-        N++;
+        count++;
 
     }
 
@@ -100,12 +99,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             newElement.next = tail;
             tail = newElement;
         }
-        N++;
+        count++;
     }
 
 
     public T set(int index, T element) {
-        if (index >= N || index < 0) {
+        if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Data<T> currentElement = findElement(index);
@@ -116,7 +115,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index >= N || index < 0) {
+        if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Data<T> currentElement = findElement(index);
@@ -125,7 +124,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public int indexOf(T o) {
         Data<T> currentElement = tail;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < count; i++) {
             if (currentElement.data.equals(o)) {
                 return i;
             }
@@ -135,12 +134,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T remove(int index) {
-        if (index >= N || index < 0) {
+        if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Data<T> currentElement = findElement(index);
         T currentData = currentElement.data;
-        if (index == N - 1) {
+        if (index == count - 1) {
             currentElement.previous.next = null;
             head = currentElement.previous;
         } else if (index == 0) {
@@ -150,7 +149,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             currentElement.previous.next = currentElement.next;
             currentElement.next.previous = currentElement.previous;
         }
-        N--;
+        count--;
         return currentData;
     }
 
