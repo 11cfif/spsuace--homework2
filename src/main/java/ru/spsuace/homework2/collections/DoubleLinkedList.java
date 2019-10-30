@@ -63,14 +63,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     private Node<T> transitionToElement(int index) {
         Node<T> listElement = new Node<>();
         if (index < size() / 2 + 1) {
-            listElement = last;
+            listElement = first;
             int i = 0;
             while (i < index) {
                 listElement = listElement.next;
                 i++;
             }
         } else {
-            listElement = first;
+            listElement = last;
             int i = 0;
             while (i < size() - index - 1) {
                 listElement = listElement.prev;
@@ -83,14 +83,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public void addLast(T element) {
         Node<T> listElement = new Node<T>();
         listElement.data = element;
-        listElement.prev = first;
+        listElement.prev = last;
         if (size() == 0) {
             last = listElement;
             first = listElement;
         } else {
-            first.next = listElement;
+            last.next = listElement;
         }
-        first = listElement;
+        last = listElement;
         counter++;
     }
 
@@ -102,9 +102,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             first = listElement;
             last = listElement;
         } else {
-            last.prev = listElement;
-            listElement.next = last;
-            last = listElement;
+            first.prev = listElement;
+            listElement.next = first;
+            first = listElement;
         }
         counter++;
     }
@@ -132,7 +132,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public int indexOf(T o) {
         int index = -1;
-        Node<T> listElement = last;
+        Node<T> listElement = first;
         for (int i = 0; i < size(); i++) {
             if (listElement.data.equals(o)) {
                 return i;
@@ -146,16 +146,16 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        Node<T> listElement = last;
+        Node<T> listElement = first;
         listElement =transitionToElement(index - 1);
         T removableElement = (T) listElement.next.data;
         if (index == 0) {
             removableElement = listElement.data;
-            last = listElement.next;
+            first = listElement.next;
         } else if (index == size() - 1) {
             listElement.next.data = null;
             listElement.next = null;
-            first = listElement;
+            last = listElement;
         } else {
             listElement.next = listElement.next.next;
             listElement.next.prev = listElement;
