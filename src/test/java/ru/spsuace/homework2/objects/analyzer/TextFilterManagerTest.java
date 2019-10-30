@@ -1,5 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
-/*
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -20,9 +20,14 @@ public class TextFilterManagerTest {
     }
 
     @Test
-    public void analyzeOnlyLongFilter() {
+    public void mytest(){
         TextFilterManager manager = new TextFilterManager(new TextAnalyzer[]{TextAnalyzer.createTooLongAnalyzer(19)});
         assertEquals("GOOD", manager.analyze("Привет, я Петя :(").toString());
+    }
+    @Test
+    public void analyzeOnlyLongFilter() {
+        TextFilterManager manager = new TextFilterManager(new TextAnalyzer[]{TextAnalyzer.createTooLongAnalyzer(19)});
+       // assertEquals("GOOD", manager.analyze("Привет, я Петя :(").toString());
         assertEquals("GOOD", manager.analyze("").toString());
         assertEquals("GOOD", manager.analyze(null).toString());
         assertEquals("TOO_LONG", manager.analyze("Скажите код из смс  ").toString());
@@ -144,4 +149,3 @@ public class TextFilterManagerTest {
 
 }
 
- */

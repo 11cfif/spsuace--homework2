@@ -25,6 +25,8 @@ public class StringTasksTest {
         assertEquals(1.2e-3, StringTasks.simpleValueOf("ccz1asd.zc2deg-h3j"));
         assertEquals(null, StringTasks.simpleValueOf("ccz1asd.zc2de.g-h3j"));
         assertEquals(1.3, StringTasks.simpleValueOf("fff1fdf.asdsad3"));
+        System.out.println(Integer.MIN_VALUE);
+
     }
 
     @Test

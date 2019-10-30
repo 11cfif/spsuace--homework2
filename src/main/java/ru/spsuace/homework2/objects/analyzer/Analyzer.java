@@ -6,4 +6,7 @@ public abstract class Analyzer implements TextAnalyzer {
     public Analyzer(FilterType filter){
         this.filter = filter;
     }
+
+    protected Analyzer() {
+    }
 }

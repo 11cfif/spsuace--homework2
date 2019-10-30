@@ -287,7 +287,7 @@ public class DoubleLinkedListTest {
     private <T> void assertList(List<T> expected, DoubleLinkedList<T> actual) {
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
-            assertEquals(expected.get(i), actual.get(i));
+            assertEquals("i=" + i, expected.get(i), actual.get(i));
         }
         try {
             actual.get(expected.size());

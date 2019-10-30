@@ -16,7 +16,7 @@ public interface TextAnalyzer {
 
     final String[] negativeText = {"=(", ":(", ":|"} ;
 
-    static TextAnalyzer createTooLongAnalyzer(long maxLength) { return new tooLongFilter(maxLength, FilterType.TOO_LONG); }
+    static TextAnalyzer createTooLongAnalyzer(long maxLength) { return new TooLongFilter(maxLength); }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) { return new SpamFilter(spam, FilterType.SPAM); }
 

@@ -1,17 +1,16 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class tooLongFilter extends Analyzer {
+public class TooLongFilter extends Analyzer {
 
     private final long maxLength;
 
-    public tooLongFilter(long maxLength, FilterType filter) {
-        super(filter);
+    public TooLongFilter(long maxLength) {
         this.maxLength = maxLength;
     }
 
     public FilterType analyze(String text) {
         if (text.length() > maxLength){
-            return filter;
+            return FilterType.TOO_LONG;
         }
         return FilterType.GOOD;
     }
