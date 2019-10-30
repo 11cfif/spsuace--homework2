@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.collections;
 
 import java.util.Set;
+import java.util.HashSet;
 
 
 /**
@@ -12,6 +13,11 @@ import java.util.Set;
 public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
-        return null;
+        HashSet<T> set1Unique = new HashSet<>(set1);
+        HashSet<T> set2Unique = new HashSet<>(set2);
+        set1Unique.removeAll(set2);
+        set2Unique.removeAll(set1);
+        set1Unique.addAll(set2Unique);
+        return set1Unique;
     }
 }
