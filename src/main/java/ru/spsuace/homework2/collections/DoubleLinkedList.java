@@ -30,29 +30,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             this.nextElement = nextElement;
         }
 
-        public Node<E> getPreviousElement() {
-            return previousElement;
-        }
-
-        public Node<E> getNextElement() {
-            return nextElement;
-        }
-
-        public E getElement() {
-            return element;
-        }
-
-        public void setPreviousElement(Node<E> previousElement) {
-            this.previousElement = previousElement;
-        }
-
-        public void setNextElement(Node<E> nextElement) {
-            this.nextElement = nextElement;
-        }
-
-        public void setElement(E element) {
-            this.element = element;
-        }
     }
 
     public int size() {
@@ -114,7 +91,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     private Node<T> elementByIndex(int index) {
         Node<T> indexElement;
-        if (index < size()/2) {
+        if (index < size() / 2) {
             indexElement = firstElement;
             for (int i = 0; i < index; i++) {
                 indexElement = indexElement.nextElement;
