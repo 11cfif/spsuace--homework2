@@ -13,7 +13,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     private class Node<T> {
         private Node next;
         private Node prev;
-        T data;
+        private T data;
     }
 
     private Node<T> last;
@@ -31,10 +31,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        if (indexOf((T) o) != -1) {
-            return true;
-        }
-        return false;
+        return (indexOf((T) o) != -1);
     }
 
     public void clear() {
@@ -65,7 +62,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     private Node<T> transitionToElement(int index) {
         Node<T> listElement = new Node<>();
-        if (index < size()/2 + 1) {
+        if (index < size() / 2 + 1) {
             listElement = last;
             int i = 0;
             while (i < index) {
