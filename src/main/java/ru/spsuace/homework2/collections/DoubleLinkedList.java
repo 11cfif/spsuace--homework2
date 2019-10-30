@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.collections;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.Iterator;
 
 /**
@@ -11,13 +10,16 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
+    private int size = 0;
     private Element<T> header;
+    private Element<T> tail;
 
     DoubleLinkedList() {
         header = null;
+        tail = null;
     }
 
-    private static class Element<E> {
+    private class Element<E> {
         Element(E element) {
             this.element = element;
         }
@@ -43,12 +45,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
+        size = 0;
         header = null;
+        tail = null;
     }
 
     public void add(int index, T element) {
-        int size = size();
-        if (index > size() || index < 0) {
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         if (index == size) {
@@ -57,15 +60,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             if (index == 0) {
                 addFirst(element);
             } else {
-                Element<T> current = header;
-                for (int i = 0; i < index - 1; i++) {
-                    current = current.next;
-                }
+                Element<T> current = getElement(index - 1);
                 Element<T> newElement = new Element<>(element);
                 newElement.next = current.next;
                 newElement.next.prev = newElement;
                 current.next = newElement;
                 newElement.prev = current;
+                size++;
             }
         }
     }
@@ -74,12 +75,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Element<T> current = header;
         if (current == null) {
             header = new Element<>(element);
+            tail = header;
         } else {
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = new Element<>(element);
+            tail.next = new Element<>(element);
+            tail.next.prev = tail;
+            tail = tail.next;
         }
+        size++;
     }
 
 
@@ -87,29 +89,28 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         Element<T> newHeader = new Element<>(element);
         if (header == null) {
             header = newHeader;
+            tail = header;
         } else {
             header.prev = newHeader;
             newHeader.next = header;
             header = newHeader;
         }
+        size++;
     }
 
 
     public T set(int index, T element) {
-        if (index < 0 || index >= size()) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        Element<T> current = header;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Element<T> current = getElement(index);
         T value = current.element;
         current.element = element;
         return value;
     }
 
     public T get(int index) {
-        if (index < 0 || index > size() - 1) {
+        if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
         }
         Element<T> current = header;
@@ -122,7 +123,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public int indexOf(T o) {
         Element<T> current = header;
         if (current != null) {
-            for (int i = 0; i < size(); i++) {
+            for (int i = 0; i < size; i++) {
                 if (current.element.equals(o)) {
                     return i;
                 }
@@ -132,8 +133,23 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return -1;
     }
 
+    private Element<T> getElement(int index) {
+        Element<T> current;
+        if (index <= size / 2) {
+            current = header;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        } else {
+            current = tail;
+            for (int i = size - 1; i > index; i--) {
+                current = current.prev;
+            }
+        }
+        return current;
+    }
+
     public T remove(int index) {
-        int size = size();
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -141,10 +157,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             header = header.next;
             header.prev = null;
         }
-        Element<T> current = header;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Element<T> current = getElement(index);
 
         if (current.next != null) {
             current.next.prev = current.prev;
@@ -152,54 +165,47 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (current.prev != null) {
             current.prev.next = current.next;
         }
-
+        size--;
         return current.element;
     }
+
+
 
     /**
      * Дополнительное задание
      */
-    @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Element<T> current = header;
-            private Element<T> last = null;
+    private class MyIterator implements Iterator<T>{
+        private Element<T> current = header;
+        private Element<T> last = null;
 
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
 
-            @Override
-            public T next() throws IndexOutOfBoundsException {
-                last = current;
-                T result = current.element;
-                current = current.next;
-                return result;
-            }
+        @Override
+        public T next() {
+            last = current;
+            T result = current.element;
+            current = current.next;
+            return result;        }
 
-            @Override
-            public void remove() {
-                if (last != null) {
-                    if (last.next != null) {
-                        last.next.prev = last.prev;
-                    }
-                    if (last.prev != null) {
-                        last.prev.next = last.next;
-                    }
+        @Override
+        public void remove() {
+            if (last != null) {
+                if (last.next != null) {
+                    last.next.prev = last.prev;
                 }
+                if (last.prev != null) {
+                    last.prev.next = last.next;
+                }
+                size--;
             }
-        };
+        }
     }
 
     @Override
-    public String toString() {
-        Element<T> current = header;
-        StringBuilder string = new StringBuilder("list: ");
-        while (current != null) {
-            string.append(current.element).append(" ");
-            current = current.next;
-        }
-        return string.toString();
+    public Iterator<T> iterator() {
+        return new MyIterator();
     }
 }

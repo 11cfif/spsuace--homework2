@@ -265,8 +265,6 @@ public class DoubleLinkedListTest {
                 it.remove();
             }
         }
-        System.out.println(expectedList);
-        System.out.println(actualList);
         assertList(expectedList, actualList);
     }
 
