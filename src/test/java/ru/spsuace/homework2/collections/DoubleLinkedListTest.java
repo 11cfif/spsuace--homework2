@@ -84,7 +84,6 @@ public class DoubleLinkedListTest {
 
     @Test
     public void addLast() {
-
         actualList.addLast(new TestObject("str0"));
         actualList.addLast(new TestObject("str1"));
         actualList.addLast(new TestObject("str2"));

@@ -18,12 +18,12 @@ public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
 
-        Set<T> answer = new HashSet<>();
+
         Set<T> set1Copy = new HashSet<>(set1);
         Set<T> set2Copy = new HashSet<>(set2);
         set2Copy.removeAll(set1);
         set1Copy.removeAll(set2);
-        answer.addAll(set1Copy);
+        Set<T> answer = new HashSet<>(set1Copy);
         answer.addAll(set2Copy);
         return answer;
     }
