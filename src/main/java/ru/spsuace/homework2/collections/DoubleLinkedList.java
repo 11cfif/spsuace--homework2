@@ -1,5 +1,5 @@
 package ru.spsuace.homework2.collections;
-
+import java.util.LinkedList;
 import java.util.Iterator;
 
 /**
@@ -9,48 +9,134 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-
-    public int size() {
-        return 0;
+    private static class List<T> {
+        T data;
+        List next, prev;
     }
-
+    private List head, tail;
+    private int count;
+    public DoubleLinkedList() {
+        count = 0;
+        head = null;
+        tail = null;
+    }
+    public int size() {
+        return count;
+    }
     public boolean contains(Object o) {
+        for (int i = 0; i < size(); i++) {
+            if (o.equals(get(i))) {
+                return true;
+            }
+        }
         return false;
     }
-
     public void clear() {
-
+        head = null;
+        tail = null;
+        count = 0;
     }
-
     public void add(int index, T element) {
-
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+        }
+        if (index == 0) {
+            addFirst(element);
+        } else {
+            int i = 0;
+            List<T> additionalList = head;
+            while (i < index - 1) {
+                additionalList = additionalList.next;
+                i++;
+            }
+            List<T> list = new List<T>();
+            list.next = additionalList.next;
+            list.data = element;
+            list.prev = additionalList;
+            additionalList.next = list;
+            count++;
+        }
     }
-
     public void addLast(T element) {
-
+        List<T> list = new List<T>();
+        list.data = element;
+        list.prev = tail;
+        if (count == 0) {
+            head = list;
+        }
+        if (count != 0) {
+            tail.next = list;
+        }
+        tail = list;
+        count++;
     }
-
-
     public void addFirst(T element) {
-
+        List<T> list = new List<T>();
+        list.data = element;
+        list.next = head;
+        head = list;
+        count++;
     }
-
-
     public T set(int index, T element) {
-        return null;
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+        }
+        int i = 0;
+        List<T> list = head;
+        while (i < index) {
+            list = list.next;
+            i++;
+        }
+        T replaceableElement = list.data;
+        list.data = element;
+        return replaceableElement;
     }
-
     public T get(int index) {
-        return null;
-    }
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+        }
+        List<T> list = head;
+        for (int i = 0; i < index; i++) {
 
+            list = list.next;
+        }
+        return list.data;
+    }
     public int indexOf(T o) {
-        return -1;
+        int index = -1;
+        List<T> list = head;
+        for (int i = 0; i < count; i++) {
+            if (list.data.equals(o)) {
+                return i;
+            }
+            list = list.next;
+        }
+        return index;
+    }
+    public T remove(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+        }
+        int i = 0;
+        List<T> list = head;
+        while (i < index - 1) {
+            list = list.next;
+            i++;
+        }
+        T removableElement = (T) list.next.data;
+        if (index == 0) {
+            removableElement = list.data;
+            head = list.next;
+        } else if (index == count - 1) {
+            list.next.data = null;
+            list.next = null;
+        } else {
+            list.next = list.next.next;
+        }
+        count--;
+        return removableElement;
     }
 
-    public T remove(int index) {
-        return null;
-    }
 
     /**
      * Дополнительное задание
