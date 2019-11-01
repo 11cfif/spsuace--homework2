@@ -9,11 +9,11 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
-    private static class List<T> {
+    private static class Component<T> {
         T data;
-        List<T> next, prev;
+        Component<T> next, prev;
     }
-    private List head, tail;
+    private Component head, tail;
     private int count;
     public DoubleLinkedList() {
         count = 0;
@@ -44,12 +44,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             addFirst(element);
         } else {
             int i = 0;
-            List<T> additionalList = head;
+            Component<T> additionalList = head;
             while (i < index - 1) {
                 additionalList = additionalList.next;
                 i++;
             }
-            List<T> list = new List<T>();
+            Component<T> list = new Component<T>();
             list.next = additionalList.next;
             list.data = element;
             list.prev = additionalList;
@@ -58,7 +58,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
     }
     public void addLast(T element) {
-        List<T> list = new List<T>();
+        Component<T> list = new Component<T>();
         list.data = element;
         list.prev = tail;
         if (count == 0) {
@@ -71,7 +71,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         count++;
     }
     public void addFirst(T element) {
-        List<T> list = new List<T>();
+        Component<T> list = new Component<T>();
         list.data = element;
         list.next = head;
         head = list;
@@ -82,7 +82,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
         int i = 0;
-        List<T> list = head;
+        Component<T> list = head;
         while (i < index) {
             list = list.next;
             i++;
@@ -95,7 +95,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        List<T> list = head;
+        Component<T> list = head;
         for (int i = 0; i < index; i++) {
 
             list = list.next;
@@ -104,7 +104,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
     public int indexOf(T o) {
         int index = -1;
-        List<T> list = head;
+        Component<T> list = head;
         for (int i = 0; i < count; i++) {
             if (list.data.equals(o)) {
                 return i;
@@ -118,7 +118,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
         int i = 0;
-        List<T> list = head;
+        Component<T> list = head;
         while (i < index - 1) {
             list = list.next;
             i++;
