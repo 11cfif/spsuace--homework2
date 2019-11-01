@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class DoubleLinkedList<T> implements Iterable<T> {
     private static class List<T> {
         T data;
-        List next, prev;
+        List<T> next, prev;
     }
     private List head, tail;
     private int count;
