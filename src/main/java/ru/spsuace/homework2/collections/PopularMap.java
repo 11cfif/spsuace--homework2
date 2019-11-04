@@ -39,108 +39,78 @@ import java.util.*;
  * @param <K> - тип ключа
  * @param <V> - тип значения
  */
-public class PopularMap<K, V> implements Map<K, V>
-{
+public class PopularMap<K, V> implements Map<K, V> {
     private final Map<K, V> map;
     private Map<K, Integer> keysMap = new HashMap<>();
     private Map<V, Integer> valuesMap = new HashMap<>();
 
-    public PopularMap()
-    {
+    public PopularMap() {
         this.map = new HashMap<>();
     }
-
-    public PopularMap(Map<K, V> map)
-    {
+    public PopularMap(Map<K, V> map) {
         this.map = map;
     }
-
     @Override
-    public int size()
-    {
+    public int size() {
         return map.size();
     }
-
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return map.isEmpty();
     }
-
     @Override
-    public boolean containsKey(Object key)
-    {
+    public boolean containsKey(Object key) {
         count(key, keysMap);
         return map.containsKey(key);
     }
-
     @Override
-    public boolean containsValue(Object value)
-    {
+    public boolean containsValue(Object value) {
         count(value, valuesMap);
         return map.containsValue(value);
     }
-
     @Override
-    public V get(Object key)
-    {
+    public V get(Object key) {
         V value = map.get(key);
         count(key, keysMap);
         count(value, valuesMap);
         return value;
     }
-
     @Override
-    public V put(K key, V value)
-    {
+    public V put(K key, V value) {
         V previousValue = map.put(key, value);
         count(key, keysMap);
         count(previousValue, valuesMap);
         count(value, valuesMap);
         return previousValue;
     }
-
     @Override
-    public V remove(Object key)
-    {
+    public V remove(Object key) {
         V value = map.remove(key);
         count(key, keysMap);
         count(value, valuesMap);
         return value;
     }
-
     @Override
-    public void putAll(Map<? extends K, ? extends V> m)
-    {
+    public void putAll(Map<? extends K, ? extends V> m) {
         map.putAll(m);
     }
-
     @Override
-    public void clear()
-    {
+    public void clear() {
         map.clear();
     }
-
     @Override
-    public Set<K> keySet()
-    {
+    public Set<K> keySet() {
         return map.keySet();
     }
-
     @Override
-    public Collection<V> values()
-    {
+    public Collection<V> values() {
         return map.values();
     }
-
     @Override
-    public Set<Entry<K, V>> entrySet()
-    {
+    public Set<Entry<K, V>> entrySet() {
         return map.entrySet();
     }
-
-    private void count(Object type, Map map)
-    {
+    private void count(Object type, Map map) {
         if (type == null) {
             return;
         }
@@ -160,10 +130,8 @@ public class PopularMap<K, V> implements Map<K, V>
     /**
      * Возвращает количество использование ключа
      */
-    public int getKeyPopularity(K key)
-    {
-        if (keysMap.get(key) != null)
-        {
+    public int getKeyPopularity(K key) {
+        if (keysMap.get(key) != null) {
             return keysMap.get(key);
         }
         return 0;
@@ -173,19 +141,14 @@ public class PopularMap<K, V> implements Map<K, V>
      * Дополнительное задание (1 балл)
      * Возвращает самое популярное, на данный момент, значение. Надо учесть что значени может быть более одного
      */
-    public V getPopularValue()
-    {
+    public V getPopularValue() {
         return countMostPopular(valuesMap);
     }
-
-    public <T> T countMostPopular(Map<T, Integer> map)
-    {
+    public <T> T countMostPopular(Map<T, Integer> map) {
         T mostPopular = null;
         int count = 0;
-        for (Entry <T, Integer> entry : map.entrySet())
-        {
-            if (entry.getValue() >= count)
-            {
+        for (Entry <T, Integer> entry : map.entrySet()) {
+            if (entry.getValue() >= count) {
                 mostPopular = entry.getKey();
                 count = entry.getValue();
             }
@@ -198,10 +161,8 @@ public class PopularMap<K, V> implements Map<K, V>
      * Возвращает количество использований значений в методах: containsValue, get, put (учитывается 2 раза, если
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
-    public int getValuePopularity(V value)
-    {
-        if (valuesMap.get(value) != null)
-        {
+    public int getValuePopularity(V value) {
+        if (valuesMap.get(value) != null) {
             return valuesMap.get(value);
         }
         return 0;

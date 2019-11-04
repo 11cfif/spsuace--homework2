@@ -11,9 +11,7 @@ import java.util.HashSet;
  *
  */
 public class SymmetricDifference {
-
-    public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2)
-    {
+    public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
         HashSet<T> collectionResult = new HashSet<>(set2);
         HashSet<T> collectionRemove = new HashSet<>(set2);
         collectionResult.addAll(set1);
