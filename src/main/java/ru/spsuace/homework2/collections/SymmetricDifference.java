@@ -1,8 +1,7 @@
 package ru.spsuace.homework2.collections;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
-
 
 /**
  * Реализуйте симметричную разность двух множеств: https://ru.wikipedia.org/wiki/Симметрическая_разность
@@ -12,31 +11,11 @@ import java.util.Set;
 public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
-        Set<T> result = new java.util.HashSet<>(Collections.emptySet());
-        for (T elementSet1 : set1) {
-            boolean repeat = false;
-            for (T elementSet2 : set2) {
-                if (elementSet1 == elementSet2) {
-                    repeat = true;
-                    break;
-                }
-            }
-            if (!repeat) {
-                result.add(elementSet1);
-            }
-        }
-        for (T elementSet2 : set2) {
-            boolean repeat = false;
-            for (T elementSet1 : set1) {
-                if (elementSet2 == elementSet1) {
-                    repeat = true;
-                    break;
-                }
-            }
-            if (!repeat) {
-                result.add(elementSet2);
-            }
-        }
-        return result;
+        Set<T> result1 = new HashSet<>(set1);
+        result1.removeAll(set2);
+        Set<T> result2 = new HashSet<>(set2);
+        result2.removeAll(set1);
+        result1.addAll(result2);
+        return result1;
     }
 }
