@@ -1,5 +1,5 @@
 package ru.spsuace.homework2.collections;
-import java.util.LinkedList;
+
 import java.util.Iterator;
 
 /**
@@ -11,9 +11,11 @@ import java.util.Iterator;
 public class DoubleLinkedList<T> implements Iterable<T> {
     private static class Component<T> {
         T data;
-        Component<T> next, prev;
+        Component<T> next;
+        Component<T> prev;
     }
-    private Component head, tail;
+    private Component<T> head;
+    private Component<T> tail;
     private int count;
     public DoubleLinkedList() {
         count = 0;
@@ -24,92 +26,83 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return count;
     }
     public boolean contains(Object o) {
-        for (int i = 0; i < size(); i++) {
-            if (o.equals(get(i))) {
-                return true;
+                return indexOf((T) o) > -1;
             }
-        }
-        return false;
-    }
+
     public void clear() {
         head = null;
         tail = null;
         count = 0;
     }
-    public void add(int index, T element) {
+    public void add(int index, T component) {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
-        }
-        if (index == 0) {
-            addFirst(element);
+        }else if (index==0){
+            addFirst(component);
+        } else if (index==size()) {
+            addLast(component);
         } else {
-            int i = 0;
-            Component<T> additionalList = head;
-            while (i < index - 1) {
-                additionalList = additionalList.next;
-                i++;
-            }
-            Component<T> list = new Component<T>();
-            list.next = additionalList.next;
-            list.data = element;
-            list.prev = additionalList;
-            additionalList.next = list;
+            Component<T> additionalComponent = transitionToComponent( index-1);
+           Component<T> listComponent = new Component<T>();
+            listComponent.next = additionalComponent.next;
+            additionalComponent.next.prev=listComponent;
+            listComponent.prev = additionalComponent;
+            listComponent.data = component;
+            additionalComponent.next=listComponent;
             count++;
         }
     }
-    public void addLast(T element) {
-        Component<T> list = new Component<T>();
-        list.data = element;
-        list.prev = tail;
-        if (count == 0) {
-            head = list;
+    public void addLast(T component) {
+        Component<T> listComponent = new Component<T>();
+        listComponent.data = component;
+        listComponent.prev = tail;
+        if (size() == 0) {
+            head = listComponent;
+            tail=listComponent;
+        } else {
+            tail.next = listComponent;
         }
-        if (count != 0) {
-            tail.next = list;
-        }
-        tail = list;
+        tail = listComponent;
         count++;
     }
-    public void addFirst(T element) {
-        Component<T> list = new Component<T>();
-        list.data = element;
-        list.next = head;
-        head = list;
+    public void addFirst(T component) {
+        Component<T> listComponent = new Component<T>();
+        listComponent.data = component;
+        if (size()==0){
+            tail=listComponent;
+        } else {
+            head.prev=listComponent;
+        }
+        listComponent.next=head;
+        head=listComponent;
         count++;
     }
-    public T set(int index, T element) {
+    public T set(int index, T component) {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        int i = 0;
-        Component<T> list = head;
-        while (i < index) {
-            list = list.next;
-            i++;
-        }
-        T replaceableElement = list.data;
-        list.data = element;
-        return replaceableElement;
+        Component<T> listComponent=head;
+        listComponent=transitionToComponent(index);
+        T replaceableComponent=listComponent.data;
+        listComponent.data=component;
+        return replaceableComponent;
     }
     public T get(int index) {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        Component<T> list = head;
-        for (int i = 0; i < index; i++) {
-
-            list = list.next;
-        }
-        return list.data;
+        Component<T> listComponent = head;
+       listComponent=transitionToComponent(index);
+       return listComponent.data;
     }
     public int indexOf(T o) {
         int index = -1;
-        Component<T> list = head;
-        for (int i = 0; i < count; i++) {
-            if (list.data.equals(o)) {
+        Component<T> listComponent = head;
+        for (int i = 0; i < size(); i++) {
+            if (listComponent.data.equals(o)) {
                 return i;
             }
-            list = list.next;
+            listComponent = listComponent.next;
         }
         return index;
     }
@@ -117,25 +110,45 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
-        int i = 0;
-        Component<T> list = head;
-        while (i < index - 1) {
-            list = list.next;
-            i++;
-        }
-        T removableElement = (T) list.next.data;
+        Component<T> listComponent = head;
+        listComponent=transitionToComponent(index-1);
+        T removableComponent=listComponent.next.data;
+
         if (index == 0) {
-            removableElement = list.data;
-            head = list.next;
-        } else if (index == count - 1) {
-            list.next.data = null;
-            list.next = null;
+            removableComponent = listComponent.data;
+            head = listComponent.next;
+        } else if (index == size() - 1) {
+            listComponent.next.data = null;
+            listComponent.next = null;
+            tail=listComponent;
         } else {
-            list.next = list.next.next;
+            listComponent.next = listComponent.next.next;
+            listComponent.next.prev=listComponent;
         }
         count--;
-        return removableElement;
+        return removableComponent;
     }
+    private Component<T> transitionToComponent(int index){
+        Component<T> listComponent=new Component<>();
+        if (index<size()/2+1){
+            listComponent=head;
+            int i=0;
+            while(i<index){
+                listComponent=listComponent.next;
+                i++;
+            }
+        } else {
+            listComponent=tail;
+            int i=0;
+            while (i < size() - index - 1) {
+                listComponent = listComponent.prev;
+                i++;
+            }
+        }
+        return listComponent;
+    }
+
+
 
 
     /**
