@@ -162,6 +162,9 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
+        if (mapKey.get(key) == null){
+            return 0;
+        }
         return mapKey.get(key);
     }
 
