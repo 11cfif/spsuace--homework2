@@ -13,16 +13,14 @@ import java.util.Set;
 public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
-        HashSet<T> resultSet = new HashSet<>(set1);
+        HashSet<T> resultSetFirstHalf = new HashSet<>(set1);
+        resultSetFirstHalf.removeAll(set2);
 
-        for (T element: set2) {
-            if (resultSet.contains(element)) {
-                resultSet.remove(element);
-            } else {
-                resultSet.add(element);
-            }
-        }
+        HashSet<T> resultSetSecondHalf = new HashSet<>(set2);
+        resultSetSecondHalf.removeAll(set1);
 
+        HashSet<T> resultSet = new HashSet<>(resultSetFirstHalf);
+        resultSet.addAll(resultSetSecondHalf);
         return resultSet;
     }
 }
