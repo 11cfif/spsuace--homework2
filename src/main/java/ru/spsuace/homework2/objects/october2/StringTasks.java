@@ -14,6 +14,7 @@ public class StringTasks {
      * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
+
         return null;
     }
 
