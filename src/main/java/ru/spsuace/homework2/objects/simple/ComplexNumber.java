@@ -7,4 +7,53 @@ package ru.spsuace.homework2.objects.simple;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-}
+    private final double real;
+    private final double imaginary;
+
+    public ComplexNumber(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public double getReal() {
+        return this.real;
+    }
+
+    public double getImaginary() {
+        return this.imaginary;
+    }
+
+    public double module() {
+        return Math.abs(Math.pow(this.real, 2) + Math.pow(this.imaginary, 2));
+    }
+
+    public double argument() {
+        if (this.real == 0 && this.imaginary > 0) {
+            return Math.PI / 2;
+        } else if (this.real == 0 && this.imaginary <= 0) {
+            return -Math.PI / 2;
+        } else if (this.real > 0) {
+            return Math.atan2(this.imaginary, this.real);
+        } else if (this.imaginary >= 0) {
+            return Math.PI + Math.atan2(this.imaginary, this.real);
+        } else {
+            return -Math.PI + Math.atan2(this.imaginary, this.real);
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (this.imaginary < 0) {
+            return this.real + "-" + Math.abs(this.imaginary) + "i";
+        } else {
+            return this.real + "+" + Math.abs(this.imaginary) + "i";
+        }
+    }
+
+    public boolean equals(ComplexNumber number) {
+        return this.equals(number);
+    }
+
+    public int hashCode() {
+        return this.hashCode();
+    }
