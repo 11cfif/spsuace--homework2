@@ -14,8 +14,21 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        return null;
+        Arrays.sort(array);
+        int[] result= new int [count];
+        if (count==0){
+            return new int[0];
+        }
+        if (count > array.length){
+            return null;
+        }
+
+        for (int i = array.length-1; i >-1; i--){
+            result[i]=  array[i];
+        }
+        return result;
     }
+
 
     /**
      * Вам дан массив и количество элементов в возвращаемом массиве
