@@ -11,23 +11,28 @@ public class MaxTask {
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      * Можно пользоваться Arrays.sort(arr), эта функция сортирует входящий массив
-     *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
         Arrays.sort(array);
-        int[] result= new int [count];
-        if (count==0){
+        int[] result = new int[count];
+        if (count == 0) {
             return new int[0];
         }
-        if (count > array.length){
+        if (count > array.length) {
             return null;
         }
+        int j=0;
+        for (int i = array.length - 1; i >= array.length - count; i--) {
+        result[j++] = array[i];
 
-        for (int i = array.length-1; i >-1; i--){
-            result[i]=  array[i];
-        }
-        return result;
+        //for (int i = 0; i < count; i++){
+        //result[i] = array[array.length--];
+
+        //for (array.length >array.length-count; array.length--){
+        //   result[array.length]=  array[array.length];
     }
+        return result;
+}
 
 
     /**
@@ -37,7 +42,6 @@ public class MaxTask {
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      * Нельзя пользоваться Arrays.sort
-     *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
         return null;
