@@ -21,18 +21,12 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        int j=0;
+        int j = 0;
         for (int i = array.length - 1; i >= array.length - count; i--) {
-        result[j++] = array[i];
-
-        //for (int i = 0; i < count; i++){
-        //result[i] = array[array.length--];
-
-        //for (array.length >array.length-count; array.length--){
-        //   result[array.length]=  array[array.length];
-    }
+            result[j++] = array[i];
+        }
         return result;
-}
+    }
 
 
     /**
@@ -44,7 +38,31 @@ public class MaxTask {
      * Нельзя пользоваться Arrays.sort
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        return null;
+        int[] result1 = new int[count];
+        if (count == 0) {
+            return new int[0];
+        }
+        if (count > array.length) {
+            return null;
+        }
+        boolean sorted = true;
+        int buf = 0;
+        for (int j = 0; j < array.length; j++) {
+            for (int i = 0; i < array.length - 1; i++) {
+                sorted = true;
+                if (array[i] < array[i + 1]) {
+                    buf = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = buf;
+                    buf = 0;
+                }
+            }
+        }
+        for (int i = 0; i < count; i++) {
+            result1[i] = array[i];
+        }
+        return result1;
+
     }
 
 }
