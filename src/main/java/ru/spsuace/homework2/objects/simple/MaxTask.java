@@ -54,7 +54,7 @@ public class MaxTask {
             }
         }
         int[] arrayFinal = new int[count];
-        if (count ==0) {
+        if (count == 0) {
             return arrayFinal;
         }
         for (int i = 0; i < count; i++) {
