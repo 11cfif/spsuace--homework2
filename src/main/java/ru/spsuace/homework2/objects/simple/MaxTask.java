@@ -14,16 +14,18 @@ public class MaxTask {
      * Можно пользоваться Arrays.sort(arr), эта функция сортирует входящий массив
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        if (array.length < count) {
+        int[] tempArray = array;
+
+        if (tempArray.length < count) {
             return null;
         }
         int[] finalArray = new int[count];
         if (count == 0) {
             return finalArray;
         }
-        Arrays.sort(array);
+        Arrays.sort(tempArray);
         for (int i = 0; i < count; i++) {
-            finalArray[i] = array[array.length - i - 1];
+            finalArray[i] = tempArray[tempArray.length - i - 1];
         }
         return finalArray;
     }
@@ -37,32 +39,34 @@ public class MaxTask {
      * Нельзя пользоваться Arrays.sort
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        if (array.length < count) {
+        int[] tempArray = array;
+        if (tempArray.length < count) {
             return null;
         }
 
         int[] finalArray = new int[count];
+
         if (count == 0) {
             return finalArray;
         }
 
-        for (int i = 0; i < array.length; i++) {
-            int min = array[i];
+        for (int i = 0; i < tempArray.length; i++) {
+            int min = tempArray[i];
             int min_i = i;
-            for (int j = i+1; j < array.length; j++) {
-                if (array[j] < min){
-                    min = array[j];
-                    min_i =j;
+            for (int j = i + 1; j < tempArray.length; j++) {
+                if (tempArray[j] < min) {
+                    min = tempArray[j];
+                    min_i = j;
                 }
             }
-            if (i != min_i){
-                int temp = array[i];
-                array[i] = array[min_i];
-                array[min_i] = temp;
+            if (i != min_i) {
+                int temp = tempArray[i];
+                tempArray[i] = tempArray[min_i];
+                tempArray[min_i] = temp;
             }
         }
         for (int i = 0; i < count; i++) {
-            finalArray[i] = array[array.length - i - 1];
+            finalArray[i] = tempArray[tempArray.length - i - 1];
         }
         return finalArray;
     }
