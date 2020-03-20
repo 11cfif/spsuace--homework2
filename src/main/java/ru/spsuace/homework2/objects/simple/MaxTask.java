@@ -43,12 +43,13 @@ public class MaxTask {
         }
         int tmp;
         for (int tmp2 = 1; tmp2 < arrayI.length - 1; tmp2++) {
-            for (int i = 1; i < arrayI.length - tmp2; i++)
+            for (int i = 1; i < arrayI.length - tmp2; i++) {
                 if (array[i] > array[i + 1]) {
                     tmp = arrayI[i];
                     arrayI[i] = arrayI[i + 1];
                     arrayI[i + 1] = tmp;
                 }
+            }
         }
         int lastElement = arrayI.length - 1;
         int[] arrayII = new int[count];
