@@ -40,10 +40,11 @@ public class ComplexNumber {
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
-        ComplexNumber number = new ComplexNumber(number1.real+number2.real,  number1.complex +number2.complex);
+        ComplexNumber number = new ComplexNumber(number1.real + number2.real, number1.complex + number2.complex);
         return number;
     }
-    public double module(){
+
+    public double module() {
         return Math.abs(Math.pow(real, 2) + Math.pow(complex, 2));
     }
 
