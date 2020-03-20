@@ -12,15 +12,34 @@ import java.util.Objects;
  */
 public class RepeatingCharacters {
 
-    public static Pair<Character, Integer> getMaxRepeatingCharacters(String str) {
-        return new Pair<>('s', 4);
+    public static couple<Character, Integer> getMaxRepeatingCharacters(String str) {
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+        char symbol = str.charAt(0);
+        int number = 1;
+        int max = 1;
+
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == str.charAt(i + 1)) {
+                number++;
+                if (number > max) {
+                    symbol = str.charAt(i);
+                    max = number;
+                }
+            } else {
+                number = 1;
+            }
+        }
+
+        return new couple<>(symbol, max);
     }
 
-    public static class Pair<T, V> {
+    public static class couple<T, V> {
         private final T first;
         private final V second;
 
-        public Pair(T first, V second) {
+        public couple(T first, V second) {
             this.first = first;
             this.second = second;
         }
@@ -41,8 +60,8 @@ public class RepeatingCharacters {
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
-            Pair<?, ?> pair = (Pair<?, ?>) o;
-            return Objects.equals(first, pair.first) && Objects.equals(second, pair.second);
+            couple<?, ?> couple = (couple<?, ?>) o;
+            return Objects.equals(first, couple.first) && Objects.equals(second, couple.second);
         }
 
     }
