@@ -7,4 +7,5 @@ package ru.spsuace.homework2.objects.simple;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
+    
 }
