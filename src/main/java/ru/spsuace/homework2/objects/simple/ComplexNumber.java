@@ -22,6 +22,11 @@ public class ComplexNumber {
         return imag;
     }
 
+    private String sign() {
+        if (real > 0) return " + ";
+        else return " - ";
+    }
+
     public double module() {
         return Math.abs(Math.pow(real, 2) + Math.pow(imag, 2));
     }
