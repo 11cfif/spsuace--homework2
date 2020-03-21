@@ -7,15 +7,15 @@ package ru.spsuace.homework2.objects.simple;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-    private int complex;
-    private int real;
+    private final int complex;
+    private final int real;
 
-    public ComplexNumber(int valid, int complex) {
+    public ComplexNumber(int real, int complex) {
         this.complex = complex;
-        this.real = valid;
+        this.real = real;
     }
 
-    public int getValid() {
+    public int getReal() {
         return real;
     }
 
@@ -23,25 +23,24 @@ public class ComplexNumber {
         return complex;
     }
 
-    public void setComplex(int complex) {
-        this.complex = complex;
-    }
-
-    public void setValid(int valid) {
-        this.real = valid;
+    public int hashCode() {
+        return this.hashCode();
     }
 
     public String toString() {
-        return this.real + this.complex + "*i";
+        if (this.complex < 0) {
+            return this.real + "-" + Math.abs(this.complex) + "i";
+        } else {
+            return this.real + "+" + Math.abs(this.complex) + "i";
+        }
     }
 
     public boolean equals(ComplexNumber number) {
-        return (this.complex == number.complex) & (this.real == number.real);
+        return (this.complex == number.complex) && (this.real == number.real);
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
-        ComplexNumber number = new ComplexNumber(number1.real + number2.real, number1.complex + number2.complex);
-        return number;
+        return new ComplexNumber(number1.real + number2.real, number1.complex + number2.complex);
     }
 
     public double module() {
