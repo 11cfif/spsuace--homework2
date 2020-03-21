@@ -1,7 +1,5 @@
 package ru.spsuace.homework2.objects.simple;
 
-import java.sql.SQLOutput;
-
 /**
  * Опишите иммутабельное комплексное число, с геттерами и методами toString()
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap
@@ -10,81 +8,70 @@ import java.sql.SQLOutput;
  */
 
 public class ComplexNumber {
-    private final double imZ;
-    private final double reZ;
+    private final double im;
+    private final double re;
 
-    public ComplexNumber(double reZ, double imZ) {
-        this.imZ = imZ;
-        this.reZ = reZ;
+    public ComplexNumber(double re, double im) {
+        this.im = im;
+        this.re = re;
     }
 
-    public double getReZ() {
-        return reZ;
+    public double getRe() {
+        return re;
     }
 
-    public double getImZ() {
-        return imZ;
+    public double getIm() {
+        return im;
     }
 
-    private double getModule() {
-        return Math.sqrt(Math.pow(this.reZ, 2) + Math.pow(this.imZ, 2));
+    public double getModule() {
+        return Math.sqrt(Math.pow(this.re, 2) + Math.pow(this.im, 2));
     }
 
-    public static ComplexNumber sum(ComplexNumber comp_num1, ComplexNumber comp_num2) {
-        return new ComplexNumber(comp_num1.getReZ() + comp_num2.getReZ(), comp_num1.getImZ() + comp_num2.getImZ());
+    public static ComplexNumber sum(ComplexNumber z1, ComplexNumber z2) {
+        return new ComplexNumber(z1.getRe() + z2.getRe(), z1.getIm() + z2.getIm());
     }
 
-    private double GetArg() {
-        if (this.reZ > 0) {
-            return Math.atan(imZ / reZ);
+    public double getArg() {
+        if (this.re > 0) {
+            return Math.atan(im / re);
         } else {
-            if (reZ < 0 && imZ > 0) {
-                return Math.PI + Math.atan(imZ / reZ);
+            if (re < 0 && im > 0) {
+                return Math.PI + Math.atan(im / re);
             } else {
-                return -Math.PI + Math.atan(imZ / reZ);
+                return -Math.PI + Math.atan(im / re);
             }
         }
     }
 
-    public static ComplexNumber pow(ComplexNumber comp_num, int power) {
-        double factor = Math.pow(comp_num.getModule(), power);
-        return new ComplexNumber(factor * Math.cos(power * comp_num.GetArg()), factor * Math.sin(power * comp_num.GetArg()));
+    public static ComplexNumber pow(ComplexNumber z, int power) {
+        double factor = Math.pow(z.getModule(), power);
+        return new ComplexNumber(factor * Math.cos(power * z.getArg()), factor * Math.sin(power * z.getArg()));
     }
 
     private String sign() {
-        if (imZ > 0) return " + ";
-        else return " - ";
+        if (im > 0) {
+            return " + ";
+        } else {
+            return " - ";
+        }
     }
 
     public String toString() {
         String string;
-        if (imZ == 1 || imZ == -1) {
-            if (reZ == 0) {
+        if (im == 1 || im == -1) {
+            if (re == 0) {
                 string = sign() + "i";
             } else {
-                string = reZ + sign() + "i";
+                string = re + sign() + "i";
             }
         } else {
-            string = reZ + sign() + Math.abs(imZ) + "i";
+            string = re + sign() + Math.abs(im) + "i";
         }
         return string;
     }
 
     public boolean equals(ComplexNumber number) {
-        return this.getClass() == number.getClass();
-    }
-
-    public static void main(String[] args) {
-        ComplexNumber x = new ComplexNumber(2, 3);
-        ComplexNumber y = new ComplexNumber(-1, 2);
-        System.out.println("z1 = " + x + ",     z2 = " + y);
-
-        ComplexNumber z;
-
-        z = ComplexNumber.sum(x, y);
-        System.out.println("+ : " + z);
-
-        z = ComplexNumber.pow(y, 2);
-        System.out.println("Pow 2 of z2 : " + z);
+        return (this.im == number.im) & (this.re == number.re);
     }
 }

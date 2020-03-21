@@ -14,7 +14,7 @@ public class MaxTask {
      * Можно пользоваться Arrays.sort(arr), эта функция сортирует входящий массив
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        int[] tempArray = array;
+        int[] tempArray = Arrays.copyOf(array, array.length);
 
         if (tempArray.length < count) {
             return null;
@@ -39,7 +39,7 @@ public class MaxTask {
      * Нельзя пользоваться Arrays.sort
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        int[] tempArray = array;
+        int[] tempArray = Arrays.copyOf(array, array.length);
         if (tempArray.length < count) {
             return null;
         }
