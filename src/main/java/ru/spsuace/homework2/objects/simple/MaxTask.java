@@ -17,7 +17,7 @@ public class MaxTask {
         if (array.length < count) {
             return null;
         }
-        int[] arrayTemp = array;
+        int[] arrayTemp =Arrays.copyOf(array,array.length);
         Arrays.sort(arrayTemp);
         int[] arrayFinal = new int[count];
         if (count == 0) {
@@ -42,23 +42,24 @@ public class MaxTask {
         if (array.length < count) {
             return null;
         }
-        int[] arrayTemp = array;
-        int temp = 0;
-        for (int i = 0; i < arrayTemp.length; i++) {
-            for (int j = i; j > 0; j--) {
-                if (arrayTemp[j] > arrayTemp[j - 1]) {
-                    temp = arrayTemp[j];
-                    arrayTemp[j] = arrayTemp[j - 1];
-                    arrayTemp[j - 1] = temp;
-                }
-            }
-        }
+        int[] arrayTemp = Arrays.copyOf(array, array.length);
+
         int[] arrayFinal = new int[count];
         if (count == 0) {
             return arrayFinal;
         }
+        int max = arrayTemp[0];
+        int indexMax = 0;
         for (int i = 0; i < count; i++) {
-            arrayFinal[i] = arrayTemp[i];
+            for (int j = 0; j < arrayTemp.length; j++) {
+                if (max < arrayTemp[j]) {
+                    max = arrayTemp[j];
+                    indexMax = j;
+                }
+            }
+            arrayFinal[i] = max;
+            max = arrayTemp[0];
+            arrayTemp[indexMax] = Integer.MIN_VALUE;
         }
         return arrayFinal;
     }
