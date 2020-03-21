@@ -13,11 +13,11 @@ public class MaxTask {
      * Можно пользоваться Arrays.sort(arr), эта функция сортирует входящий массив
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        int[] tempArray = array;
-        Arrays.sort(tempArray);
-        if (count > tempArray.length) {
+        if (count > array.length) {
             return null;
         }
+        int[] tempArray = Arrays.copyOf(array, array.length);
+        Arrays.sort(tempArray);
         int lastElement = tempArray.length - 1;
         int[] formattedArray = new int[count];
         for (int i = 0; i <= count - 1; i++) {
@@ -36,26 +36,34 @@ public class MaxTask {
      * Нельзя пользоваться Arrays.sort
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        if (array.length < count) {
+        int[] tempArray = Arrays.copyOf(array, array.length);
+        if (tempArray.length < count) {
             return null;
         }
-        int[] tempArray = array;
-        int temp = 0;
-        for (int i = 0; i < tempArray.length; i++) {
-            for (int j = i; j > 0; j--) {
-                if (tempArray[j] > tempArray[j - 1]) {
-                    temp = tempArray[j];
-                    tempArray[j] = tempArray[j - 1];
-                    tempArray[j - 1] = temp;
-                }
-            }
-        }
+
         int[] formattedArray = new int[count];
+
         if (count == 0) {
             return formattedArray;
         }
+
+        for (int i = 0; i < tempArray.length; i++) {
+            int min = tempArray[i];
+            int min_i = i;
+            for (int j = i + 1; j < tempArray.length; j++) {
+                if (tempArray[j] < min) {
+                    min = tempArray[j];
+                    min_i = j;
+                }
+            }
+            if (i != min_i) {
+                int temp = tempArray[i];
+                tempArray[i] = tempArray[min_i];
+                tempArray[min_i] = temp;
+            }
+        }
         for (int i = 0; i < count; i++) {
-            formattedArray[i] = tempArray[i];
+            formattedArray[i] = tempArray[tempArray.length - i - 1];
         }
         return formattedArray;
     }
