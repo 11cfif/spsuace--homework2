@@ -45,7 +45,7 @@ public class MaxTask {
         int tmp2 = 0;
         for (int j = 0; j <= count - 1; j++) {
             int tmp = 0;
-            for (int i = 0; i <= arrayI.length-1; i++) {
+            for (int i = 0; i <= arrayI.length - 1; i++) {
                 if (arrayI[i] > tmp) {
                     tmp = arrayI[i];
                     tmp2 = i;
