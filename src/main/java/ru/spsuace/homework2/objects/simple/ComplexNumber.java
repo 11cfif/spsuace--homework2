@@ -11,37 +11,38 @@ import static com.sun.tools.doclint.Entity.and;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-    private final int imagine;
-    private final int real;
+    private final double imagine;
+    private final double real;
 
-    public ComplexNumber(int real, int imagine) {
+    public ComplexNumber(double real, double imagine) {
         this.imagine = imagine;
         this.real = real;
     }
 
-    public int getReal() {
+    public double getReal() {
         return real;
     }
 
-    public int getImagine() {
+    public double getImagine() {
         return imagine;
     }
 
     public String toString() {
-        return real + imagine + "*i";
+        return real + " " + imagine + "*i";
     }
 
-    public boolean equals(ComplexNumber number) {
-        return (this.imagine == number.imagine) & (this.real == number.real);
+    public boolean equals(Object number) {
+        if (getClass() != number.getClass()) {
+            return false;
+        }
+        return this.real == ((ComplexNumber) number).real && this.imagine == ((ComplexNumber) number).imagine;
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
-        ComplexNumber number = new ComplexNumber(number1.real + number2.real, number1.imagine + number2.imagine);
-        return number;
+        return new ComplexNumber(number1.real + number2.real, number1.imagine + number2.imagine);
     }
 
     public ComplexNumber compos(ComplexNumber number1, ComplexNumber number2) {
-        ComplexNumber newNumber = new ComplexNumber(number1.getReal() * number2.getReal() - number1.getImagine() * number2.getImagine(), number1.getReal() * number2.getImagine() + number1.getImagine() * number2.getReal());
-        return newNumber;
+        return new ComplexNumber(number1.getReal() * number2.getReal() - number1.getImagine() * number2.getImagine(), number1.getReal() * number2.getImagine() + number1.getImagine() * number2.getReal());
     }
 }
