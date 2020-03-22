@@ -22,13 +22,9 @@ public class ComplexNumber {
         return imag;
     }
 
-    private String sign() {
-        if (real > 0) return " + ";
-        else return " - ";
-    }
-
-    public boolean equals(ComplexNumber number) {
-        return (this.real == number.real) & (this.imag == number.imag);
+    public boolean equals(Object obj) {
+        ComplexNumber num = (ComplexNumber) obj;
+        return (Math.abs(this.real - num.real) == Integer.MIN_VALUE && Math.abs(this.imag - num.imag) == Integer.MIN_VALUE);
     }
 
     public double module() {
