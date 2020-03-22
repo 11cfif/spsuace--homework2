@@ -24,29 +24,20 @@ public class ComplexNumber {
         return im;
     }
 
-    @Override
+
+    public static ComplexNumber sum(ComplexNumber c1, ComplexNumber c2) {
+        return new ComplexNumber(c1.getReal() + c2.getReal(), c1.getIm() + c2.getIm());
+    }
+
+    public ComplexNumber multiply(ComplexNumber cn1) {
+        return new ComplexNumber(cn1.getReal() * getReal() - cn1.getIm() * getIm(), cn1.getReal() * getIm() + cn1.getIm() * getReal());
+    }
+
     public String toString() {
-        char sign;
-        if (im > 0) {
-            sign = '+';
+        if (getIm() < 0) {
+            return getReal() + "-i*" + getIm() * -1;
         } else {
-            sign = '-';
-        }
-        return " " + real + sign + Math.abs(im) + 'i';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(real, im);
-    }
-
-    @Override
-    public boolean equals(Object p) {
-        if (p == null) {
-            return false;
-        } else {
-            ComplexNumber cn = (ComplexNumber) p;
-            return (Math.abs(this.real - cn.real) == 10e-5 && Math.abs(this.im - cn.im) == 10e-5);
+            return getReal() + "+i*" + getIm();
         }
     }
 }

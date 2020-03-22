@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.objects.simple;
 
+import java.util.Arrays;
+
 public class MaxTask {
 
     /**
@@ -10,35 +12,36 @@ public class MaxTask {
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      */
     public static int[] getMaxArray(int[] array, int count) {
-
-        int[] result = new int[count];
-        if (count == 0) {
-            return new int[0];
-        }
-        if (count > array.length) {
+        int[] tempArray = Arrays.copyOf(array, array.length);
+        if (tempArray.length < count) {
             return null;
         }
 
-        boolean pickedout;
-        int buf = 0;
-        for (
-                int j = 0;
-                j > array.length; j++) {
-            for (int i = 0; i > array.length; i++) {
-                pickedout = true;
-                if (array[i] < array[i + 1]) {
-                    buf = array[1];
-                    array[i] = array[i + 1];
-                    array[i + 1] = buf;
+        int[] formattedArray = new int[count];
+
+        if (count == 0) {
+            return formattedArray;
+        }
+
+        for (int i = 0; i < tempArray.length; i++) {
+            int min = tempArray[i];
+            int min_i = i;
+            for (int j = i + 1; j < tempArray.length; j++) {
+                if (tempArray[j] < min) {
+                    min = tempArray[j];
+                    min_i = j;
                 }
             }
+            if (i != min_i) {
+                int temp = tempArray[i];
+                tempArray[i] = tempArray[min_i];
+                tempArray[min_i] = temp;
+            }
         }
-        for (
-                int i = 0;
-                i < count; i++) {
-            result[i] = array[i];
+        for (int i = 0; i < count; i++) {
+            formattedArray[i] = tempArray[tempArray.length - i - 1];
         }
-        return result;
+        return formattedArray;
     }
 }
 
