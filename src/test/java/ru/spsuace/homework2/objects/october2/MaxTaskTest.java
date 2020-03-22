@@ -21,6 +21,7 @@ public class MaxTaskTest {
 
     @Test
     public void getMaxArrayHard() {
+        assertArrayEquals(new int[]{-1, -2, -3}, MaxTask.getMaxArrayHard(new int[]{-1, -2, -3}, 3));
         assertArrayEquals(new int[]{}, MaxTask.getMaxArrayHard(new int[]{}, 0));
         assertArrayEquals(new int[]{}, MaxTask.getMaxArrayHard(new int[]{1, 2, 3}, 0));
         assertArrayEquals(null, MaxTask.getMaxArrayHard(new int[]{1, 2, 3}, 4));
