@@ -49,29 +49,18 @@ public class ComplexNumber {
         return new ComplexNumber(factor * Math.cos(power * z.getArg()), factor * Math.sin(power * z.getArg()));
     }
 
-    private String sign() {
-        if (im > 0) {
-            return " + ";
-        } else {
-            return " - ";
-        }
-    }
-
     public String toString() {
-        String string;
-        if (im == 1 || im == -1) {
-            if (re == 0) {
-                string = sign() + "i";
-            } else {
-                string = re + sign() + "i";
-            }
+        if (im < 0) {
+            return re + "-" + Math.abs(im) + "i";
         } else {
-            string = re + sign() + Math.abs(im) + "i";
+            return re + "+" + im + "i";
         }
-        return string;
     }
 
-    public boolean equals(ComplexNumber number) {
-        return (this.im == number.im) & (this.re == number.re);
+    public boolean equals(Object number) {
+        if (getClass() != number.getClass()) {
+            return false;
+        }
+        return this.re == ((ComplexNumber) number).re && this.im == ((ComplexNumber) number).im;
     }
 }

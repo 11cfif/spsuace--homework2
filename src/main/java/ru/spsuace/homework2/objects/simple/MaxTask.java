@@ -49,24 +49,20 @@ public class MaxTask {
         if (count == 0) {
             return finalArray;
         }
+        
+        int max = tempArray[0];
+        int temp = 0;
 
-        for (int i = 0; i < tempArray.length; i++) {
-            int min = tempArray[i];
-            int min_i = i;
-            for (int j = i + 1; j < tempArray.length; j++) {
-                if (tempArray[j] < min) {
-                    min = tempArray[j];
-                    min_i = j;
+        for (int i = 0; i <= count - 1; i++) {
+            for (int j = 1; j < tempArray.length; j++) {
+                if (tempArray[j] > max) {
+                    max = tempArray[j];
+                    temp = j;
                 }
             }
-            if (i != min_i) {
-                int temp = tempArray[i];
-                tempArray[i] = tempArray[min_i];
-                tempArray[min_i] = temp;
-            }
-        }
-        for (int i = 0; i < count; i++) {
-            finalArray[i] = tempArray[tempArray.length - i - 1];
+            finalArray[i] = max;
+            max = tempArray[0];
+            tempArray[temp] = Integer.MIN_VALUE;
         }
         return finalArray;
     }
