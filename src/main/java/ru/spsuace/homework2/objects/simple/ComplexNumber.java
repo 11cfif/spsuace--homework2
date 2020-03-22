@@ -62,7 +62,7 @@ public class ComplexNumber {
             } else if (imag == 0) {
                 return "0";
             } else {
-                return "-" + Math.abs(imag) + "i";
+                return imag + "i";
             }
         }
     }
