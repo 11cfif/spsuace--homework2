@@ -13,18 +13,18 @@ public class MaxTask {
      */
 
     public static int[] getMaxArray(int[] array, int count) {
-        int[] tmpArray1 = Arrays.copyOf(array, array.length);
-        if (count > tmpArray1.length) {
+        int[] tmpArray = Arrays.copyOf(array, array.length);
+        if (count > tmpArray.length) {
             return null;
         }
-        int lastElement = tmpArray1.length - 1;
-        int[] tmpArray2 = new int[count];
-        Arrays.sort(tmpArray1);
+        int lastElement = tmpArray.length - 1;
+        int[] finArray = new int[count];
+        Arrays.sort(tmpArray);
         for (int i = 0; i <= count - 1; i++) {
-            tmpArray2[i] = tmpArray1[lastElement];
+            finArray[i] = tmpArray[lastElement];
             lastElement -= 1;
         }
-        return tmpArray2;
+        return finArray;
     }
 
     /**
@@ -40,20 +40,20 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        int[] tmpArrayI = Arrays.copyOf(array, array.length);
-        int[] tmpArrayII = new int[count];
+        int[] tmpArray = Arrays.copyOf(array, array.length);
+        int[] finArray = new int[count];
         int tmp2 = 0;
         for (int j = 0; j <= count - 1; j++) {
             int tmp = Integer.MIN_VALUE;
-            for (int i = 0; i <= tmpArrayI.length - 1; i++) {
-                if (tmpArrayI[i] > tmp) {
-                    tmp = tmpArrayI[i];
+            for (int i = 0; i <= tmpArray.length - 1; i++) {
+                if (tmpArray[i] > tmp) {
+                    tmp = tmpArray[i];
                     tmp2 = i;
                 }
             }
-            tmpArrayII[j] = tmp;
-            tmpArrayI[tmp2] = Integer.MIN_VALUE;
+            finArray[j] = tmp;
+            tmpArray[tmp2] = Integer.MIN_VALUE;
         }
-        return tmpArrayII;
+        return finArray;
     }
 }
