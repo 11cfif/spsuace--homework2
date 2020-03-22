@@ -20,12 +20,11 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        int[] b = Arrays.copyOf(array, array.length);
-        Arrays.sort(b);
-        //int j = 0;
+        int[] copy = Arrays.copyOf(array, array.length);
+        Arrays.sort(copy);
+        int j = 0;
         for (int i = array.length - 1; i >= array.length - count; i--) {
-           // result[j++] = b[i];
-            result[0++] = b[i];
+            result[j++] = copy[i];
         }
         return result;
     }

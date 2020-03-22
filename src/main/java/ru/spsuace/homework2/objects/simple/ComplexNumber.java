@@ -7,12 +7,12 @@ package ru.spsuace.homework2.objects.simple;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-    private double real;
-    private double imaje;
+    private final double real;
+    private final double imaje;
 
     public ComplexNumber(double real, double imaje) {
         this.real = real;
-        this.real = imaje;
+        this.imaje = imaje;
     }
 
     public double getReal() {
@@ -27,7 +27,7 @@ public class ComplexNumber {
         return new ComplexNumber(cn1.getReal() + cn2.getReal(), cn1.getImaje() + cn2.getImaje());
     }
 
-    public ComplexNumber multiply(ComplexNumber cn1) {
+    public ComplexNumber multi(ComplexNumber cn1) {
         return new ComplexNumber(cn1.getReal() * getReal() - cn1.getImaje() * getImaje(), cn1.getReal() * getImaje() + cn1.getImaje() * getReal());
     }
 
