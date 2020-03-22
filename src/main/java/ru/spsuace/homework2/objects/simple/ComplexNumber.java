@@ -7,19 +7,19 @@ package ru.spsuace.homework2.objects.simple;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-    private final int complex;
-    private final int real;
+    private final double complex;
+    private final double real;
 
-    public ComplexNumber(int real, int complex) {
+    public ComplexNumber(double real, double complex) {
         this.complex = complex;
         this.real = real;
     }
 
-    public int getReal() {
+    public double getReal() {
         return real;
     }
 
-    public int getComplex() {
+    public double getComplex() {
         return complex;
     }
 
@@ -35,8 +35,9 @@ public class ComplexNumber {
         }
     }
 
-    public boolean equals(ComplexNumber number) {
-        return (this.complex == number.complex) && (this.real == number.real);
+    public boolean equals(Object number) {
+        //return (this.complex == number.complex) && (this.real == number.real);
+        return this.real == ((ComplexNumber) number).real && this.complex == ((ComplexNumber) number).complex;
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
