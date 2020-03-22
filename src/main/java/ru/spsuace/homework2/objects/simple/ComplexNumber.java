@@ -27,11 +27,43 @@ public class ComplexNumber {
         else return " - ";
     }
 
+    public boolean equals(ComplexNumber number) {
+        return (this.real == number.real) & (this.imag == number.imag);
+    }
+
     public double module() {
         return Math.abs(Math.pow(real, 2) + Math.pow(imag, 2));
     }
 
-    public static ComplexNumber complexSum(ComplexNumber complexNumber1, ComplexNumber complexNumber2) {
-        return new ComplexNumber(complexNumber1.real + complexNumber2.real, complexNumber1.imag + complexNumber2.imag);
+    public static ComplexNumber complexSum(ComplexNumber complexNum1, ComplexNumber complexNum2) {
+        return new ComplexNumber(complexNum1.real + complexNum2.real, complexNum1.imag + complexNum2.imag);
+    }
+
+    public String toString() {
+        if (real > 0) {
+            if (imag > 0) {
+                return real + "+" + imag + "i";
+            } else if (imag == 0) {
+                return String.valueOf(real);
+            } else {
+                return real + "-" + Math.abs(imag) + "i";
+            }
+        } else if (real < 0) {
+            if (imag > 0) {
+                return "-" + real + "+" + imag + "i";
+            } else if (imag == 0) {
+                return String.valueOf(real);
+            } else {
+                return "-" + real + "-" + Math.abs(imag) + "i";
+            }
+        } else {
+            if (imag > 0) {
+                return imag + "i";
+            } else if (imag == 0) {
+                return "0";
+            } else {
+                return "-" + Math.abs(imag) + "i";
+            }
+        }
     }
 }
