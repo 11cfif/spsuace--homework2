@@ -17,43 +17,44 @@ public class ComplexNumber {
     }
 
     public double getReal() {
-        return this.real;
+        return real;
     }
 
     public double getImaginary() {
-        return this.imaginary;
+        return imaginary;
     }
 
     public double module() {
-        return Math.abs(Math.pow(this.real, 2) + Math.pow(this.imaginary, 2));
+        return Math.abs(Math.pow(real, 2) + Math.pow(imaginary, 2));
     }
 
     public double argument() {
-        if (this.real == 0 && this.imaginary > 0) {
+        if (this.real == 0 && imaginary > 0) {
             return Math.PI / 2;
-        } else if (this.real == 0 && this.imaginary <= 0) {
+        } else if (real == 0 && imaginary <= 0) {
             return -Math.PI / 2;
-        } else if (this.real > 0) {
-            return Math.atan2(this.imaginary, this.real);
-        } else if (this.imaginary >= 0) {
-            return Math.PI + Math.atan2(this.imaginary, this.real);
+        } else if (real > 0) {
+            return Math.atan2(imaginary, real);
+        } else if (imaginary >= 0) {
+            return Math.PI + Math.atan2(imaginary, real);
         } else {
-            return -Math.PI + Math.atan2(this.imaginary, this.real);
+            return -Math.PI + Math.atan2(imaginary, real);
         }
     }
 
     @Override
     public String toString() {
-        if (this.imaginary < 0) {
-            return this.real + "-" + Math.abs(this.imaginary) + "i";
+        if (imaginary < 0) {
+            return real + "-" + Math.abs(imaginary) + "i";
         } else {
-            return this.real + "+" + Math.abs(this.imaginary) + "i";
+            return real + "+" + Math.abs(imaginary) + "i";
         }
     }
 
-    public boolean equals(ComplexNumber number) {
-        return this.equals(number);
+    public boolean equals(Object number) {
+        return this.real == ((ComplexNumber) number).real && this.imaginary == ((ComplexNumber) number).imaginary;
     }
+
 
     public int hashCode() {
         return this.hashCode();
