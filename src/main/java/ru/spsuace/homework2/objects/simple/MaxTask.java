@@ -1,7 +1,7 @@
 package ru.spsuace.homework2.objects.simple;
 
 import java.util.Arrays;
-import java.util.Collections;
+
 
 public class MaxTask {
 
