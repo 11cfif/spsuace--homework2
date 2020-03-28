@@ -13,7 +13,7 @@ import static com.sun.tools.doclint.Entity.and;
 public class ComplexNumber {
     private final double imagine;
     private final double real;
-
+    private final double treshold=0.0001;
     public ComplexNumber(double real, double imagine) {
         this.imagine = imagine;
         this.real = real;
@@ -28,21 +28,27 @@ public class ComplexNumber {
     }
 
     public String toString() {
-        return real + " " + imagine + "*i";
+        if (imagine>0) {
+            return "Комплексное число:" + real + "+" + Math.abs(imagine) + "*i";
+        }
+        if (imagine<0){
+            return "Комплексное число:" + real + "-" + Math.abs(imagine)+ "*i";
+        }
+        return "Комплексное число:"+real;
     }
 
     public boolean equals(Object number) {
-        if (getClass() != number.getClass()) {
+        if (number==null||getClass() != number.getClass()) {
             return false;
         }
-        return this.real == ((ComplexNumber) number).real && this.imagine == ((ComplexNumber) number).imagine;
+        return this.real == ((ComplexNumber) number).real && Math.abs((this.imagine -((ComplexNumber) number).imagine))<treshold;
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
         return new ComplexNumber(number1.real + number2.real, number1.imagine + number2.imagine);
     }
 
-    public ComplexNumber compos(ComplexNumber number1, ComplexNumber number2) {
-        return new ComplexNumber(number1.getReal() * number2.getReal() - number1.getImagine() * number2.getImagine(), number1.getReal() * number2.getImagine() + number1.getImagine() * number2.getReal());
+    public ComplexNumber compos(ComplexNumber number) {
+        return new ComplexNumber(this.real * number.getReal() - this.imagine * number.getImagine(), this.real * number.getImagine() + this.imagine * number.getReal());
     }
 }
