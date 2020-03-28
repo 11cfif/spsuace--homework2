@@ -25,7 +25,7 @@ public class ComplexNumber {
     }
 
     public double getModule() {
-        return Math.sqrt(Math.pow(this.re, 2) + Math.pow(this.im, 2));
+        return Math.sqrt(Math.pow(re, 2) + Math.pow(im, 2));
     }
 
     public static ComplexNumber sum(ComplexNumber z1, ComplexNumber z2) {
@@ -33,7 +33,7 @@ public class ComplexNumber {
     }
 
     public double getArg() {
-        if (this.re > 0) {
+        if (re > 0) {
             return Math.atan(im / re);
         } else {
             if (re < 0 && im > 0) {
@@ -57,10 +57,10 @@ public class ComplexNumber {
         }
     }
 
-    public boolean equals(Object number) {
-        if (getClass() != number.getClass()) {
+    public boolean equals(Object number, double eps) {
+        if (number == null || getClass() != number.getClass()) {
             return false;
         }
-        return this.re == ((ComplexNumber) number).re && this.im == ((ComplexNumber) number).im;
+        return (Math.abs(re - ((ComplexNumber) number).re) < eps) && (Math.abs(im - ((ComplexNumber) number).im) < eps);
     }
 }
