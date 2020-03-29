@@ -17,11 +17,12 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        Arrays.sort(array);
-        int EndOfArray = array.length - 1;
+        int[] TempArray = Arrays.copyOf(array, array.length);
+        Arrays.sort(TempArray);
+        int EndOfArray = TempArray.length - 1;
         int[] FinishedArray = new int[count];
         for (int i = 0; i <= count - 1; i++) {
-            FinishedArray[i] = array[EndOfArray];
+            FinishedArray[i] = TempArray[EndOfArray];
             EndOfArray -= 1;
         }
         return FinishedArray;
@@ -40,16 +41,16 @@ public class MaxTask {
             return null;
         }
         int[] FinishedArray = new int[count];
-        int[] tempArray = Arrays.copyOf(array, array.length);
+        int[] TempArray = Arrays.copyOf(array, array.length);
         for (int i = 0; i < count; i++) {
-            int max = tempArray[0];
-            for (int k = 0; k < tempArray.length; k++) {
-                max = Math.max(max, tempArray[k]);
+            int Max = TempArray[0];
+            for (int k = 0; k < TempArray.length; k++) {
+                Max = Math.max(Max, TempArray[k]);
             }
-            FinishedArray[i]=max;
+            FinishedArray[i]=Max;
             for (int j = 0; ; j++) {
-                if (max == tempArray[j]) {
-                    tempArray[j] = Integer.MIN_VALUE;
+                if (Max == TempArray[j]) {
+                    TempArray[j] = Integer.MIN_VALUE;
                     break;
                 }
             }
