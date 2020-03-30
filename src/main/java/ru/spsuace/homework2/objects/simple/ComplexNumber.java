@@ -24,20 +24,25 @@ public class ComplexNumber {
         return im;
     }
 
-
-    public static ComplexNumber sum(ComplexNumber c1, ComplexNumber c2) {
-        return new ComplexNumber(c1.getReal() + c2.getReal(), c1.getIm() + c2.getIm());
-    }
-
-    public ComplexNumber multiply(ComplexNumber cn1) {
-        return new ComplexNumber(cn1.getReal() * getReal() - cn1.getIm() * getIm(), cn1.getReal() * getIm() + cn1.getIm() * getReal());
-    }
-
     public String toString() {
-        if (getIm() < 0) {
-            return getReal() + "-i*" + getIm() * -1;
+
+        if (real != 0) {
+            if (im > 0) {
+                return real + "+" + im + "i";
+            } else if (im == 0) {
+                return String.valueOf(real);
+            } else if (im < 0) {
+                return real + "-" + Math.abs(im) + "i";
+            }
         } else {
-            return getReal() + "+i*" + getIm();
+            if (im > 0) {
+                return im + "i";
+            } else if (im == 0) {
+                return "0";
+            } else if (im < 0) {
+                return "-" + Math.abs(im) + "i";
+            }
         }
+        return null;
     }
 }

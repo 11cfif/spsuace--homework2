@@ -13,35 +13,44 @@ public class MaxTask {
      */
     public static int[] getMaxArray(int[] array, int count) {
         int[] tempArray = Arrays.copyOf(array, array.length);
+
         if (tempArray.length < count) {
             return null;
         }
-
-        int[] formattedArray = new int[count];
-
+        int[] finalArray = new int[count];
         if (count == 0) {
-            return formattedArray;
+            return finalArray;
         }
+        Arrays.sort(tempArray);
+        for (int i = 0; i < count; i++) {
+            finalArray[i] = tempArray[tempArray.length - i - 1];
+        }
+        return finalArray;
+    }
+// второй массив
 
-        for (int i = 0; i < tempArray.length; i++) {
-            int min = tempArray[i];
-            int min_i = i;
-            for (int j = i + 1; j < tempArray.length; j++) {
-                if (tempArray[j] < min) {
-                    min = tempArray[j];
-                    min_i = j;
+
+
+    public static int[] getMaxArrayHard(int[] array, int count) {
+        if (count > array.length) {
+            return null;
+        }
+        int[] newArray = new int[count];
+
+        int[] extraArray = Arrays.copyOf(array, array.length);
+        int elementNumb = 0;
+
+        for (int j = 0; j < count; j++) {
+            int var = Integer.MIN_VALUE;
+            for (int i = 0; i < extraArray.length; i++) {
+                if (extraArray[i] > var) {
+                    var = extraArray[i];
+                    elementNumb = i;
                 }
             }
-            if (i != min_i) {
-                int temp = tempArray[i];
-                tempArray[i] = tempArray[min_i];
-                tempArray[min_i] = temp;
-            }
+            newArray[j] = var;
+            extraArray[elementNumb] = Integer.MIN_VALUE;
         }
-        for (int i = 0; i < count; i++) {
-            formattedArray[i] = tempArray[tempArray.length - i - 1];
-        }
-        return formattedArray;
+        return newArray;
     }
 }
-
