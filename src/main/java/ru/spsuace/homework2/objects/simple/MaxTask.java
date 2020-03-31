@@ -16,16 +16,20 @@ public class MaxTask {
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
         int n = array.length;
-        int[] sortArray;
+
         if (n < count) {
             return null;
-        } else if (count == 0) {
+        }
+        if (count == 0) {
             return new int[]{};
-        } else {
+        }
+
+        int[] sortArray = new int[count];
+
+        if (n >= count) {
             int[] newArray = new int[n];
             System.arraycopy(array, 0, newArray, 0, n);
             Arrays.sort(newArray);
-            sortArray = new int[count];
             int j = 0;
             for (int i = n - 1; i >= 0; i--) {
                 sortArray[j] = newArray[i];
@@ -49,26 +53,31 @@ public class MaxTask {
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
         int n = array.length;
-        int[] sortArray;
+
         if (n < count) {
             return null;
-        } else if (count == 0) {
+        }
+        if (count == 0) {
             return new int[]{};
-        } else {
+        }
+
+        int[] sortArray = new int[count];
+
+        if (n >= count) {
             int[] newArray = new int[n];
+            int maxValueIndex = 0;
             System.arraycopy(array, 0, newArray, 0, n);
-            int k = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n - 1; j++) {
-                    if (newArray[j] < newArray[j + 1]) {
-                        k = newArray[j + 1];
-                        newArray[j + 1] = newArray[j];
-                        newArray[j] = k;
+            for (int i = 0; i <= count - 1; i++) {
+                int maxValue = -99999;
+                for (int j = 0; j <= n - 1; j++) {
+                    if (newArray[j] > maxValue) {
+                        maxValue = newArray[j];
+                        maxValueIndex = j;
                     }
                 }
+                sortArray[i] = maxValue;
+                newArray[maxValueIndex] = -99999;
             }
-            sortArray = new int[count];
-            System.arraycopy(newArray, 0, sortArray, 0, count);
         }
         return sortArray;
     }
