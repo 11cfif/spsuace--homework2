@@ -23,6 +23,9 @@ public class ComplexNumber {
     }
 
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (getClass() == obj.getClass()) {
             ComplexNumber num = (ComplexNumber) obj;
             final double accuracy = 1e-6;
