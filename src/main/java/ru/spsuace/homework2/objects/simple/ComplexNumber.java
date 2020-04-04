@@ -23,8 +23,13 @@ public class ComplexNumber {
     }
 
     public boolean equals(Object obj) {
-        ComplexNumber num = (ComplexNumber) obj;
-        return (Math.abs(this.real - num.real) == Integer.MIN_VALUE && Math.abs(this.imag - num.imag) == Integer.MIN_VALUE);
+        if (getClass() == obj.getClass()) {
+            ComplexNumber num = (ComplexNumber) obj;
+            final double accuracy = 1e-6;
+            return (Math.abs(this.real - num.real) == accuracy && Math.abs(this.imag - num.imag) == accuracy);
+        } else {
+            return false;
+        }
     }
 
     public double module() {

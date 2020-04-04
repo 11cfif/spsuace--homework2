@@ -13,10 +13,10 @@ public class MaxTask {
      */
 
     public static int[] getMaxArray(int[] array, int count) {
-        int[] tmpArray = Arrays.copyOf(array, array.length);
-        if (count > tmpArray.length) {
+        if (count > array.length) {
             return null;
         }
+        int[] tmpArray = Arrays.copyOf(array, array.length);
         int lastElement = tmpArray.length - 1;
         int[] finArray = new int[count];
         Arrays.sort(tmpArray);
