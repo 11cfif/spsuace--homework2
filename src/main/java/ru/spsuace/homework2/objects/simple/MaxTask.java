@@ -14,8 +14,24 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        return null;
+        if (array.length < count) {
+            return null;
+        }
+        Arrays.sort(array);
+        int i = 0;
+        int[] array1;
+        array1 = new int[count];
+        for (int n = (array.length-1); n >= (array.length-count); n--) {
+            if (count == 0) {
+                array1 = new int[0];
+                return array1;
+            }
+            array1[i] = array[n];
+            i = i + 1;
+        }
+        return array1;
     }
+
 
     /**
      * Вам дан массив и количество элементов в возвращаемом массиве
@@ -27,7 +43,33 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        return null;
+        if (array.length < count) {
+            return null;
+        }
+        for (int l = 0; l < array.length; l++) {
+            int min = array[l];
+            int min1 = l;
+            for (int j = l + 1; j < array.length; j++) {
+                if (array[j] < min) {
+                    min = array[j];
+                    min1 = j;
+                }
+            }
+            int t = array[l];
+            array[l] = min;
+            array[min1] = t;
+        }
+        int i = 0;
+        int[] array1;
+        array1 = new int[count];
+        for (int n = (array.length - 1); n >= (array.length - count); n--) {
+            if (count == 0) {
+                array1 = new int[0];
+                return array1;
+            }
+            array1[i] = array[n];
+            i++;
+        }
+        return array1;
     }
-
 }
