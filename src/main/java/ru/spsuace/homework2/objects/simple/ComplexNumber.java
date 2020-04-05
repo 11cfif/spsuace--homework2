@@ -13,7 +13,6 @@ import static com.sun.tools.doclint.Entity.and;
 public class ComplexNumber {
     private final double imagine;
     private final double real;
-    private final double treshold=0.0001;
     public ComplexNumber(double real, double imagine) {
         this.imagine = imagine;
         this.real = real;
@@ -29,19 +28,20 @@ public class ComplexNumber {
 
     public String toString() {
         if (imagine>0) {
-            return "Комплексное число:" + real + "+" + Math.abs(imagine) + "*i";
+            return "Комплексное число:" + real + "+" + imagine + "*i";
         }
         if (imagine<0){
             return "Комплексное число:" + real + "-" + Math.abs(imagine)+ "*i";
         }
-        return "Комплексное число:"+real;
+        return "Комплексное число:" + real;
     }
 
     public boolean equals(Object number) {
         if (number==null||getClass() != number.getClass()) {
             return false;
         }
-        return this.real == ((ComplexNumber) number).real && Math.abs((this.imagine -((ComplexNumber) number).imagine))<treshold;
+        double treshold = 0.0001;
+        return  Math.abs((this.real -((ComplexNumber) number).real))< treshold && Math.abs((this.imagine -((ComplexNumber) number).imagine))< treshold;
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
