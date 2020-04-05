@@ -26,18 +26,16 @@ public class MaxTask {
 
         int[] sortArray = new int[count];
 
-        if (n >= count) {
-            int[] newArray = new int[n];
-            System.arraycopy(array, 0, newArray, 0, n);
-            Arrays.sort(newArray);
-            int j = 0;
-            for (int i = n - 1; i >= 0; i--) {
-                sortArray[j] = newArray[i];
-                if (j == count - 1) {
-                    return sortArray;
-                }
-                j++;
+        int[] newArray = new int[n];
+        System.arraycopy(array, 0, newArray, 0, n);
+        Arrays.sort(newArray);
+        int j = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            sortArray[j] = newArray[i];
+            if (j == count - 1) {
+                return sortArray;
             }
+            j++;
         }
         return sortArray;
     }
@@ -63,21 +61,19 @@ public class MaxTask {
 
         int[] sortArray = new int[count];
 
-        if (n >= count) {
-            int[] newArray = new int[n];
-            int maxValueIndex = 0;
-            System.arraycopy(array, 0, newArray, 0, n);
-            for (int i = 0; i <= count - 1; i++) {
-                int maxValue = -99999;
-                for (int j = 0; j <= n - 1; j++) {
-                    if (newArray[j] > maxValue) {
-                        maxValue = newArray[j];
-                        maxValueIndex = j;
-                    }
+        int[] newArray = new int[n];
+        int maxValueIndex = 0;
+        System.arraycopy(array, 0, newArray, 0, n);
+        for (int i = 0; i <= count - 1; i++) {
+            int maxValue = Integer.MIN_VALUE;
+            for (int j = 0; j <= n - 1; j++) {
+                if (newArray[j] > maxValue) {
+                    maxValue = newArray[j];
+                    maxValueIndex = j;
                 }
-                sortArray[i] = maxValue;
-                newArray[maxValueIndex] = -99999;
             }
+            sortArray[i] = maxValue;
+            newArray[maxValueIndex] = Integer.MIN_VALUE;
         }
         return sortArray;
     }
