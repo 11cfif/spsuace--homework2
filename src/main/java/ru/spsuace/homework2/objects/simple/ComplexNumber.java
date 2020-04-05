@@ -25,24 +25,45 @@ public class ComplexNumber {
     }
 
     public String toString() {
-
-        if (real != 0) {
+        if (real < 0) {
+            if (im < 0) {
+                return real + String.valueOf(im) + "i";
+            } else if (im > 0) {
+                return "-" + real + "+" + im + "i";
+            } else {
+                return String.valueOf(real);
+            }
+        } else if (real > 0) {
             if (im > 0) {
                 return real + "+" + im + "i";
             } else if (im == 0) {
                 return String.valueOf(real);
-            } else if (im < 0) {
-                return real + "-" + Math.abs(im) + "i";
+            } else {
+                return real + String.valueOf(im) + "i";
             }
         } else {
             if (im > 0) {
                 return im + "i";
-            } else if (im == 0) {
-                return "0";
             } else if (im < 0) {
-                return "-" + Math.abs(im) + "i";
+                return im + "i";
+            } else {
+                return "0";
             }
         }
-        return null;
+    }
+
+    public static ComplexNumber complexMult(ComplexNumber numb1, ComplexNumber numb2) {
+        return new ComplexNumber((numb1.real * numb2.real) - (numb1.im * numb2.im), (numb1.real * numb2.im) + (numb1.im * numb2.real));
+    }
+
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return (Math.abs(this.real - ((ComplexNumber) o).real) == 1e-5 || Math.abs(this.im - ((ComplexNumber) o).im) == 1e-5);
+    }
+
+    public double vector() {
+        return Math.abs(Math.pow(real, 2) + Math.pow(im, 2));
     }
 }
