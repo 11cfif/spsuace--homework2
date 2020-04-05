@@ -41,7 +41,7 @@ public class ComplexNumber {
             return false;
         }
         double treshold = 0.0001;
-        return  Math.abs((this.real -((ComplexNumber) number).real))< treshold && Math.abs((this.imagine -((ComplexNumber) number).imagine))< treshold;
+        return Math.abs((this.real -((ComplexNumber) number).real))< treshold && Math.abs((this.imagine -((ComplexNumber) number).imagine))< treshold;
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
