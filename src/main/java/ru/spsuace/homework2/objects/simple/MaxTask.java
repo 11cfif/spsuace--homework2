@@ -35,6 +35,25 @@ public class MaxTask {
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      * Нельзя пользоваться Arrays.sort
      */
-    public static int[] getMaxArrayHard(int[] array, int count) { return null; }
+    public static int[] getMaxArrayHard(int[] array, int count) {
+        if (count > array.length) {
+            return null;
+        }
+        int[] formattedArray = new int[count];
+        int[] tempArray = Arrays.copyOf(array, array.length);
+        int numberIndex = 0;
+        for (int i = 0; i < count; i++) {
+            int temp = 0;
+            for (int j = 0; j < tempArray.length; j++) {
+                if (tempArray[j] > temp) {
+                    temp = tempArray[j];
+                    numberIndex = j;
+                }
+            }
+            formattedArray[i] = temp;
+            tempArray[numberIndex] = Integer.MIN_VALUE;
+        }
+        return formattedArray;
+    }
 }
 
