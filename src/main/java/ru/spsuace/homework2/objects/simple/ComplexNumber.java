@@ -36,8 +36,10 @@ public class ComplexNumber {
     }
 
     public boolean equals(Object number) {
-        //return (this.complex == number.complex) && (this.real == number.real);
-        return this.real == ((ComplexNumber) number).real && this.complex == ((ComplexNumber) number).complex;
+        if (number == null || getClass() != number.getClass()) {
+            return false;
+        }
+        return (Math.abs(real - ((ComplexNumber) number).real) < 1e-5) && (Math.abs(complex - ((ComplexNumber) number).complex) < 1e-5);
     }
 
     public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
