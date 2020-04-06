@@ -39,28 +39,27 @@ public class MaxTask {
      * Нельзя пользоваться Arrays.sort
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        int[] result1 = new int[count];
         if (count == 0) {
             return new int[0];
         }
         if (count > array.length) {
             return null;
         }
+        int[] result1 = new int[count];
+        int[] copyArray = Arrays.copyOf(array, array.length);
         int buf = 0;
-        for (int j = 0; j < array.length; j++) {
-            for (int i = 0; i < array.length - 1; i++) {
-                if (array[i] < array[i + 1]) {
-                    buf = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = buf;
+        for (int j = 0; j < count; j++) {
+            int var = Integer.MIN_VALUE;
+            for (int i = 0; i < copyArray.length; i++) {
+                if (copyArray[i] > var) {
+                    var = copyArray[i];
+                    buf = i;
                 }
             }
-        }
-        for (int i = 0; i < count; i++) {
-            result1[i] = array[i];
+            result1[j] = var;
+            copyArray[buf] = Integer.MIN_VALUE;
         }
         return result1;
-
     }
 
 }
