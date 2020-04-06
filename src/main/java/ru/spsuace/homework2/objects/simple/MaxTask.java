@@ -20,20 +20,17 @@ public class MaxTask {
             return null;
         }
 
-        Arrays.sort(array);
-
+        int[] copyArray = Arrays.copyOf(array, array.length);
+        Arrays.sort(copyArray);
         int[] result = new int[count];
-        int arrayLength = array.length;
-        for (int i = arrayLength - 1, n = 0; i >= arrayLength - count; i--, n++) {
-            result[n] = array[i];
+
+        for (int i = copyArray.length - 1, n = 0; i >= copyArray.length - count; i--, n++) {
+            result[n] = copyArray[i];
         }
 
         return result;
     }
 
-    public static void main(String[] arg) {
-        System.out.println(Arrays.toString(MaxTask.getMaxArrayHard(new int[]{1, 3, 10, 11, 22, 0}, 2)));
-    }
     /**
      * Вам дан массив и количество элементов в возвращаемом массиве
      * Вернуть нужно массив из count максимальных элементов array, упорядоченный по убыванию.
@@ -50,21 +47,22 @@ public class MaxTask {
             return null;
         }
 
+        int[] copyArray = Arrays.copyOf(array, array.length);
         int[] result = new int[count];
-        int arrayLength = array.length;
+        int arrayLength = copyArray.length;
 
         for (int n = 0; n < count; n++) {
             int maxIndex = 0;
-            int max = array[0];
+            int max = copyArray[0];
 
             for (int i = 0; i < arrayLength; i++) {
-                if (array[i] > max) {
-                    max = array[i];
+                if (copyArray[i] > max) {
+                    max = copyArray[i];
                     maxIndex = i;
                 }
             }
 
-            array[maxIndex] = array[arrayLength - 1];
+            copyArray[maxIndex] = copyArray[arrayLength - 1];
             result[n] = max;
             arrayLength--;
         }

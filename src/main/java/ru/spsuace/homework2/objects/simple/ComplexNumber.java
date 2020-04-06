@@ -1,7 +1,5 @@
 package ru.spsuace.homework2.objects.simple;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -54,7 +52,7 @@ public class ComplexNumber {
         } else if (b == 0) {
             return a + "";
         } else if (b < 0) {
-            return a + b + "";
+            return a + "" + b + " i ";
         }
 
         return a + " + " + b + "i";
