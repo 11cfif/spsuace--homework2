@@ -9,20 +9,20 @@ import java.util.Objects;
  * Одна опреация должна быть статической, другая - нет.
  */
 public class ComplexNumber {
-    private final double a;
-    private final double b;
+    private final double realPart;
+    private final double imaginaryPart;
 
     public ComplexNumber(double a, double b) {
-        this.a = a;
-        this.b = b;
+        this.realPart = a;
+        this.imaginaryPart = b;
     }
 
-    public double getA() {
-        return a;
+    public double getRealPart() {
+        return realPart;
     }
 
-    public double getB() {
-        return b;
+    public double getImaginaryPart() {
+        return imaginaryPart;
     }
 
     public ComplexNumber sum(ComplexNumber complexNumber) {
@@ -30,7 +30,7 @@ public class ComplexNumber {
             return null;
         }
 
-        return new ComplexNumber(a + complexNumber.getA(), b + complexNumber.getB());
+        return new ComplexNumber(realPart + complexNumber.getRealPart(), imaginaryPart + complexNumber.getImaginaryPart());
     }
 
     public static ComplexNumber multiply(ComplexNumber complexNumber1, ComplexNumber complexNumber2) {
@@ -38,8 +38,8 @@ public class ComplexNumber {
             return null;
         }
 
-        double a = complexNumber1.getA() * complexNumber2.getA() - complexNumber1.getB() * complexNumber2.getB();
-        double b = complexNumber1.getA() * complexNumber2.getB() + complexNumber2.getA() * complexNumber1.getB();
+        double a = complexNumber1.getRealPart() * complexNumber2.getRealPart() - complexNumber1.getImaginaryPart() * complexNumber2.getImaginaryPart();
+        double b = complexNumber1.getRealPart() * complexNumber2.getImaginaryPart() + complexNumber2.getRealPart() * complexNumber1.getImaginaryPart();
 
         return new ComplexNumber(a, b);
     }
@@ -47,15 +47,15 @@ public class ComplexNumber {
     @Override
     public String toString() {
 
-        if (a == 0) {
-            return b + "i";
-        } else if (b == 0) {
-            return a + "";
-        } else if (b < 0) {
-            return a + "" + b + " i ";
+        if (realPart == 0) {
+            return imaginaryPart + "i";
+        } else if (imaginaryPart == 0) {
+            return realPart + "";
+        } else if (imaginaryPart < 0) {
+            return realPart + "" + imaginaryPart + " i ";
         }
 
-        return a + " + " + b + "i";
+        return realPart + " + " + imaginaryPart + "i";
     }
 
     @Override
@@ -63,13 +63,13 @@ public class ComplexNumber {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ComplexNumber that = (ComplexNumber) o;
-        return Double.compare(that.a, a) == 0 &&
-                Double.compare(that.b, b) == 0;
+        return Double.compare(that.realPart, realPart) == 0 &&
+                Double.compare(that.imaginaryPart, imaginaryPart) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b);
+        return Objects.hash(realPart, imaginaryPart);
     }
 }
 
