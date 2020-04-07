@@ -17,15 +17,15 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        int[] temparray = Arrays.copyOf(array, array.length);
-        Arrays.sort(temparray);
-        int endofarray = temparray.length - 1;
-        int[] finishedarray = new int[count];
+        int[] tempArray = Arrays.copyOf(array, array.length);
+        Arrays.sort(tempArray);
+        int endOfArray = tempArray.length - 1;
+        int[] finishedArray = new int[count];
         for (int i = 0; i <= count - 1; i++) {
-            finishedarray[i] = temparray[endofarray];
-            endofarray -= 1;
+            finishedArray[i] = tempArray[endOfArray];
+            endOfArray -= 1;
         }
-        return finishedarray;
+        return finishedArray;
     }
 
     /**
@@ -40,21 +40,21 @@ public class MaxTask {
         if (count > array.length) {
             return null;
         }
-        int[] finishedarray = new int[count];
-        int[] temparray = Arrays.copyOf(array, array.length);
+        int[] finishedArray = new int[count];
+        int[] tempArray = Arrays.copyOf(array, array.length);
         for (int i = 0; i < count; i++) {
-            int max = temparray[0];
-            for (int k = 0; k < temparray.length; k++) {
-                max = Math.max(max, temparray[k]);
+            int max = tempArray[0];
+            for (int k = 0; k < tempArray.length; k++) {
+                max = Math.max(max, tempArray[k]);
             }
-            finishedarray[i]=max;
+            finishedArray[i]=max;
             for (int j = 0; ; j++) {
-                if (max == temparray[j]) {
-                    temparray[j] = Integer.MIN_VALUE;
+                if (max == tempArray[j]) {
+                    tempArray[j] = Integer.MIN_VALUE;
                     break;
                 }
             }
         }
-        return finishedarray;
+        return finishedArray;
     }
 }
