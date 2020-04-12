@@ -12,18 +12,17 @@ public class MaxTask {
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        int[] tempArray = Arrays.copyOf(array, array.length);
-
-        if (tempArray.length < count) {
+        if (count > array.length) {
             return null;
         }
-        int[] finalArray = new int[count];
-        if (count == 0) {
-            return finalArray;
-        }
+        int[] tempArray = Arrays.copyOf(array, array.length);
         Arrays.sort(tempArray);
+        int arrayEnd = tempArray.length - 1;
+        int[] finalArray = new int[count];
         for (int i = 0; i < count; i++) {
-            finalArray[i] = tempArray[tempArray.length - i - 1];
+            finalArray[i] = tempArray[arrayEnd];
+            arrayEnd -= 1;
         }
         return finalArray;
     }
+}
