@@ -51,8 +51,11 @@ public class ComplexNumber {
         }
     }
 
-    public boolean equals(Object number) {
-        return this.real == ((ComplexNumber) number).real && this.imaginary == ((ComplexNumber) number).imaginary;
+    public boolean equals(Object number, Double eps) {
+        if (number == null || getClass() != number.getClass()) {
+            return false;
+        }
+        return (Math.abs(real - ((ComplexNumber) number).real) < eps) && (Math.abs(imaginary - ((ComplexNumber) number).imaginary) < eps);
     }
 
 
