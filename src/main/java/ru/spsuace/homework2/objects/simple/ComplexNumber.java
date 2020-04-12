@@ -58,6 +58,9 @@ public class ComplexNumber {
         return (Math.abs(real - ((ComplexNumber) number).real) < eps) && (Math.abs(imaginary - ((ComplexNumber) number).imaginary) < eps);
     }
 
+    public static ComplexNumber Multiply(ComplexNumber firstNumber, ComplexNumber secondNumber) {
+        return new ComplexNumber((firstNumber.real * secondNumber.real) - (firstNumber.imaginary * secondNumber.imaginary), (firstNumber.real * secondNumber.imaginary) + (firstNumber.imaginary * secondNumber.real));
+    }
 
     public int hashCode() {
         return this.hashCode();
