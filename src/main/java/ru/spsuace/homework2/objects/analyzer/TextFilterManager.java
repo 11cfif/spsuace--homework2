@@ -40,9 +40,9 @@ public class TextFilterManager {
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
-    public FilterType analyze(String text) {
+    public FilterType analyse(String text) {
         for (TextAnalyzer filter : filters) {
-            filterType type = filter.analyze(text);
+            filterType type = filter.analyse(text);
             if (type != null) {
                 return type;
             }

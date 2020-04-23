@@ -14,9 +14,7 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
 
-    FilterType analyse(String text) {
-        return null;
-    }
+    FilterType analyse(String text)
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
         return null;
