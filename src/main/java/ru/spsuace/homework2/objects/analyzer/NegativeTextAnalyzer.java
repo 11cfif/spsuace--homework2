@@ -1,19 +1,16 @@
+package ru.spsuace.homework2.objects.analyzer;
+
 class NegativeTextAnalyzer implements TextAnalyzer {
 
-    private String[] negativeText = ("=(", ":(",":|")
+    private final static String[] negativeText = {"=(", ":(", ":|"};
 
-    public void setType(filterType type) {
-        this.type = FilterType.NEGATIVE_TEXT;
-    }
-
-    private filterType type;
-
-    public FilterType analyse(String text) {
-        for (String i : negativeText) {
-            if (text.contains(i)) {
-                type.setType()
+    @Override
+    public FilterType analyze(String text) {
+        for (String bad : negativeText) {
+            if (text.contains(bad)) {
+                return FilterType.NEGATIVE_TEXT;
             }
         }
-        return type
+        return null;
     }
 }

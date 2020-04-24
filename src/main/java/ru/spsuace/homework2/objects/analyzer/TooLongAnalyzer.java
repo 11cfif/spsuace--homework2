@@ -1,17 +1,18 @@
+package ru.spsuace.homework2.objects.analyzer;
+
 class ToLongAnalyzer implements TextAnalyzer {
 
-    private long lenghtStrinng
+    private long lengthString;
 
-    private filterType type
-
-    public void setType(filterType type) {
-        this.type = FilterType.TOO_LONG;
+    ToLongAnalyzer(long lengthString) {
+        this.lengthString = lengthString;
     }
 
-    public FilterType analyse(String text) {
-        if (lenghtStrinng <= text.lenght()) {
-            type.setType()
+    @Override
+    public FilterType analyze(String text) {
+        if (lengthString < text.length()) {
+            return FilterType.TOO_LONG;
         }
-        return type
+        return null;
     }
 }

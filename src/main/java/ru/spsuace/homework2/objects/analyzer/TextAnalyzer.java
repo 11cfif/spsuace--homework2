@@ -14,18 +14,18 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
 
-    FilterType analyse(String text)
+    FilterType analyze(String text);
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        return new ToLongAnalyzer(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+        return new SpamAnalyzer(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new NegativeTextAnalyzer();
     }
 
     /**
