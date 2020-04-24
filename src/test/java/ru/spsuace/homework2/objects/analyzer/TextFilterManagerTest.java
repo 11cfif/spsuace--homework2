@@ -1,8 +1,8 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-import java.util.Arrays;
-
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -85,6 +85,16 @@ public class TextFilterManagerTest {
         assertEquals("GOOD", manager.analyze("Скажите код из смс :-( ").toString());
         assertEquals("NEGATIVE_TEXT", manager.analyze("Скажите код из смс пожалуйста :|").toString());
         assertEquals("GOOD", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
+    }
+
+    @Test
+    public void analyzeDuplicateFilter() {
+        TextFilterManager manager = new TextFilterManager(new TextAnalyzer[]{
+                TextAnalyzer.createDuplicateAnalyzer(new TextToMaxCountPair("Привет", 1))});
+        assertEquals("GOOD", manager.analyze("Привет, я Петя :(").toString());
+        assertEquals("GOOD", manager.analyze("").toString());
+        assertEquals("GOOD", manager.analyze(null).toString());
+        assertEquals("DUPLICATE", manager.analyze("Привет, как дела, Привет").toString());
     }
 
     @Test
