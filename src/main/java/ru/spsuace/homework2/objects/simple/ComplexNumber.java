@@ -22,7 +22,20 @@ package ru.spsuace.homework2.objects.simple;
         public double getImagine() {
             return imagine;
         }
-
+        public double getModule(){
+        return Math.sqrt(Math.pow(real,2) + Math.pow(imagine,2));
+        }
+    public double getArg() {
+        if (real > 0) {
+            return Math.atan(imagine / real);
+        } else {
+            if (real < 0 && imagine > 0) {
+                return Math.PI + Math.atan(imagine / real);
+            } else {
+                return -Math.PI + Math.atan(imagine / real);
+            }
+        }
+    }
         public String toString() {
             if (imagine>0) {
                 return "Комплексное число:" + real + "+" + Math.abs(imagine) + "*i";
@@ -33,19 +46,20 @@ package ru.spsuace.homework2.objects.simple;
             return "Комплексное число:"+real;
         }
 
-        public boolean equals(Object number) {
-            if (number==null||getClass() != number.getClass()) {
+        public boolean equals(Object number, double eps) {
+            if (number == null || getClass() != number.getClass()) {
                 return false;
             }
-            double treshold = 0.0001;
-            return this.real == ((ComplexNumber) number).real && Math.abs((this.imagine -((ComplexNumber) number).imagine))< treshold;
+            return (Math.abs(real - ((ComplexNumber) number).real) < eps) && (Math.abs(imagine - ((ComplexNumber) number).imagine) < eps);
         }
 
-        public static ComplexNumber sum(ComplexNumber number1, ComplexNumber number2) {
-            return new ComplexNumber(number1.real + number2.real, number1.imagine + number2.imagine);
+
+        public static ComplexNumber sum(ComplexNumber y1, ComplexNumber y2) {
+            return new ComplexNumber(y1.getReal() + y2.getReal(), y1.getImagine() + y2.getImagine());
         }
 
-        public ComplexNumber compos(ComplexNumber number) {
-            return new ComplexNumber(this.real * number.getReal() - this.imagine * number.getImagine(), this.real * number.getImagine() + this.imagine * number.getReal());
+        public ComplexNumber compos(ComplexNumber y,int power) {
+            double factor = Math.pow(y.getModule(), power);
+            return new ComplexNumber(factor * Math.cos(power * y.getArg()), factor * Math.sin(power * y.getArg()));
         }
     }
