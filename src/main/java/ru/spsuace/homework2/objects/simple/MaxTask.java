@@ -11,7 +11,6 @@ public class MaxTask {
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      * Можно пользоваться Arrays.sort(arr), эта функция сортирует входящий массив
-     *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
         if (array.length < count) {
@@ -19,13 +18,12 @@ public class MaxTask {
         }
         Arrays.sort(array);
         int i = 0;
-        int[] arr;
-        arr = new int[count];
-        for (int k = (array.length-1); k>=(array.length-count); k--) {
-            if (count == 0) {
-                arr = new int[0];
-                return arr;
-            }
+        int[] arr = new int[count];
+        if (count == 0) {
+            arr = new int[0];
+            return arr;
+        }
+        for (int k = array.length - 1; k >= array.length - count; k--) {
             arr[i] = array[k];
             i++;
         }
@@ -39,35 +37,35 @@ public class MaxTask {
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
      * Сделать надо без ПОЛНОЙ сортировки массива array
-     *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
         if (array.length < count) {
             return null;
         }
-        for (int t = 0; t < array.length; t++) {
-            int min = array[t];
-            int min1 = t;
-            for (int j = t+1; j < array.length; j++) {
-                if (array[j] < min) {
-                    min = array[j];
-                    min1 = j;
+        int[] arr = new int[count];
+        for (int c = 0; c < count; c++) {
+            int x;
+            for (x = c; x < array.length - 2; x++) {
+                arr[c] = array[x];
+                if (array[x] <= array[x+1]) {
+                    if (array[x+1] >= arr[c]) {
+                        arr[c] = array[x+1];
+                    }
+                    arr[c] = arr[c];
                 }
             }
-            int m = array[t];
-            array[t] = min;
-            array[min1] = m;
-        }
-        int i = 0;
-        int[] arr;
-        arr = new int[count];
-        for (int k = (array.length-1); k>=(array.length-count); k--) {
-            if (count == 0) {
-                arr = new int[0];
-                return arr;
+            int i = 0;
+            for(x = 0; x < array.length-1; x++) {
+                if (array[x] == arr[c]) {
+                    break;
+                }
+                array[x] = array[x];
+                i = i + 1;
             }
-            arr[i] = array[k];
-            i++;
+            for (x = i; x < array.length-1; x++) {
+                array[x] = array[x+1];
+                i = i + 1;
+            }
         }
         return arr;
     }
