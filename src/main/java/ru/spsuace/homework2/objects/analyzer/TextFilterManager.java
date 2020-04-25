@@ -42,10 +42,10 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
+        FilterType type;
         if (text == null) {
             return FilterType.GOOD;
         }
-        FilterType type;
         for (TextAnalyzer filter : filters) {
             type = filter.analyze(text);
             if (type != FilterType.GOOD) {
