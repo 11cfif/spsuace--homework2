@@ -17,21 +17,21 @@ public interface TextAnalyzer {
     FilterType analyze(String text);
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return new ToLongAnalyzer(maxLength);
+        return new TooLongAnalyzer(maxLength);
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
         return new SpamAnalyzer(spam);
     }
 
-    static TextAnalyzer createNegativeTextAnalyzer() {
+    static NegativeTextAnalyzer createNegativeTextAnalyzer() {
         return new NegativeTextAnalyzer();
     }
 
     /**
-     * Дополнительное задание: придумать свой фильтр
+     * Фильтр ищет, есть ли какие-то ссылки в сообщении
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+    static TextAnalyzer createLinkAnalyzer() {
+        return new LinkAnalyzer();
     }
 }

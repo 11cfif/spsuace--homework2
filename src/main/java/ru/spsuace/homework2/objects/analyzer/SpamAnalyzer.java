@@ -1,8 +1,12 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-class SpamAnalyzer implements TextAnalyzer {
+import java.util.Arrays;
 
-    private String[] badSpam;
+import static ru.spsuace.homework2.objects.analyzer.NegativeTextAnalyzer.NEGATIVE;
+
+public class SpamAnalyzer implements TextAnalyzer {
+
+    private final String[] badSpam;
 
     SpamAnalyzer(String[] badSpam) {
         this.badSpam = badSpam;
@@ -12,6 +16,9 @@ class SpamAnalyzer implements TextAnalyzer {
     public FilterType analyze(String text) {
         for (String i : badSpam) {
             if (text.contains(i)) {
+                if (Arrays.equals(badSpam,NEGATIVE)){
+                    return FilterType.NEGATIVE_TEXT;
+                }
                 return FilterType.SPAM;
             }
         }

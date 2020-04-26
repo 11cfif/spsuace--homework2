@@ -1,12 +1,14 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-class ToLongAnalyzer implements TextAnalyzer {
+public class TooLongAnalyzer implements TextAnalyzer {
 
-    private long lengthString;
+    private final long lengthString;
 
-    ToLongAnalyzer(long lengthString) {
+    TooLongAnalyzer(long lengthString) {
         this.lengthString = lengthString;
     }
+
+
 
     @Override
     public FilterType analyze(String text) {
