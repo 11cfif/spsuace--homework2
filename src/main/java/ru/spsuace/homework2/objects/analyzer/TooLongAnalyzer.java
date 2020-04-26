@@ -9,7 +9,6 @@ public class TooLongAnalyzer implements TextAnalyzer {
     }
 
 
-
     @Override
     public FilterType analyze(String text) {
         if (lengthString < text.length()) {

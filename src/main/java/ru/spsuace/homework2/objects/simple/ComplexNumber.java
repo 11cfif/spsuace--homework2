@@ -1,9 +1,5 @@
 package ru.spsuace.homework2.objects.simple;
 
-import com.sun.javafx.css.Combinator;
-
-import static com.sun.tools.doclint.Entity.and;
-
 /**
  * Опишите иммутабельное комплексное число, с геттерами и методами toString()
  * Так же дополните класс методами, чтобы эти объекты можно было использовать в HashMap

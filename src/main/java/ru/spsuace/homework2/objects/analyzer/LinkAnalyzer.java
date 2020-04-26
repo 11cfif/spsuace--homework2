@@ -1,10 +1,10 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class LinkAnalyzer extends SpamAnalyzer{
+public class LinkAnalyzer extends SpamAnalyzer {
 
-    final static String[] LINK = {"http://", "https://"};
+    final static String[] LINKS = {"http://", "https://"};
 
-    public LinkAnalyzer () {
-        super(LINK);
+    public LinkAnalyzer() {
+        super(LINKS);
     }
 }
