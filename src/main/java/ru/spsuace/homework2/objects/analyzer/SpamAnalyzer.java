@@ -17,6 +17,12 @@ public class SpamAnalyzer implements TextAnalyzer {
         if (type == FilterType.SPAM) {
             return 0;
         }
+        if (type == FilterType.NEGATIVE_TEXT) {
+            return 2;
+        }
+        if (type == FilterType.LINK) {
+            return 3;
+        }
         return 4;
     }
 
