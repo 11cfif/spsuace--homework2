@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Задание написать систему фильтрации комментариев.
  * Надо реализовать три типа обязательных фильтров
@@ -17,12 +20,12 @@ package ru.spsuace.homework2.objects.analyzer;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  * Отсортировать фильтра можно с помощью функции
  * Arrays.sort(filter, (filter1, filter2) -> {
- *     if (filter1 < filter2) {
- *         return -1;
- *     } else if (filter1 == filter2) {
- *         return 0;
- *     }
- *     return 1;
+ * if (filter1 < filter2) {
+ * return -1;
+ * } else if (filter1 == filter2) {
+ * return 0;
+ * }
+ * return 1;
  * }
  * где вместо сравнение самих фильтров должно быть стравнение каких-то количественных параметров фильтра
  */
@@ -42,13 +45,19 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
+        FilterType[] analyzePriority = new FilterType[4];
         if (text == null) {
             return FilterType.GOOD;
         }
         for (TextAnalyzer filter : filters) {
             FilterType type = filter.analyze(text);
             if (type != null) {
-                return type;
+                analyzePriority[filter.priority(type)] = type;
+            }
+        }
+        for (int i = 0; i <= 3; i++) {
+            if (analyzePriority[i] != null) {
+                return analyzePriority[i];
             }
         }
         return FilterType.GOOD;

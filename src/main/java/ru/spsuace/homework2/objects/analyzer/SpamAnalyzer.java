@@ -13,6 +13,14 @@ public class SpamAnalyzer implements TextAnalyzer {
     }
 
     @Override
+    public int priority(FilterType type) {
+        if (type == FilterType.SPAM) {
+            return 0;
+        }
+        return 4;
+    }
+
+    @Override
     public FilterType analyze(String text) {
         for (String i : badSpam) {
             if (text.contains(i)) {

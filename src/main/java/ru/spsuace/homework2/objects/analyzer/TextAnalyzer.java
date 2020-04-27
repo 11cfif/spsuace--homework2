@@ -14,6 +14,8 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
 
+    int priority(FilterType type);
+
     FilterType analyze(String text);
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {

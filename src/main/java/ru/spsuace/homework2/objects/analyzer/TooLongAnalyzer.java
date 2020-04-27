@@ -8,6 +8,13 @@ public class TooLongAnalyzer implements TextAnalyzer {
         this.lengthString = lengthString;
     }
 
+    @Override
+    public int priority(FilterType type) {
+        if (type == FilterType.TOO_LONG) {
+            return 1;
+        }
+        return 4;
+    }
 
     @Override
     public FilterType analyze(String text) {

@@ -106,7 +106,7 @@ public class TextFilterManagerTest {
                 TextAnalyzer.createNegativeTextAnalyzer(),
                 TextAnalyzer.createSpamAnalyzer(new String[]{"пинкод", "смс", "cvv"}),
                 TextAnalyzer.createTooLongAnalyzer(20)});
-        assertEquals("NEGATIVE_TEXT", manager.analyze("Привет, я Петя :(").toString());
+        assertEquals("NEGATIVE_TEXT", manager.analyze("Privet, i Peta :(").toString());
         assertEquals("TOO_LONG", manager.analyze("Скажите Код Из Смс :-(").toString());
         assertEquals("SPAM", manager.analyze("смс пожалуйста ;|").toString());
     }
@@ -116,12 +116,12 @@ public class TextFilterManagerTest {
         manyFilters(false);
     }
 
-    //
-//    @Test
-//    public void analyzeAllFiltersManyWithPriority() {
-//        manyFilters(true);
-//    }
-//
+
+  @Test
+    public void analyzeAllFiltersManyWithPriority() {
+        manyFilters(true);
+    }
+
     private void manyFilters(boolean withPriority) {
         TextFilterManager manager = new TextFilterManager(new TextAnalyzer[]{
                 TextAnalyzer.createNegativeTextAnalyzer(),

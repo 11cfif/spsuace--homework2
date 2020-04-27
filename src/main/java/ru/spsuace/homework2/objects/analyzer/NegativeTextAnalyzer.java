@@ -7,4 +7,12 @@ public class NegativeTextAnalyzer extends SpamAnalyzer {
     public NegativeTextAnalyzer() {
         super(NEGATIVE);
     }
+
+    @Override
+    public int priority(FilterType type) {
+        if (type == FilterType.NEGATIVE_TEXT) {
+            return 2;
+        }
+        return 4;
+    }
 }
