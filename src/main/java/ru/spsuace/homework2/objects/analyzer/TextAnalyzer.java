@@ -8,11 +8,14 @@ package ru.spsuace.homework2.objects.analyzer;
  * прием ООП, где нам не важна конкретная реализация, а важен только контракт, что результат статических методов
  * умеет как-то анализировать текст). Сами статические методы мне нужны для создания тестов,
  * что бы без реальных классов (которые вы напишите) я смог "сэмулировать" их создание.
- *
+ * <p>
  * Так же необходимо создать все необходимы методы, которые будут вам нужны для прогона текста
  * по всем фильтрам в классе TextFilterManager
  */
 public interface TextAnalyzer {
+    boolean checkFilter(String text);
+
+    FilterType getFilter();
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
         return new TooLongAnalyzer(maxLength);
@@ -32,5 +35,4 @@ public interface TextAnalyzer {
 //   static <T> TextAnalyzer createCustomAnalyzer(T something) {
 //      return null;
 //   }
-    FilterType analyze(String text);
 }

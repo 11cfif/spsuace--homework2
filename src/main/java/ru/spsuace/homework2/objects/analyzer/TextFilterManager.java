@@ -17,12 +17,12 @@ package ru.spsuace.homework2.objects.analyzer;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  * Отсортировать фильтра можно с помощью функции
  * Arrays.sort(filter, (filter1, filter2) -> {
- *     if (filter1 < filter2) {
- *         return -1;
- *     } else if (filter1 == filter2) {
- *         return 0;
- *     }
- *     return 1;
+ * if (filter1 < filter2) {
+ * return -1;
+ * } else if (filter1 == filter2) {
+ * return 0;
+ * }
+ * return 1;
  * }
  * где вместо сравнение самих фильтров должно быть стравнение каких-то количественных параметров фильтра
  */
@@ -45,11 +45,9 @@ public class TextFilterManager {
         if (text == null) {
             return FilterType.GOOD;
         }
-        FilterType type;
         for (TextAnalyzer filter : filters) {
-            type = filter.analyze(text);
-            if (type != FilterType.GOOD) {
-                return type;
+            if (filter.checkFilter(text)) {
+                return filter.getFilter();
             }
         }
         return FilterType.GOOD;

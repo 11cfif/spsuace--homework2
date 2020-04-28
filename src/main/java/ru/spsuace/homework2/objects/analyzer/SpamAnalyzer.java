@@ -9,13 +9,16 @@ public class SpamAnalyzer implements TextAnalyzer {
     }
 
     @Override
-    public FilterType analyze(String text) {
-        FilterType result = FilterType.GOOD;
+    public boolean checkFilter(String text) {
         for (String keyword : keywords)
             if (text.contains(keyword)) {
-                result = FilterType.SPAM;
-                break;
+                return true;
             }
-        return result;
+        return false;
+    }
+
+    @Override
+    public FilterType getFilter() {
+        return FilterType.SPAM;
     }
 }
