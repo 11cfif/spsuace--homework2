@@ -37,10 +37,10 @@ public class TextFilterManager {
     public TextFilterManager(TextAnalyzer[] filters) {
         this.filters = Arrays.copyOf(filters, filters.length);
 
-        Arrays.sort(this.filters, (t1, t2) -> {
-            int p1 = t1.getFilter().getPriority();
-            int p2 = t2.getFilter().getPriority();
-            return Integer.compare(p1, p2);
+        Arrays.sort(this.filters, (filter1, filter2) -> {
+            int priority1 = filter1.getFilter().getPriority();
+            int priority2 = filter2.getFilter().getPriority();
+            return Integer.compare(priority1, priority2);
         });
     }
 
