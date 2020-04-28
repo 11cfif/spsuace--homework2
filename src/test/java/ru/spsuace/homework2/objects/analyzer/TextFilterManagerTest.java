@@ -18,6 +18,7 @@ public class TextFilterManagerTest {
         assertEquals("GOOD", manager.analyze("Скажите код из смс").toString());
         assertEquals("GOOD", manager.analyze("Ооооооочень длиннннннаааааяяяя стрроооооооккккаааааа").toString());
     }
+    
 
     @Test
     public void analyzeOnlyLongFilter() {
