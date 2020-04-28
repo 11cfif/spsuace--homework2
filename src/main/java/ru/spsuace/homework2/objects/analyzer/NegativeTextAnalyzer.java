@@ -8,4 +8,8 @@ public class NegativeTextAnalyzer extends SpamAnalyzer {
         super(NEGATIVE);
     }
 
+    @Override
+    public FilterType getFilter() {
+        return FilterType.NEGATIVE_TEXT;
+    }
 }

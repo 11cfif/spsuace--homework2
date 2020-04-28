@@ -8,4 +8,8 @@ public class LinkAnalyzer extends SpamAnalyzer {
         super(LINKS);
     }
 
+    @Override
+    public FilterType getFilter() {
+        return FilterType.LINK;
+    }
 }

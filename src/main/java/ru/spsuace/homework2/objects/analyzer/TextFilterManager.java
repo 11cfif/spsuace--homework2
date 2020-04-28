@@ -1,7 +1,4 @@
 package ru.spsuace.homework2.objects.analyzer;
-
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -38,26 +35,25 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
-        this.filters = filters;
+        this.filters = Arrays.copyOf(filters, filters.length);
+
+        Arrays.sort(this.filters, (t1, t2) -> {
+            int p1 = t1.getFilter().getPriority();
+            int p2 = t2.getFilter().getPriority();
+            return Integer.compare(p1, p2);
+        });
     }
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        FilterType[] analyzePriority = new FilterType[4];
         if (text == null) {
             return FilterType.GOOD;
         }
         for (TextAnalyzer filter : filters) {
-            FilterType type = filter.analyze(text);
-            if (type != null) {
-                analyzePriority[filter.priority(type)] = type;
-            }
-        }
-        for (int i = 0; i <= 3; i++) {
-            if (analyzePriority[i] != null) {
-                return analyzePriority[i];
+            if (filter.check(text)) {
+                return filter.getFilter();
             }
         }
         return FilterType.GOOD;
