@@ -126,12 +126,12 @@ public class TextFilterManagerTest {
         manyFilters(false);
     }
 
-    //
-//    @Test
-//    public void analyzeAllFiltersManyWithPriority() {
-//        manyFilters(true);
-//    }
-//
+
+    @Test
+    public void analyzeAllFiltersManyWithPriority() {
+        manyFilters(true);
+    }
+
     private void manyFilters(boolean withPriority) {
         TextFilterManager manager = new TextFilterManager(new TextAnalyzer[]{
                 TextAnalyzer.createNegativeTextAnalyzer(),

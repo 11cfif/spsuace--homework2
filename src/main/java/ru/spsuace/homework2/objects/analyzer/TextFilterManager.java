@@ -26,7 +26,7 @@ import java.util.Arrays;
  *     }
  *     return 1;
  * }
- * где вместо сравнение самих фильтров должно быть стравнение каких-то количественных параметров фильтра
+ * где вместо сравнение самих фильтров должно быть сравнение каких-то количественных параметров фильтра
  */
 public class TextFilterManager {
     private final TextAnalyzer[] filters;
@@ -39,6 +39,13 @@ public class TextFilterManager {
      */
     public TextFilterManager(TextAnalyzer[] filters) {
         this.filters = Arrays.copyOf(filters, filters.length);
+
+        Arrays.sort(this.filters, (t1, t2) -> {
+            int p1 = t1.getFilterType().getPriority();
+            int p2 = t2.getFilterType().getPriority();
+            return Integer.compare(p1, p2);
+        });
+
     }
 
     /**
