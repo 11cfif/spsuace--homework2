@@ -1,4 +1,17 @@
 package ru.spsuace.homework2.objects.analyzer;
+public class NegativeTextAnalyzer implements TextAnalyzer {
+    private final String[] keywords = {"=(", ":(", ":|"};
+    @Override
+    public FilterType analyze(String text) {
+        FilterType result = FilterType.GOOD;
+        for (String keyword : keywords)
+            if (text.contains(keyword)) {
+                result = FilterType.NEGATIVE_TEXT;
+                break;
+            }
+        return result;
+    }
+}
 
 
 /**
@@ -27,6 +40,7 @@ package ru.spsuace.homework2.objects.analyzer;
  * где вместо сравнение самих фильтров должно быть стравнение каких-то количественных параметров фильтра
  */
 public class TextFilterManager {
+    private final TextAnalyzer[] filters;
 
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
@@ -34,6 +48,7 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
+        this.filters = filters;
 
     }
 
@@ -42,5 +57,37 @@ public class TextFilterManager {
      */
     public FilterType analyze(String text) {
         return null;
+        if (text == null) {
+            return FilterType.GOOD;
+        }
+        FilterType type;
+        for (TextAnalyzer filter : filters) {
+            type = filter.analyze(text);
+            if (type != FilterType.GOOD) {
+                return type;
+            }
+        }
+        return FilterType.GOOD;
+    }
+}
+}
+
+
+public class TooLongAnalyzer implements TextAnalyzer {
+
+    private final long maxLength;
+
+    public TooLongAnalyzer(long maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    @Override
+    public FilterType analyze(String text) {
+        FilterType result;
+        result = FilterType.GOOD;
+        if (text.length() > maxLength) {
+            result = FilterType.TOO_LONG;
+        }
+        return result;
     }
 }

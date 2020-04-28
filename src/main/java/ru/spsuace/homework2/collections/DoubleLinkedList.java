@@ -8,7 +8,8 @@ import java.util.Iterator;
  * Если в метод передается индекс, которого не существует (за исключением, add(size(), obj)), то надо бросить ошибку:
  * throw new IndexOutOfBoundsException()
  */
-public class DoubleLinkedList<T> implements Iterable<T> {
+public class
+ DoubleLinkedList<T> implements Iterable<T> {
 
     public int size() {
         return 0;

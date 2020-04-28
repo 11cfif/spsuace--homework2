@@ -1,6 +1,8 @@
 package ru.spsuace.homework2.objects.simple;
 
-public class MaxTask {
+import java.util.Arrays;
+
+public class   MaxTask {
 
     /**
      * Вам дан массив и количество элементов в возвращаемом массиве
@@ -11,7 +13,12 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArray(int[] array, int count) {
-        return null;
+        Arrays.sort(array);
+int[] result=new int[count];
+        if (array.length < count) {
+            return null;
+        }
+
     }
 
 }
