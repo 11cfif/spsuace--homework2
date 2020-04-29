@@ -30,7 +30,7 @@ public interface TextAnalyzer {
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static TextAnalyzer createDuplicateAnalyzer(TextToMaxCountPair textToMaxCountPair) {
+    static TextAnalyzer createDuplicateAnalyzer(ToMaxCountPair textToMaxCountPair) {
         return (TextAnalyzer) new DuplicateTextAnalyzer(textToMaxCountPair);
     }
 
@@ -40,29 +40,12 @@ public interface TextAnalyzer {
     /**
      * фильтр для проверки повторов слов в тексте
      */
-    public class TextToMaxCountPair {
-        private final String text;
-        private final int maxCount;
-
-        public TextToMaxCountPair(String text, int maxCount) {
-            this.text = text;
-            this.maxCount = maxCount;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public int getMaxCount() {
-            return maxCount;
-        }
-    }
 
 
     public class DuplicateTextAnalyzer {
-        private final TextToMaxCountPair textToMaxCountPair;
+        private final ToMaxCountPair textToMaxCountPair;
 
-        public DuplicateTextAnalyzer(TextToMaxCountPair textToMaxCountPair) {
+        public DuplicateTextAnalyzer(ToMaxCountPair textToMaxCountPair) {
             this.textToMaxCountPair = textToMaxCountPair;
         }
 

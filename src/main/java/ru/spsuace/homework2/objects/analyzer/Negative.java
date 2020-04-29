@@ -1,16 +1,16 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class Negative  {
-    private final static String[] negative = {"=(", ":(", ":|"};
+public class Negative implements TextAnalyzer {
+    private final String[] emojis = {"=(",":(",":|"};
 
-
-    public FilterType TextAnalyzer(String text) {
-        for (String evil : negative) {
-            if (text.contains(evil)) {
-                return FilterType.NEGATIVE_TEXT;
+    @Override
+    public FilterType analyze(String text){
+        FilterType result =FilterType.GOOD;
+        for(String emoji : emojis)
+            if (text.contains(emoji)) {
+                break;
             }
-        }
-        return FilterType.GOOD;
+        return FilterType.NEGATIVE_TEXT;
     }
 }
 

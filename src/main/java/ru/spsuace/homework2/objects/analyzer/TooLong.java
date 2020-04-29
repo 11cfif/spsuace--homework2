@@ -13,9 +13,8 @@ public class TooLong implements TextAnalyzer {
         FilterType result;
         result = FilterType.GOOD;
         if (text.length() > maxLength) {
-            result = FilterType.TOO_LONG;
         }
-        return result;
+        return FilterType.TOO_LONG;
     }
 }
 
