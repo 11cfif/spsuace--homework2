@@ -1,13 +1,13 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public interface NegativeTextAnalyzer implements TextAnalyzer {
-    private final String[] keywords = {"=(", ":(", ":|"};
+public class NegativeTextAnalyzer implements TextAnalyzer {
+    private static final String[] negativeKeywords = new String[] {"=(", ":(", ":|"};
 
 
     @Override
     public FilterType analyze(String text) {
         FilterType result = FilterType.GOOD;
-        for (String keyword : keywords)
+        for (String keyword : negativeKeywords)
             if (text.contains(keyword)) {
                 result = FilterType.NEGATIVE_TEXT;
                 break;
