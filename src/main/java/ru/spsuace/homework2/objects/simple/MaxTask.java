@@ -14,19 +14,29 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        if (array.length < count) {
+        int n = array.length;
+
+        if (n < count) {
             return null;
         }
-        int[] arrayFinal = new int[count];
         if (count == 0) {
-            return arrayFinal;
+            return new int[]{};
         }
-        int[] arrayTemp = Arrays.copyOf(array, array.length);
-        Arrays.sort(arrayTemp);
-        for (int i = 0; i < count; i++) {
-            arrayFinal[i] = arrayTemp[arrayTemp.length - i - 1];
+
+        int[] sortArray = new int[count];
+
+        int[] newArray = new int[n];
+        System.arraycopy(array, 0, newArray, 0, n);
+        Arrays.sort(newArray);
+        int j = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            sortArray[j] = newArray[i];
+            if (j == count - 1) {
+                return sortArray;
+            }
+            j++;
         }
-        return arrayFinal;
+        return sortArray;
     }
 
     /**
@@ -39,28 +49,32 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        if (array.length < count) {
+        int n = array.length;
+
+        if (n < count) {
             return null;
         }
-        int[] arrayFinal = new int[count];
         if (count == 0) {
-            return arrayFinal;
+            return new int[]{};
         }
-        int[] arrayTemp = Arrays.copyOf(array, array.length);
-        int max = arrayTemp[0];
-        int indexMax = 0;
-        for (int i = 0; i < count; i++) {
-            for (int j = 1; j < arrayTemp.length; j++) {
-                if (max < arrayTemp[j]) {
-                    max = arrayTemp[j];
-                    indexMax = j;
+
+        int[] sortArray = new int[count];
+
+        int[] newArray = new int[n];
+        int maxValueIndex = 0;
+        System.arraycopy(array, 0, newArray, 0, n);
+        for (int i = 0; i <= count - 1; i++) {
+            int maxValue = Integer.MIN_VALUE;
+            for (int j = 0; j <= n - 1; j++) {
+                if (newArray[j] > maxValue) {
+                    maxValue = newArray[j];
+                    maxValueIndex = j;
                 }
             }
-            arrayFinal[i] = max;
-            arrayTemp[indexMax] = Integer.MIN_VALUE;
-            max = arrayTemp[0];
+            sortArray[i] = maxValue;
+            newArray[maxValueIndex] = Integer.MIN_VALUE;
         }
-        return arrayFinal;
+        return sortArray;
     }
 }
 

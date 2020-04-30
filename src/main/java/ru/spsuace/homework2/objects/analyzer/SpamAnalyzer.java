@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public interface SpamAnalyzer extends TextAnalyzer {
+public class SpamAnalyzer implements TextAnalyzer {
 
     private final String[] keywords;
 
