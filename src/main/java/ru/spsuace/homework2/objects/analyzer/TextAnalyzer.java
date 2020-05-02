@@ -23,9 +23,7 @@ public interface TextAnalyzer {
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
-    }
+    static TextAnalyzer createLinkAnalyzer() { return new LinksFilter(); }
     boolean checkFlags(String text);
     FilterType getType();
 }
