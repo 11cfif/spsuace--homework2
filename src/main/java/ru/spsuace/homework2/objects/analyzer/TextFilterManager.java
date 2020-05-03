@@ -17,16 +17,19 @@ package ru.spsuace.homework2.objects.analyzer;
  * (SPAM, TOO_LONG, NEGATIVE_TEXT, CUSTOM - в таком порядке) и возвращать тип с максимальным приоритетом.
  * Отсортировать фильтра можно с помощью функции
  * Arrays.sort(filter, (filter1, filter2) -> {
- *     if (filter1 < filter2) {
- *         return -1;
- *     } else if (filter1 == filter2) {
- *         return 0;
- *     }
- *     return 1;
+ * if (filter1 < filter2) {
+ * return -1;
+ * } else if (filter1 == filter2) {
+ * return 0;
+ * }
+ * return 1;
  * }
  * где вместо сравнение самих фильтров должно быть стравнение каких-то количественных параметров фильтра
  */
-public class TextFilterManager {
+public class TextFilterManager<filter> {
+
+    private TextAnalyzer[] filters;
+
 
     /**
      * Для работы с каждым элементом массива, нужно использовать цикл for-each
@@ -34,13 +37,22 @@ public class TextFilterManager {
      * что в них реализован интерфейс TextAnalyzer
      */
     public TextFilterManager(TextAnalyzer[] filters) {
-
+        this.filters = filters;
     }
+
 
     /**
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        return null;
+
+        for (TextAnalyzer filter : filters) {
+            FilterType type = filter.analyze(text);
+            if (type != null) {
+                return type;
+            }
+        }
+        return FilterType.GOOD;
     }
+
 }
