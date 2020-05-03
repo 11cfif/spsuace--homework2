@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
  * анализа текста.
@@ -19,17 +22,19 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return (TextAnalyzer) new Spam(spam);
+        return  new Spam(spam);
     }
 
-    static TextAnalyzer createNegativeTextAnalyzer() {
-        return (TextAnalyzer) new Negative();
-    }
+        static TextAnalyzer createNegativeTextAnalyzer() {
+            return  new Negative();
+        }
 
 
     /**
      * Дополнительное задание: придумать свой фильтр
      */
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     static TextAnalyzer createDuplicateAnalyzer(ToMaxCountPair textToMaxCountPair) {
         return (TextAnalyzer) new DuplicateTextAnalyzer(textToMaxCountPair);
     }

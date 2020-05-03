@@ -13,4 +13,3 @@ public class Negative implements TextAnalyzer {
         return FilterType.NEGATIVE_TEXT;
     }
 }
-

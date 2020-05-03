@@ -1,21 +1,20 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-public class Spam {
+public class Spam implements TextAnalyzer {
+    private final String[] spam;
 
-    private final String[] badwords;
-
-    public Spam(String[] spam) {
-        this.badwords = spam;
+    Spam(String[] spam) {
+        this.spam = spam;
     }
 
+    @Override
     public FilterType analyze(String text) {
-        FilterType result = FilterType.GOOD;
-        for (String badword : badwords)
-            if (text.contains(badword)) {
-                result = FilterType.SPAM;
-                break;
+        for (String badSymb : spam) {
+            if (text.contains(badSymb)) {
+                return FilterType.SPAM;
             }
-        return result;
+        }
+        return FilterType.GOOD;
     }
 }
