@@ -14,16 +14,24 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
 
-    static TextAnalyzer createTooLongAnalyzer(long maxLength) { return new TooLongFilter(maxLength); }
+    static TextAnalyzer createTooLongAnalyzer(long maxLength) {
+        return new TooLongFilter(maxLength);
+    }
 
-    static TextAnalyzer createSpamAnalyzer(String[] spam) { return new SpamFilter(spam); }
+    static TextAnalyzer createSpamAnalyzer(String[] spam) {
+        return new SpamFilter(spam);
+    }
 
-    static TextAnalyzer createNegativeTextAnalyzer() { return new NegativeTextFilter(); }
+    static TextAnalyzer createNegativeTextAnalyzer() {
+        return new NegativeTextFilter();
+    }
 
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static TextAnalyzer createLinkAnalyzer() { return new LinksFilter(); }
-    boolean checkFlags(String text);
+    static TextAnalyzer createLinkAnalyzer() {
+        return new LinksFilter();
+    }
+    boolean checkText(String text);
     FilterType getType();
 }

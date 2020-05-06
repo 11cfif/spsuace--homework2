@@ -11,7 +11,7 @@ public class SpamFilter implements TextAnalyzer {
     }
 
     @Override
-    public boolean checkFlags(String text) {
+    public boolean checkText(String text) {
         for (String spam : allSpam) {
             if (text.contains(spam)) {
                 return true;

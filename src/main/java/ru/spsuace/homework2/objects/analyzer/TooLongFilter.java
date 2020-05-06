@@ -8,7 +8,7 @@ public class TooLongFilter implements TextAnalyzer {
     }
 
     @Override
-    public boolean checkFlags(String text) {
+    public boolean checkText(String text) {
         return text.length() > maxLength;
     }
 

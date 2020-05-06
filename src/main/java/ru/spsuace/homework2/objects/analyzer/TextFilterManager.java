@@ -57,7 +57,7 @@ public class TextFilterManager {
         }
 
         for (TextAnalyzer filter : filters) {
-            if (filter.checkFlags(text)) {
+            if (filter.checkText(text)) {
                 return filter.getType();
             }
         }
