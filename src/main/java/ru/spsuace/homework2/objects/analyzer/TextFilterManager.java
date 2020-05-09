@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
+import java.util.Arrays;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -33,10 +34,15 @@ public class TextFilterManager {
      * Хочется заметить, что тут мы ничего не знаем, какие конкретно нам объекты переданы, знаем только то,
      * что в них реализован интерфейс TextAnalyzer
      */
-    private final TextAnalyzer[] filters;
+    private final TextAnalyzer[] FILTERS;
 
     public TextFilterManager(TextAnalyzer[] filters) {
-        this.filters = filters;
+        this.FILTERS = Arrays.copyOf(filters, filters.length);
+        Arrays.sort(this.FILTERS, (filter1, filter2) -> {
+            int priority1 = filter1.GetType().getPriority();
+            int priority2 = filter2.GetType().getPriority();
+            return Integer.compare(priority1, priority2);
+        });
     }
 
     /**
@@ -46,11 +52,9 @@ public class TextFilterManager {
         if (text == null) {
             return FilterType.GOOD;
         }
-        FilterType type;
-        for (TextAnalyzer filter : filters) {
-            type = filter.textAnalyzer(text);
-            if (type != FilterType.GOOD) {
-                return type;
+        for (TextAnalyzer filter : FILTERS) {
+            if (filter.checkFilter((text))) {
+                return filter.GetType();
             }
         }
         return FilterType.GOOD;

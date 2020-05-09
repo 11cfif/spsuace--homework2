@@ -1,19 +1,16 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class TooLong implements TextAnalyzer {
-    private final long length;
+public class TooLong extends Analyzer {
+
+    private final long LENGTH;
 
     public TooLong(long length) {
-        this.length = length;
+        super(FilterType.TOO_LONG);
+        LENGTH = length;
     }
 
     @Override
-    public FilterType textAnalyzer(String text) {
-        System.out.println(text);
-        if (text.length() > length) {
-            return FilterType.TOO_LONG;
-        } else {
-            return FilterType.GOOD;
-        }
+    public boolean checkFilter(String Text) {
+        return Text.length() > LENGTH;
     }
 }

@@ -1,6 +1,5 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
  * анализа текста.
@@ -14,7 +13,9 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
 
-    FilterType textAnalyzer(String text);
+    boolean checkFilter(String Text);
+
+    FilterType GetType();
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
         return new TooLong(maxLength);
@@ -25,7 +26,7 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new NegativeText();
+        return new NegativeText(FilterType.NEGATIVE_TEXT);
     }
 
     /**
