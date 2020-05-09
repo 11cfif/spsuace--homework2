@@ -5,9 +5,10 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public enum FilterType {
     GOOD(0),
-    TOO_LONG(2),
     SPAM(1),
-    NEGATIVE_TEXT(3);
+    TOO_LONG(2),
+    NEGATIVE_TEXT(3),
+    CUSTOM(4);
 
     private final int PRIORITY;
 

@@ -16,8 +16,8 @@ public class Spam extends Analyzer {
 
     @Override
     public boolean checkFilter(String Text) {
-        for (String mask : SPAM) {
-            if (Text.contains(mask)) {
+        for (String evil : SPAM) {
+            if (Text.contains(evil)) {
                 return true;
             }
         }
