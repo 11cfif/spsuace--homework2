@@ -56,18 +56,18 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     // ----------- 1 балл -----------
 
-    public void add(int index, T data) {
+    public void add(int index, T element) {
         if (index == size) {
-            addLast(data);
+            addLast(element);
             return;
         }
 
         indexBoundsCheck(index);
 
         if (index == 0) {
-            addFirst(data);
+            addFirst(element);
         } else {
-            Element<T> newElement = new Element(data);
+            Element<T> newElement = new Element(element);
             Element<T> oldElement = getElement(index);
             newElement.previous = oldElement.previous;
             newElement.next = oldElement;
