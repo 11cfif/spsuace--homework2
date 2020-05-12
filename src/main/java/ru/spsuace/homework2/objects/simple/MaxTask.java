@@ -35,7 +35,7 @@ public class MaxTask {
      * Если длина массива меньше count, то вернуть null
      * Например ({1, 3, 10, 11, 22, 0}, 2) -> {22, 11}
      * ({1, 3, 22, 11, 22, 0}, 3) -> {22, 22, 11}
-     * Нельзя пользоваться Arrays.sort
+     * Сделать надо без ПОЛНОЙ сортировки массива array
      *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
