@@ -1,4 +1,11 @@
-import java.util.*;
+package ru.spsuace.homework2.collections;
+
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -30,8 +37,11 @@ import java.util.*;
  * <p>
  * Полный балл за все: 7
  *
+ *
+ * Полный балл за все: 7
  * @param <K> - тип ключа
  * @param <V> - тип значения
+ *
  */
 public class PopularMap<K, V> implements Map<K, V> {
 
@@ -167,6 +177,7 @@ public class PopularMap<K, V> implements Map<K, V> {
     /**
      * Возвращает количество использований значений в методах: containsValue, get, put (учитывается 2 раза, если
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
+     *  1 балл
      * 1 балл
      */
     public int getValuePopularity(V value) {

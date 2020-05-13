@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
+    // ----------- 1 балл -----------
+
     private LinkedItem<T> first;
     private LinkedItem<T> last;
     private int size;
@@ -48,6 +50,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
                 return i;
             }
         }
+        return -1;
+    }
+
+    // ----------- 1 балл -----------
+
+    public int indexOf(T o) {
         return -1;
     }
 
@@ -111,6 +119,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         size++;
     }
 
+    // ----------- 1 балл -----------
 
     // ----------- 1 балл -----------
 
@@ -194,6 +203,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             linkedItem.next.previous = linkedItem.previous;
         }
 
+
         T oldElement = linkedItem.item;
         linkedItem.item = null;
         linkedItem.previous = null;
@@ -206,6 +216,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
 
     /**
+     * Надо реализовать свой итератор, который будет последовательно идти с первого по последний элемент
+     * 3 балла
+     * @return
      * Надо реализовать свой итератор, который будет последовательно идти с первого по последний элемент
      * 3 балла
      *
