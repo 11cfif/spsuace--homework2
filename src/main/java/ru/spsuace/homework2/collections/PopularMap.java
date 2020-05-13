@@ -41,6 +41,8 @@ import java.util.Set;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
+    private final Map<K, Integer> mapKey = new HashMap<>();
+    private final Map<V, Integer> mapValue = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -52,62 +54,97 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        Keys(key);
+        return map.containsKey(key);
+    }
+    private void Keys(Object key) {
+        Integer value = mapKey.get(key);
+        if (value != null) {
+            value++;
+            mapKey.put((K) key, value);
+        } else {
+            mapKey.put((K) key, 1);
+        }
     }
 
+
+    private void Values(Object Value) {
+        Integer value = mapValue.get(Value);
+        if (value != null) {
+            value++;
+            mapValue.put((V) Value, value);
+        } else {
+            mapValue.put((V) Value, 1);
+        }
+    }
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        Values(value);
+        return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        return null;
+        Keys(key);
+        V value = map.get(key);
+        Values(value);
+        return value;
     }
 
     @Override
     public V put(K key, V value) {
-        return null;
+        Keys(key);
+        V oldValue = map.get(key);
+        if (oldValue != null) {
+            Values(oldValue);
+        }
+        Values(value);
+        return map.put(key, value);
     }
 
     @Override
     public V remove(Object key) {
-        return null;
+        Keys(key);
+        V value = map.remove(key);
+        if (value != null) {
+            Values(value);
+        }
+        return value;
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+        map.putAll(m);
     }
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return map.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return map.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return map.entrySet();
     }
 
     /**
