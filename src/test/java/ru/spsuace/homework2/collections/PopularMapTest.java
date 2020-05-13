@@ -147,31 +147,31 @@ public class PopularMapTest {
         assertEquals(0, popularMap1.getValuePopularity(value4));
     }
 
-    @Test
-    public void popularIterator() {
-        TestObject key1 = new TestObject("key1");
-        TestObject key2 = new TestObject("key2");
-        TestObject value1 = new TestObject("value1");
-        TestObject value2 = new TestObject("value2");
-        TestObject value3 = new TestObject("value3");
-        TestObject value4 = new TestObject("value4");
-        popularMap1.put(key1, value1);
-        popularMap1.remove(key1);
-        popularMap1.put(key2, value1);
-        popularMap1.put(key2, value2);
-        popularMap1.get(key2);
-        popularMap1.remove(key2);
-        popularMap1.remove(key1);
-        popularMap1.put(key1, value3);
-        popularMap1.put(key2, value3);
-
-        List<TestObject> expected = Arrays.asList(value3, value2, value1);
-        int i = 0;
-        for (Iterator<TestObject> it = popularMap1.popularIterator(); it.hasNext(); ) {
-            assertEquals(expected.get(i++), it.next());
-        }
-        assertEquals(3, i);
-    }
+//    @Test
+//    public void popularIterator() {
+//        TestObject key1 = new TestObject("key1");
+//        TestObject key2 = new TestObject("key2");
+//        TestObject value1 = new TestObject("value1");
+//        TestObject value2 = new TestObject("value2");
+//        TestObject value3 = new TestObject("value3");
+//        TestObject value4 = new TestObject("value4");
+//        popularMap1.put(key1, value1);
+//        popularMap1.remove(key1);
+//        popularMap1.put(key2, value1);
+//        popularMap1.put(key2, value2);
+//        popularMap1.get(key2);
+//        popularMap1.remove(key2);
+//        popularMap1.remove(key1);
+//        popularMap1.put(key1, value3);
+//        popularMap1.put(key2, value3);
+//
+//        List<TestObject> expected = Arrays.asList(value3, value2, value1);
+//        int i = 0;
+//        for (Iterator<TestObject> it = popularMap1.popularIterator(); it.hasNext(); ) {
+//            assertEquals(expected.get(i++), it.next());
+//        }
+//        assertEquals(3, i);
+//    }
 
     @Test
     public void isEmpty() {
