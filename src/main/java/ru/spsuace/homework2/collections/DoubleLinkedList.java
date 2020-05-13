@@ -119,7 +119,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         size++;
     }
 
-    // ----------- 1 балл -----------
 
     // ----------- 1 балл -----------
 
