@@ -110,9 +110,10 @@ public class PopularMap<K, V> implements Map<K, V> {
         return value;
     }
 
+
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+        map.putAll(m);
     }
 
     @Override
@@ -135,7 +136,6 @@ public class PopularMap<K, V> implements Map<K, V> {
     public Set<Entry<K, V>> entrySet() {
         return map.entrySet();
     }
-
     private void count(Object obj, Map map) {
         if (obj == null) {
             return;
