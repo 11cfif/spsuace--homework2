@@ -130,7 +130,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
                 return tempItem;
             }
         }
-
+/
         public T get ( int index){
             return null;
             if (size - 1 < index) {
