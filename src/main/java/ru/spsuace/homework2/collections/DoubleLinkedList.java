@@ -62,18 +62,16 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
         if (index == 0) {
             addFirst(element);
-        } else {
-            if (index == size) {
+        } else if (index == size) {
                 addLast(element);
-            } else {
-                DNode<T> node = new DNode<T>(element, null, null);
-                DNode<T> oldNode = getElemet(index);
-                node.prev = oldNode.prev;
-                node.next = oldNode;
-                oldNode.prev.next = node;
-                oldNode.prev = node;
-                size++;
-            }
+        } else {
+            DNode<T> node = new DNode<T>(element, null, null);
+            DNode<T> oldNode = getElemet(index);
+            node.prev = oldNode.prev;
+            node.next = oldNode;
+            oldNode.prev.next = node;
+            oldNode.prev = node;
+            size++;
         }
     }
 
