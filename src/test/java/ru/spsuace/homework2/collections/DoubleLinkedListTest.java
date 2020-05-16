@@ -1,15 +1,6 @@
 package ru.spsuace.homework2.collections;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import ru.spsuace.homework2.TestObject;
-
-import static org.junit.Assert.*;
+import ...
 
 public class DoubleLinkedListTest {
 

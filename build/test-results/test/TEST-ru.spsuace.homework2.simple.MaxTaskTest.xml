@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.spsuace.homework2.simple.MaxTaskTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-12T17:43:02" hostname="LAPTOP-ODM9GNRO" time="0.004">
-  <properties/>
-  <testcase name="getMaxArray" classname="ru.spsuace.homework2.simple.MaxTaskTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

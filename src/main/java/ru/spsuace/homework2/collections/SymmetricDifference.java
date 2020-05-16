@@ -1,5 +1,6 @@
 package ru.spsuace.homework2.collections;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -8,6 +9,7 @@ import java.util.Set;
  * Исходные множества модифицировать нельзя.
  * Пример: {1, 2, 3} и {0, 1, 2} -> {0, 3}.
  *
+ * 2 балла
  */
 public class SymmetricDifference {
 
