@@ -24,6 +24,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return indexOf(o) != -1;
     }
 
+    public NodeItem<T> thisItem (int index){
+        NodeItem<T> currentItem = firstItem;
+        for (int i = 0; i < index; i++) {
+            currentItem = currentItem.next;
+        }
+        return currentItem;
+    }
+
     public void clear() {
         size = 0;
         lastItem = null;
@@ -52,25 +60,17 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (size < index) {
             throw new IndexOutOfBoundsException();
         }
-        if (size == index) {
+        if (0 == index) {
+            addFirst(element);
+        } else if (size== index) {
             addLast(element);
         } else {
-            NodeItem<T> currentItem = firstItem;
-            for (int i = 0; i < index; i++) {
-                currentItem = currentItem.next;
-            }
-
+            NodeItem<T> currentItem = thisItem(index);
             NodeItem<T> newItem = new NodeItem<T>(element, currentItem.prev, currentItem);
-            currentItem.prev = newItem;
-            if (newItem.prev == null) {
-                firstItem = newItem;
-            } else {
-                newItem.prev.next = newItem;
-            }
-
-            if (newItem.next == null) {
-                lastItem = newItem;
-            }
+            currentItem.prev.next = newItem;
+            newItem.prev=currentItem.prev;
+            currentItem.prev=newItem;
+            newItem.next=currentItem;
             size++;
         }
     }
@@ -107,58 +107,39 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (size < index) {
             throw new IndexOutOfBoundsException();
         }
-        if (size == index) {
+        if (index==1){
+            addFirst(element);
+        } else if (size == index) {
             addLast(element);
-            return null;
         } else {
-            NodeItem<T> currentItem = firstItem;
-            for (int i = 0; i < index; i++) {
-                currentItem = currentItem.next;
-            }
-            NodeItem<T> newItem = new NodeItem<T>(element, currentItem.prev, currentItem.next);
-            T tempItem = currentItem.item;
-            currentItem.item = null;
-            currentItem.next = null;
-            currentItem.prev = null;
-            if (newItem.prev == null) {
-                firstItem = newItem;
-            } else {
-                newItem.prev.next = newItem;
-            }
-
-            if (newItem.next == null) {
-                lastItem = newItem;
-            } else {
-                newItem.next.prev = newItem;
-            }
+            NodeItem<T> currentItem = thisItem(index);
+            T tempItem=currentItem.item;
+            currentItem.item=element;
             return tempItem;
         }
+        return null;
     }
 
     public T get(int index) {
-        if (size - 1 < index) {
+        if (size-1 < index) {
             throw new IndexOutOfBoundsException();
         }
-
-        NodeItem<T> currentItem = firstItem;
-
-        for (int i = 0; i < index; i++) {
-            currentItem = currentItem.next;
-        }
-
+        NodeItem<T> currentItem = thisItem(index);
         return currentItem.item;
     }
 
     public T remove(int index) {
+
         if (size - 1 < index) {
             throw new IndexOutOfBoundsException();
         }
-
-        NodeItem<T> currentItem = firstItem;
-
-        for (int i = 0; i < index; i++) {
-            currentItem = currentItem.next;
+        if (index==size){
+            remove(lastItem);
         }
+        if (index==1){
+            remove(firstItem);
+        }
+        NodeItem<T> currentItem = thisItem(index);
         return remove(currentItem);
 
     }
@@ -178,9 +159,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         T tempItem = currentItem.item;
         currentItem.next = currentItem.prev;
         currentItem.prev = currentItem.next;
-        currentItem.item = null;
-        currentItem.next = null;
-        currentItem.prev = null;
         size--;
         return tempItem;
     }
@@ -197,7 +175,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return new DoubleLinkedListIterator<T>(this);
     }
 
-    private static class DoubleLinkedListIterator<T> implements Iterator {
+    private class DoubleLinkedListIterator<T> implements Iterator {
         private NodeItem<T> currentItem;
         private DoubleLinkedList<T> doubleList;
 
