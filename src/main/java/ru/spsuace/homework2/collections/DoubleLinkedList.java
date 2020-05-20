@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
     private int size;
-    private LinkedItem<T> firstItem;
-    private LinkedItem<T> lastItem;
+    private LinkedItem firstItem;
+    private LinkedItem lastItem;
 
     // ----------- 1 балл -----------
 
@@ -27,13 +27,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
-        for (LinkedItem<T> currentLinkedItem = firstItem; currentLinkedItem != null; currentLinkedItem = currentLinkedItem.next) {
-            currentLinkedItem.item = null;
-            if (currentLinkedItem.prev != null) {
-                currentLinkedItem.prev.next = null;
-                currentLinkedItem.prev = null;
-            }
-        }
         size = 0;
         firstItem = null;
         lastItem = null;
@@ -46,7 +39,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         int i = 0;
 
-        for (LinkedItem<T> currentLinkedItem = firstItem; currentLinkedItem != null; currentLinkedItem = currentLinkedItem.next, i++) {
+        for (LinkedItem currentLinkedItem = firstItem; currentLinkedItem != null; currentLinkedItem = currentLinkedItem.next, i++) {
             if (Objects.equals(currentLinkedItem.item, o)) {
                 return i;
             }
@@ -56,6 +49,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     // ----------- 1 балл -----------
 
+
     public void add(int index, T element) {
         if (size < index) {
             throw new IndexOutOfBoundsException();
@@ -64,12 +58,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (size == index) {
             addLast(element);
         } else {
-            LinkedItem<T> currentLinkedItem = firstItem;
 
-            for (int i = 0; i < index; i++) {
-                currentLinkedItem = currentLinkedItem.next;
-            }
-            LinkedItem<T> newLinkedItem = new LinkedItem<T>(element, currentLinkedItem.prev, currentLinkedItem);
+            LinkedItem currentLinkedItem = getLinkedItemByIndex(index);
+
+            LinkedItem newLinkedItem = new LinkedItem(element, currentLinkedItem.prev, currentLinkedItem);
 
             currentLinkedItem.prev = newLinkedItem;
 
@@ -89,10 +81,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public void addLast(T element) {
         if (lastItem == null) {
-            lastItem = new LinkedItem<T>(element, null, null);
+            lastItem = new LinkedItem(element, null, null);
             firstItem = lastItem;
         } else {
-            LinkedItem<T> newLinkedItem = new LinkedItem<T>(element, lastItem, null);
+            LinkedItem newLinkedItem = new LinkedItem(element, lastItem, null);
             lastItem.next = newLinkedItem;
             lastItem = newLinkedItem;
         }
@@ -103,10 +95,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
     public void addFirst(T element) {
         if (firstItem == null) {
-            firstItem = new LinkedItem<T>(element, null, null);
+            firstItem = new LinkedItem(element, null, null);
             lastItem = firstItem;
         } else {
-            LinkedItem<T> newLinkedItem = new LinkedItem<T>(element, null, firstItem);
+            LinkedItem newLinkedItem = new LinkedItem(element, null, firstItem);
             firstItem.prev = newLinkedItem;
             firstItem = newLinkedItem;
         }
@@ -123,49 +115,34 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         if (size == index) {
             addLast(element);
-            return  null;
+            return null;
         } else {
+            LinkedItem currentLinkedItem = getLinkedItemByIndex(index);
 
-            LinkedItem<T> currentLinkedItem = firstItem;
-
-            for (int i = 0; i < index; i++) {
-                currentLinkedItem = currentLinkedItem.next;
-            }
-
-            LinkedItem<T> newLinkedItem = new LinkedItem<T>(element, currentLinkedItem.prev, currentLinkedItem.next);
             T oldElement = currentLinkedItem.item;
-            currentLinkedItem.item = null;
-            currentLinkedItem.prev = null;
-            currentLinkedItem.next = null;
 
-            if (newLinkedItem.prev == null) {
-                firstItem = newLinkedItem;
-            } else {
-                newLinkedItem.prev.next = newLinkedItem;
-            }
-
-            if (newLinkedItem.next == null) {
-                lastItem = newLinkedItem;
-            } else {
-                newLinkedItem.next.prev = newLinkedItem;
-            }
+            currentLinkedItem.item = element;
 
             return oldElement;
         }
     }
 
     public T get(int index) {
+        return getLinkedItemByIndex(index).item;
+    }
+
+   private LinkedItem getLinkedItemByIndex(int index) {
         if (size - 1 < index) {
             throw new IndexOutOfBoundsException();
         }
 
-        LinkedItem<T> currentLinkedItem = firstItem;
+        LinkedItem currentLinkedItem = firstItem;
 
-        for (int i = 0; i < index; i++) {
-            currentLinkedItem = currentLinkedItem.next;
-        }
+       for (int i = 0; i < index; i++) {
+           currentLinkedItem = currentLinkedItem.next;
+       }
 
-        return currentLinkedItem.item;
+        return currentLinkedItem;
     }
 
     public T remove(int index) {
@@ -173,16 +150,16 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException();
         }
 
-        LinkedItem<T> currentLinkedItem = firstItem;
-
-        for (int i = 0; i < index; i++) {
-            currentLinkedItem = currentLinkedItem.next;
+        if (index == 0) {
+            return remove(firstItem);
+        } else if (size - 1 == index) {
+            return remove(lastItem);
         }
 
-        return remove(currentLinkedItem);
+        return remove(getLinkedItemByIndex(index));
     }
 
-    private T remove(LinkedItem<T> linkedItem) {
+    private T remove(LinkedItem linkedItem) {
         if (linkedItem.prev == null) {
             firstItem = linkedItem.next;
         } else {
@@ -196,9 +173,6 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         T oldElement = linkedItem.item;
-        linkedItem.item = null;
-        linkedItem.prev = null;
-        linkedItem.next = null;
 
         size--;
 
@@ -213,46 +187,46 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new DoubleLinkedListIterator<T>(this);
+        return new DoubleLinkedListIterator();
     }
 
-    private static class DoubleLinkedListIterator<T> implements Iterator<T> {
-        private LinkedItem<T> currentLinkedItem;
-        private DoubleLinkedList<T> doubleLinkedList;
-
-        public DoubleLinkedListIterator(DoubleLinkedList<T> doubleLinkedItem) {
-            this.currentLinkedItem = new LinkedItem<T>(null, null, doubleLinkedItem.firstItem);
-            this.doubleLinkedList = doubleLinkedItem;
-        }
+    private class DoubleLinkedListIterator implements Iterator<T> {
+        private LinkedItem currentLinkedItem;
+        private LinkedItem nextLinkedItem = DoubleLinkedList.this.firstItem;
 
         @Override
         public boolean hasNext() {
-            return currentLinkedItem.next != null;
+            return nextLinkedItem != null;
         }
 
         @Override
         public T next() {
-            currentLinkedItem = currentLinkedItem.next;
-
-            if (currentLinkedItem == null) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+
+            currentLinkedItem = nextLinkedItem;
+            nextLinkedItem = currentLinkedItem.next;
 
             return currentLinkedItem.item;
         }
 
         @Override
         public void remove() {
-            doubleLinkedList.remove(currentLinkedItem);
+            if (currentLinkedItem == null) {
+                throw new NoSuchElementException();
+            }
+
+            DoubleLinkedList.this.remove(currentLinkedItem);
         }
     }
 
-    private static class LinkedItem<T> {
+    private class LinkedItem {
         private T item;
-        private LinkedItem<T> prev;
-        private LinkedItem<T> next;
+        private LinkedItem prev;
+        private LinkedItem next;
 
-        public LinkedItem (T item, LinkedItem<T> prev, LinkedItem<T> next) {
+        LinkedItem (T item, LinkedItem prev, LinkedItem next) {
             this.item = item;
             this.prev = prev;
             this.next = next;

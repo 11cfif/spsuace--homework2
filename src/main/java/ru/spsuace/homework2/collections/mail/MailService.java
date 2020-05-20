@@ -1,6 +1,8 @@
 package ru.spsuace.homework2.collections.mail;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -21,14 +23,28 @@ import java.util.function.Consumer;
  * За все дополнительное задание в пакете mail можно получить 12 баллов
  */
 public class MailService implements Consumer<BaseMail> {
+    private final Map<String, List<BaseMail>> recipientToMailsMap = new HashMap<>();
+    private final Map<String, Integer> popularityToRecipientMap = new HashMap<>();
+    private final Map<String, Integer> popularityToSenderMap = new HashMap<>();
 
     /**
      * С помощью этого метода почтовый сервис обрабатывает письма и зарплаты
      * 2 балл
      */
-    @Override
-    public void accept(BaseMail o) {
 
+    private void popularityCount(Map<String, Integer> objectToPopularityMap, String person) {
+        int popularityCount = objectToPopularityMap.getOrDefault(person, 0);
+        objectToPopularityMap.put(person, ++popularityCount);
+    }
+
+    @Override
+    public void accept(BaseMail mail) {
+        List<BaseMail> recipientMails = recipientToMailsMap
+                .computeIfAbsent(mail.getRecipient(), key -> new ArrayList<>());
+        recipientMails.add(mail);
+
+        popularityCount(popularityToRecipientMap, mail.getRecipient());
+        popularityCount(popularityToSenderMap, mail.getSender());
     }
 
     /**
@@ -36,7 +52,22 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public Map<String, List<BaseMail>> getMailBox() {
-        return null;
+        return recipientToMailsMap;
+    }
+
+    private String getPopularObject(Map<String, Integer> objectToPopularityMap) {
+        if (objectToPopularityMap.isEmpty()) {
+            return null;
+        }
+
+        Map.Entry<String, Integer> maxPopularEntry = null;
+
+        for (Map.Entry<String, Integer> objectToPopularityCount : objectToPopularityMap.entrySet()) {
+            if (maxPopularEntry == null || maxPopularEntry.getValue() <= objectToPopularityCount.getValue()) {
+                maxPopularEntry = objectToPopularityCount;
+            }
+        }
+        return maxPopularEntry.getKey();
     }
 
     /**
@@ -44,7 +75,7 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public String getPopularSender() {
-        return null;
+        return getPopularObject(popularityToSenderMap);
     }
 
     /**
@@ -52,7 +83,7 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public String getPopularRecipient() {
-        return null;
+        return getPopularObject(popularityToRecipientMap);
     }
 
     /**
@@ -60,6 +91,9 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public static void process(MailService service, List<BaseMail> baseMails) {
+        for (BaseMail mail : baseMails) {
+            service.accept(mail);
+        }
 
     }
 }
