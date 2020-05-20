@@ -58,21 +58,21 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void add(int index, T element) {
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         if (index == 0) {
             addFirst(element);
-        } else {
-            if (index == size) {
+        } else if (index == size) {
                 addLast(element);
-            } else {
-                DNode<T> node = new DNode<T>(element, null, null);
-                DNode<T> oldNode = getElemet(index);
-                node.prev = oldNode.prev;
-                node.next = oldNode;
-                oldNode.prev.next = node;
-                oldNode.prev = node;
-                size++;
-            }
+        } else {
+            DNode<T> node = new DNode<T>(element, null, null);
+            DNode<T> oldNode = getElemet(index);
+            node.prev = oldNode.prev;
+            node.next = oldNode;
+            oldNode.prev.next = node;
+            oldNode.prev = node;
+            size++;
         }
     }
 
@@ -105,7 +105,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
 
     public T set(int index, T element) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         DNode<T> node = getElemet(index);
         T replacedData = node.data;
         node.data = element;
@@ -113,7 +115,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         return getElemet(index).data;
     }
 
@@ -131,7 +135,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T remove(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         DNode<T> node = getElemet(index);
         if (index == 0) {
             node.next.prev = null;
@@ -156,9 +162,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
         private class MyIterator<T> implements Iterator<T> {
             private DNode<T> node;
+            private int index;
 
             public MyIterator(DoubleLinkedList<T> nodes) {
                 this.node = new DNode<T>(null, null, nodes.first);
+                index = -1;
             }
 
             @Override

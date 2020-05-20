@@ -12,11 +12,11 @@ import java.util.HashSet;
  */
 public class SymmetricDifference {
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
-        Set<T> SetA = new HashSet<T>(set1);
-        Set<T> SetB = new HashSet<T>(set2);
-        SetA.removeAll(set2);
-        SetB.removeAll(set1);
-        SetA.addAll(SetB);
-        return SetA;
+        Set<T> setA = new HashSet<T>(set1);
+        Set<T> setB = new HashSet<T>(set2);
+        setA.removeAll(set2);
+        setB.removeAll(set1);
+        setA.addAll(setB);
+        return setA;
     }
 }
