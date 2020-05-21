@@ -59,7 +59,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void add(int index, T element) {
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         if (index == 0) {
             addFirst(element);
         } else if (index == size) {
@@ -104,7 +106,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
 
     public T set(int index, T element) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         DNode<T> node = getElemet(index);
         T replacedData = node.data;
         node.data = element;
@@ -112,7 +116,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         return getElemet(index).data;
     }
 
@@ -151,43 +157,35 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new Iterator1<T>(this);
+        return new Iterator1();
     }
 
     private class Iterator1<T> implements Iterator<T> {
-        private DNode<T> node;
 
-        public Iterator1(DoubleLinkedList<T> nodes) {
-            this.node = new DNode<T>(null, null, nodes.first);
+        DNode<T> currentElement;
+        int currentIndex;
+
+        public Iterator1() {
+            currentElement = first;
+            currentIndex = -1;
         }
 
         @Override
         public boolean hasNext() {
-            return node.next != null;
+            return currentElement != null;
         }
 
         @Override
         public T next() {
-            node = node.next;
-            if (node == null) {
-                throw new NoSuchElementException();
-            }
-            return node.data;
+            T currentData = currentElement.data;
+            currentElement = currentElement.next;
+            currentIndex++;
+            return currentData;
         }
 
         @Override
         public void remove() {
-            if (node.next == null) {
-                last = node.prev;
-            } else {
-                node.next.prev = node.prev;
-            }
-            if (node.prev == null) {
-                first = node.next;
-            } else {
-                node.prev.next = node.next;
-            }
-            size--;
+            DoubleLinkedList.this.remove(currentIndex);
         }
     }
 }

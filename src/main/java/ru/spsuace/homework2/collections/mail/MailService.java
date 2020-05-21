@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.collections.mail;
 
-
+import ru.spsuace.homework2.collections.mail.MailException;
+import ru.spsuace.homework2.collections.mail.BaseMail;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -21,6 +24,7 @@ import java.util.function.Consumer;
  * За все дополнительное задание в пакете mail можно получить 12 баллов
  */
 public class MailService implements Consumer<BaseMail> {
+    private MailRepository mailRepository = new MailRepository();
 
     /**
      * С помощью этого метода почтовый сервис обрабатывает письма и зарплаты
@@ -28,7 +32,7 @@ public class MailService implements Consumer<BaseMail> {
      */
     @Override
     public void accept(BaseMail o) {
-
+        mailRepository.saveMail(o);
     }
 
     /**
@@ -36,23 +40,79 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public Map<String, List<BaseMail>> getMailBox() {
-        return null;
+        Map<String, List<BaseMail>> mailMap = new HashMap<>();
+        List<BaseMail> mails = mailRepository.getAllEmail();
+
+        for (BaseMail baseMail : mails) {
+            String recipient = baseMail.getRecipient();
+
+            if (mailMap.get(recipient) == null) {
+                List<BaseMail> mailList = new ArrayList<>();
+                mailList.add(baseMail);
+                mailMap.put(recipient, mailList);
+                continue;
+            }
+            mailMap.get(recipient).add(baseMail);
+        }
+        return mailMap;
     }
 
     /**
      * Возвращает самого популярного отправителя
      * 1 балл
      */
-    public String getPopularSender() {
-        return null;
+    public String getPopularSender() throws MailException {
+        Map<String, Integer> countMap = new HashMap<>();
+        List<BaseMail> mails = mailRepository.getAllEmail();
+        for (BaseMail baseMail : mails) {
+            String sender = baseMail.getSender();
+            Integer count = countMap.get(sender);
+            if (count == null) {
+                count = 1;
+                countMap.put(sender, count);
+                continue;
+            }
+            count = count + 1;
+            countMap.put(sender, count);
+        }
+
+        String sender;
+        try {
+            sender = countMap.entrySet().stream()
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get().getKey();
+        } catch (Exception e) {
+            throw new MailException(e.getMessage());
+        }
+        return sender;
     }
 
     /**
      * Возвращает самого популярного получателя
      * 1 балл
      */
-    public String getPopularRecipient() {
-        return null;
+    public String getPopularRecipient() throws MailException {
+        Map<String, Integer> countMap = new HashMap<>();
+        List<BaseMail> mails = mailRepository.getAllEmail();
+        for (BaseMail baseMail : mails) {
+            String recipient = baseMail.getRecipient();
+            Integer count = countMap.get(recipient);
+            if (count == null) {
+                count = 1;
+                countMap.put(recipient, count);
+                continue;
+            }
+            count = count + 1;
+            countMap.put(recipient, count);
+        }
+
+        String recipient;
+        try {
+            recipient = countMap.entrySet().stream()
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get().getKey();
+        } catch (Exception e) {
+            throw new MailException(e.getMessage());
+        }
+        return recipient;
     }
 
     /**
@@ -60,6 +120,6 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public static void process(MailService service, List<BaseMail> baseMails) {
-
+        baseMails.forEach(baseMail -> service.accept(baseMail));
     }
 }
