@@ -96,7 +96,11 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsValue(Object value) {
-        valueCounter(value);
+        if (value != null) {
+            valueCounter(value);
+        } else {
+            valueCounter(null);
+        }
         return map.containsValue(value);
     }
 
@@ -113,8 +117,6 @@ public class PopularMap<K, V> implements Map<K, V> {
         keyCounter(key);
         valueCounter(value);
         V result = map.put(key, value);
-        if (result != null)
-            valueCounter(result);
         return result;
     }
 

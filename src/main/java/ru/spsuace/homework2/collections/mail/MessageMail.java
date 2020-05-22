@@ -3,7 +3,7 @@ package ru.spsuace.homework2.collections.mail;
 import java.util.Objects;
 
 public class MessageMail extends BaseMail {
-    private String message;
+    private final String message;
 
     public MessageMail(String sender, String recipient, String message) {
         super(sender, recipient);
@@ -12,10 +12,6 @@ public class MessageMail extends BaseMail {
 
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     @Override

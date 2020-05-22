@@ -6,8 +6,8 @@ import java.util.Objects;
  * 1 балл
  */
 public class BaseMail {
-    private String sender;
-    private String recipient;
+    private final String sender;
+    private final String recipient;
 
     public BaseMail(String sender, String recipient) {
         this.sender = sender;
@@ -18,16 +18,8 @@ public class BaseMail {
         return sender;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getRecipient() {
         return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
     }
 
     @Override

@@ -160,42 +160,43 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new MyIterator<T>(this);
     }
-        private class MyIterator<T> implements Iterator<T> {
-            private DNode<T> node;
-            private int index;
 
-            public MyIterator(DoubleLinkedList<T> nodes) {
-                this.node = new DNode<T>(null, null, nodes.first);
-                index = -1;
-            }
+    private class MyIterator<T> implements Iterator<T> {
+        private DNode<T> node;
+        private int index;
 
-            @Override
-            public boolean hasNext() {
-                return node.next != null;
-            }
+        public MyIterator(DoubleLinkedList<T> nodes) {
+            this.node = new DNode<T>(null, null, nodes.first);
+            index = -1;
+        }
 
-            @Override
-            public T next() {
-                node = node.next;
-                if (node == null) {
-                    throw new NoSuchElementException();
-                }
-                return node.data;
-            }
+        @Override
+        public boolean hasNext() {
+            return node.next != null;
+        }
 
-            @Override
-            public void remove() {
-                if (node.next == null) {
-                    last = node.prev;
-                } else {
-                    node.next.prev = node.prev;
-                }
-                if (node.prev == null) {
-                    first = node.next;
-                } else {
-                    node.prev.next = node.next;
-                }
-                size--;
+        @Override
+        public T next() {
+            node = node.next;
+            if (node == null) {
+                throw new NoSuchElementException();
             }
+            return node.data;
+        }
+
+        @Override
+        public void remove() {
+            if (node.next == null) {
+                last = node.prev;
+            } else {
+                node.next.prev = node.prev;
+            }
+            if (node.prev == null) {
+                first = node.next;
+            } else {
+                node.prev.next = node.next;
+            }
+            size--;
         }
     }
+}
