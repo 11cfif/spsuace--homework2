@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
-    private int size;
+    private int size=0;
     private Node firstNode;
     private Node lastNode;
 
