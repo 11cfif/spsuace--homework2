@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
  * Популярность - это количество раз, который этот ключ (или значение) учавствовал в методах мапы containsKey,
  * containsValue, get, put, remove в качестве аргумента или возвращаемого значения.
  * Читайте документацию к методам (ctrl + Q) для понимания, что где возвращается.
- * Считаем, что null я вам не передю ни в качестве ключа, ни в качестве значения
+ * Считаем, что null я вам не передаю ни в качестве ключа, ни в качестве значения
  *
  * Важный момент, вам не надо реализовывать мапу, вы должны использовать композицию.
  * Вы можете использовать любые коллекции, которые есть в java. Перечислю реализации основных типов коллекций:
@@ -44,6 +45,8 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
 
+    private final Map<V,Integer> ValueMap= new HashMap<>();
+    private final Map<K,Integer> KeyMap= new HashMap<>();
     public PopularMap() {
         this.map = new HashMap<>();
     }
@@ -52,64 +55,106 @@ public class PopularMap<K, V> implements Map<K, V> {
         this.map = map;
     }
 
+    private <T> void UsabilityCount(Map<T, Integer> UsabilityMap, Object object) {
+        int UsedCount = UsabilityMap.getOrDefault((T) object, 0);
+        UsabilityMap.put((T) object, ++UsedCount);
+    }
+
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        UsabilityCount(KeyMap, key);
+        return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        UsabilityCount(ValueMap, value);
+        return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        return null;
+        V value = map.get(key);
+        UsabilityCount(KeyMap, key);
+
+        if (value != null) {
+            UsabilityCount(ValueMap, value);
+        }
+        return value;
     }
 
     @Override
-    public V put(K key, V value) {
-        return null;
+    public V put(K key, V value)
+    {        V oldValue = map.put(key, value);
+        if (oldValue != null) {
+            UsabilityCount(ValueMap, oldValue);
+        }
+
+        UsabilityCount(KeyMap, key);
+        UsabilityCount(ValueMap, value);
+        return oldValue;
     }
 
     @Override
     public V remove(Object key) {
-        return null;
+        V removedValue = map.remove(key);
+        UsabilityCount(KeyMap, key);
+
+        if (removedValue != null) {
+            UsabilityCount(ValueMap, removedValue);
+        }
+        return removedValue;
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+        map.putAll(m);
     }
 
     @Override
     public void clear() {
+        map.clear();
 
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return map.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return map.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return map.entrySet();
+    }
+
+    public <T> T TheMostUsedObject(Map<T, Integer> UsabilityMap) {
+        if (UsabilityMap.isEmpty()) {
+            return null;
+        }
+
+        Entry<T, Integer> MostUsedEntry = null;
+
+        for (Entry<T, Integer> UsedCount : UsabilityMap.entrySet()) {
+            if (MostUsedEntry == null || MostUsedEntry.getValue() <= UsedCount.getValue()) {
+                MostUsedEntry = UsedCount;
+            }
+        }
+        return MostUsedEntry.getKey();
     }
 
     /**
@@ -117,7 +162,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балл
      */
     public K getPopularKey() {
-        return null;
+        return TheMostUsedObject(KeyMap);
     }
 
 
@@ -126,7 +171,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балла
      */
     public int getKeyPopularity(K key) {
-        return 0;
+        return KeyMap.getOrDefault(key,0);
     }
 
     /**
@@ -134,7 +179,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балл
      */
     public V getPopularValue() {
-        return null;
+        return TheMostUsedObject(ValueMap);
     }
 
     /**
@@ -143,7 +188,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      *  1 балл
      */
     public int getValuePopularity(V value) {
-        return 0;
+        return ValueMap.getOrDefault(value,0);
     }
 
     /**
@@ -151,6 +196,12 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 2 балла (Сортировать можно через метод Collections.sort() с использованием Comparator (как с фильтрами)
      */
     public Iterator<V> popularIterator() {
-        return null;
+        return ValueMap.entrySet()
+                .stream()
+                .sorted(Entry.comparingByValue())
+                .map(Entry::getKey)
+                .collect(Collectors.toList())
+                .iterator();
+
     }
 }
