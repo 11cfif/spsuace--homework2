@@ -24,7 +24,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return indexOf(o) != -1;
     }
 
-    public NodeItem<T> thisItem (int index){
+    public NodeItem<T> thisItem(int index) {
         NodeItem<T> currentItem = firstItem;
         for (int i = 0; i < index; i++) {
             currentItem = currentItem.next;
@@ -62,15 +62,15 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
         if (0 == index) {
             addFirst(element);
-        } else if (size== index) {
+        } else if (size == index) {
             addLast(element);
         } else {
             NodeItem<T> currentItem = thisItem(index);
             NodeItem<T> newItem = new NodeItem<T>(element, currentItem.prev, currentItem);
             currentItem.prev.next = newItem;
-            newItem.prev=currentItem.prev;
-            currentItem.prev=newItem;
-            newItem.next=currentItem;
+            newItem.prev = currentItem.prev;
+            currentItem.prev = newItem;
+            newItem.next = currentItem;
             size++;
         }
     }
@@ -107,21 +107,21 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (size < index) {
             throw new IndexOutOfBoundsException();
         }
-        if (index==1){
+        if (index == 1) {
             addFirst(element);
         } else if (size == index) {
             addLast(element);
         } else {
             NodeItem<T> currentItem = thisItem(index);
-            T tempItem=currentItem.item;
-            currentItem.item=element;
+            T tempItem = currentItem.item;
+            currentItem.item = element;
             return tempItem;
         }
         return null;
     }
 
     public T get(int index) {
-        if (size-1 < index) {
+        if (size - 1 < index) {
             throw new IndexOutOfBoundsException();
         }
         NodeItem<T> currentItem = thisItem(index);
@@ -133,30 +133,30 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (size - 1 < index) {
             throw new IndexOutOfBoundsException();
         }
-        if (index==size){
-            remove(lastItem);
-        }
-        if (index==1){
-            remove(firstItem);
-        }
+        // if (index==size){
+        //  remove(lastItem);
+        //}
+        //if (index==1){
+        // remove(firstItem);
+        //}
         NodeItem<T> currentItem = thisItem(index);
         return remove(currentItem);
 
     }
 
     public T remove(NodeItem<T> currentItem) {
+        T tempItem = currentItem.item;
         if (currentItem.prev == null) {
             firstItem = currentItem.next;
         } else {
             currentItem.prev.next = currentItem.next;
         }
-
         if (currentItem.next == null) {
             lastItem = currentItem.prev;
         } else {
             currentItem.next.prev = currentItem.prev;
         }
-        T tempItem = currentItem.item;
+
         currentItem.next = currentItem.prev;
         currentItem.prev = currentItem.next;
         size--;
@@ -175,13 +175,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return new DoubleLinkedListIterator<T>(this);
     }
 
-    private class DoubleLinkedListIterator<T> implements Iterator {
+    private class DoubleLinkedListIterator<T> implements Iterator<T> {
         private NodeItem<T> currentItem;
-        private DoubleLinkedList<T> doubleList;
+        private DoubleLinkedList<T> doubleItem;
 
         public DoubleLinkedListIterator(DoubleLinkedList<T> doubleItem) {
             this.currentItem = new NodeItem<T>(null, null, doubleItem.firstItem);
-            this.doubleList = doubleItem;
+            this.doubleItem = doubleItem;
         }
 
         @Override
@@ -200,7 +200,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            doubleList.remove(currentItem);
+            doubleItem.remove(currentItem);
         }
     }
 
