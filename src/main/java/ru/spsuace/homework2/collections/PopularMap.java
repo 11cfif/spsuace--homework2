@@ -2,7 +2,6 @@ package ru.spsuace.homework2.collections;
 
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -34,12 +33,12 @@ import java.util.stream.Collectors;
  * <p>
  * <p>
  * Полный балл за все: 7
- *
- *
+ * <p>
+ * <p>
  * Полный балл за все: 7
+ *
  * @param <K> - тип ключа
  * @param <V> - тип значения
- *
  */
 public class PopularMap<K, V> implements Map<K, V> {
 
