@@ -149,7 +149,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балла
      */
     public int getKeyPopularity(K key) {
-        return keysMap.get(key);
+        return keysMap.getOrDefault(key, 0);
     }
 
     /**
@@ -178,10 +178,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балл
      */
     public int getValuePopularity(V value) {
-        if (valueMap.get(value) != null) {
-            return valueMap.get(value);
-        }
-        return 0;
+        return valueMap.getOrDefault(value, 0);
     }
 
     /**
