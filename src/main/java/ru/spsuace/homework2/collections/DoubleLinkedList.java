@@ -12,12 +12,12 @@ import java.util.Iterator;
 public class DoubleLinkedList<T> implements Iterable<T> {
 
     private class Link<T> {
-        private T Link;
+        private T data;
         private Link<T> previous;
         private Link<T> next;
 
-        private Link(T Link) {
-            this.Link = Link;
+        private Link(T data) {
+            this.data = data;
         }
     }
 
@@ -44,7 +44,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public int indexOf(T o) {
         Link<T> element = first;
         for (int i = 0; i < size; i++) {
-            if (element.Link.equals(o)) {
+            if (element.data.equals(o)) {
                 return i;
             }
             element = element.next;
@@ -123,8 +123,8 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException();
         }
         Link<T> currentElement = findElement(index);
-        T data = currentElement.Link;
-        currentElement.Link = element;
+        T data = currentElement.data;
+        currentElement.data = element;
         return data;
     }
 
@@ -132,8 +132,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        Link<T> element = findElement(index);
-        return element.Link;
+        return findElement(index).data;
     }
 
     public T remove(int index) {
@@ -141,7 +140,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException();
         }
         Link<T> element = findElement(index);
-        T data = element.Link;
+        T data = element.data;
         if (index == size - 1) {
             element.previous.next = null;
             last = element.previous;
@@ -180,7 +179,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            T data = element.Link;
+            T data = element.data;
             element = element.next;
             index++;
             return data;

@@ -64,61 +64,49 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        KeyCount(key);
+        count(key, mapKey);
         return map.containsKey(key);
     }
 
-    private void KeyCount(Object key) {
-        Integer value = mapKey.get(key);
-        if (value != null) {
-            value++;
-            mapKey.put((K) key, value);
+    private <T> void count(Object obj, Map<T, Integer> map) {
+        if (map.containsKey(obj) && obj != null) {
+            int patt;
+            patt = map.get(obj);
+            map.put((T) obj, ++patt);
         } else {
-            mapKey.put((K) key, 1);
+            map.put((T) obj, 1);
         }
     }
 
     @Override
     public boolean containsValue(Object value) {
-        ValueCount(value);
+        count(value, mapValue);
         return map.containsValue(value);
-    }
-
-    private void ValueCount(Object Value) {
-        Integer value = mapValue.get(Value);
-        if (value != null) {
-            value++;
-            mapValue.put((V) Value, value);
-        } else {
-            mapValue.put((V) Value, 1);
-        }
     }
 
     @Override
     public V get(Object key) {
-        KeyCount(key);
+        count(key, mapKey);
         V value = map.get(key);
-        ValueCount(value);
+        count(value, mapValue);
         return value;
     }
 
     @Override
     public V put(K key, V value) {
-        KeyCount(key);
-        V oldValue = map.get(key);
-        if (oldValue != null) {
-            ValueCount(oldValue);
-        }
-        ValueCount(value);
-        return map.put(key, value);
+        count(key, mapKey);
+        V putNum = map.put(key, value);
+        count(putNum, mapValue);
+        count(value, mapValue);
+        return putNum;
     }
 
     @Override
     public V remove(Object key) {
-        KeyCount(key);
+        count(key, mapKey);
         V value = map.remove(key);
         if (value != null) {
-            ValueCount(value);
+            count(value, mapValue);
         }
         return value;
     }
@@ -162,10 +150,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балла
      */
     public int getKeyPopularity(K key) {
-        if (mapKey.get(key) == null) {
-            return 0;
-        }
-        return mapKey.get(key);
+        return mapKey.getOrDefault(key, 0);
     }
 
     /**
@@ -182,10 +167,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балл
      */
     public int getValuePopularity(V value) {
-        if (mapValue.get(value) != null) {
-            return mapValue.get(value);
-        }
-        return 0;
+        return mapValue.getOrDefault(value, 0);
     }
 
     public <T> T popularCount(Map<T, Integer> map) {
