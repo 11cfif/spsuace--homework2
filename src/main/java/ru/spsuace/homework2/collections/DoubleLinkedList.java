@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.collections;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * Реализовать двусвязный список, аналог LinkedList в java (то что я рассказывал на лекции)
@@ -10,59 +11,38 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements Iterable<T> {
 
-    private Node<T> firstNode;
-    private Node<T> lastNode;
-    private int size=0;
-    private Node<T> current;
+    private int size;
+    private Node firstNode;
+    private Node lastNode;
 
+    private class Node<T> {
+        private T currentElement;
+        private Node<T> prevElement;
+        private Node<T> nextElement;
 
-    public DoubleLinkedList(){
-        lastNode=new Node<T>(null, firstNode,null);
-        firstNode=new Node<T>(null,null,lastNode);
-        current=new Node<T>(null,null,null);
+        private Node(T current, Node<T> prev, Node<T> next) {
+            this.currentElement = current;
+            this.prevElement = prev;
+            this.nextElement = next;
+        }
     }
 
-    private class Node<T>{
-        private T currentElement;
-        public Node<T> nextElement;
-        private Node<T> prevElement;
-
-        private Node(T currentElement, Node<T> prevElement, Node<T> nextElement){
-            this.currentElement=currentElement;
-            this.nextElement=nextElement;
-            this.prevElement=prevElement;
+    private Node<T> getElementByIndex(int index) {
+        if (index < 0) throw new IndexOutOfBoundsException();
+        if (index > size) throw new IndexOutOfBoundsException();
+        Node<T> getElement;
+        if (index < size / 2) {
+            getElement = firstNode;
+            for (int i = 0; i < index; i++) {
+                getElement = getElement.nextElement;
+            }
+        } else {
+            getElement = lastNode;
+            for (int i = size - 1; i > index; i--) {
+                getElement = getElement.prevElement;
+            }
         }
-
-
-        public void setCurrentElement(T currentElement) {
-            this.currentElement = currentElement;
-        }
-
-        public void setNextElement(Node<T> nextElement) {
-            this.nextElement=nextElement;
-        }
-
-        public void setPrevElement(Node<T> prevElement) {
-            this.prevElement = prevElement;
-        }
-
-        public Node<T> getPrevElement() {
-            return prevElement;
-        }
-
-        public Node<T> getNextElement() {
-            return nextElement;
-        }
-
-        public T getCurrentElement() {
-            return currentElement;
-        }
-        private void allToNull() {
-            this.currentElement = null;
-            this.nextElement = null;
-            this.prevElement = null;
-        }
-
+        return getElement;
     }
 
     public int size() {
@@ -79,71 +59,81 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public void clear() {
-        if (size != 0) {
-            Node<T> element = firstNode;
-            Node<T> element2;
-            for (int i = 0; i < size; i++) {
-                element2 = element.getNextElement();
-                element.prevElement = null;
-                element.nextElement = null;
-                element.currentElement = null;
-                element = element2;
-            }
-            size = 0;
-            firstNode = null;
-            lastNode = null;
-        }
-
+        size = 0;
+        firstNode = null;
+        lastNode = null;
     }
 
     public void add(int index, T element) {
-
-    }
-
-    public void addLast(T element) {
-        Node<T> prev=lastNode;
-        prev.setCurrentElement(element);
-        lastNode=new Node<>(null,prev,null);
-        prev.setNextElement(lastNode);
-        size++;
-    }
-
-    public void addFirst(T element) {
-        Node<T> next=firstNode;
-        next.setCurrentElement(element);
-        firstNode=new Node<>(null,null,next);
-        next.setPrevElement(firstNode);
-        size++;
-    }
-
-    public T set(int index, T element) {
-        for (int i = 0; i < size; i++) {
-            if (i==index) {
-                return element;
+        if (index < 0) throw new IndexOutOfBoundsException();
+        if (index > size) throw new IndexOutOfBoundsException();
+        if (index == size) {
+            addLast(element);
+            return;
+        }
+        if (index == 0) {
+            addFirst(element);
+            return;
+        }
+        if (index != size) {
+            if (index != 0) {
+                Node<T> oldNode = getElementByIndex(index);
+                Node<T> newNode = new Node<T>(element, oldNode.prevElement, oldNode);
+                oldNode.prevElement = newNode;
+                size++;
             }
         }
-        return null;
     }
 
 
+    public void addLast(T element) {
 
+        Node<T> newNode = new Node<T>(element, null, null);
+        if (size != 0) {
+            newNode.prevElement = lastNode;
+            lastNode.nextElement = newNode;
+            lastNode = newNode;
+        } else {
+            firstNode = newNode;
+            lastNode = newNode;
+        }
+        size++;
+    }
+
+
+    public void addFirst(T element) {
+        Node<T> newNode = new Node<T>(element, null, null);
+        if (size != 0) {
+            newNode.nextElement = firstNode;
+            firstNode.prevElement = newNode;
+            firstNode = newNode;
+        } else {
+            firstNode = newNode;
+            lastNode = newNode;
+        }
+        size++;
+    }
+
+
+    public T set(int index, T element) {
+        if (index < 0) throw new IndexOutOfBoundsException();
+        if (index > size) throw new IndexOutOfBoundsException();
+        Node<T> newNode = getElementByIndex(index);
+        T set = newNode.currentElement;
+        newNode.currentElement = element;
+        return set;
+    }
 
     public T get(int index) {
-        Node<T> target =firstNode.getNextElement();
-        for (int i=0;i<index;i++){
-            target=getNextElement(target);
-        }
-        return target.getCurrentElement();
+        if (index < 0) throw new IndexOutOfBoundsException();
+        if (index >= size) throw new IndexOutOfBoundsException();
+        return getElementByIndex(index).currentElement;
     }
-
-    private Node<T> getNextElement(Node<T> current) {
-        return current.getNextElement();
-    }
-
 
     public int indexOf(T o) {
-        for (int i = 0; i < size; i++) {
-            if (get(i).equals(o)) {
+        int i = 0;
+        for (Node<T> current = firstNode; current != null; current = current.nextElement, i++) {
+            if (Objects.equals(current.currentElement, o)) {
                 return i;
             }
         }
@@ -151,10 +141,25 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public T remove(int index) {
+        if (index < 0) throw new IndexOutOfBoundsException();
+        if (index >= size) throw new IndexOutOfBoundsException();
+        Node<T> current = getElementByIndex(index);
+        if (index == 0) {
+            firstNode = current.nextElement;
+        }
+        if (index == size - 1) {
+            lastNode = current.prevElement;
+        }
+        if (index > 0) {
+            if (index < size - 1) {
+                current.prevElement.nextElement = current.nextElement;
+                current.nextElement.prevElement = current.prevElement;
+            }
+        }
 
-        return null;
+        size--;
+        return current.currentElement;
     }
-
 
     /**
      * Дополнительное задание
@@ -162,10 +167,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            int counter=0;
+            int counter = 0;
+
             @Override
             public boolean hasNext() {
-                return counter<size;
+                return counter < size;
             }
 
             @Override
