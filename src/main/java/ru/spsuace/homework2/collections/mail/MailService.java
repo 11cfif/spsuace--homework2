@@ -1,6 +1,8 @@
 package ru.spsuace.homework2.collections.mail;
 
 
+import ru.spsuace.homework2.collections.PopularMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,19 +15,23 @@ import java.util.function.Consumer;
  * Письма состоят из получателя, отправителя, текста сообщения
  * Зарплата состоит из получателя, отправителя и суммы.
  * Используйте ООП и основное задание для реализации данного дополнительного задания
- *
+ * <p>
  * Полный балл за этот класс: 6
  * Сделайте тест (alt + enter) на названии класса -> create test
  * и сделайте там 3 теста (3 простых разных случая для тестирования класса). Например тестКейс только с одним
  * получателем и отправителем, но большим количеством писем и зарплат, и проверьте что три основных метода возвращают то,
  * что должны (по аналогии с моими тестами). 1 тест - 1 балл
- *
+ * <p>
  * За все дополнительное задание в пакете mail можно получить 12 баллов
  */
 public class MailService implements Consumer<BaseMail> {
-    private final Map<String, List<BaseMail>> recipientToMailsMap = new HashMap<>();
-    private final Map<String, Integer> popularityToRecipientMap = new HashMap<>();
-    private final Map<String, Integer> popularityToSenderMap = new HashMap<>();
+    private PopularMap<String, List<BaseMail>> senderToMailBox;
+    private PopularMap<String, List<BaseMail>> recipientToMailBox;
+
+    public MailService() {
+        this.senderToMailBox = new PopularMap<>();
+        this.recipientToMailBox = new PopularMap<>();
+    }
 
     /**
      * С помощью этого метода почтовый сервис обрабатывает письма и зарплаты
@@ -33,19 +39,14 @@ public class MailService implements Consumer<BaseMail> {
      */
 
 
-    private void popularityCount(Map<String, Integer> objectToPopularityMap, String person) {
-        int popularityCount = objectToPopularityMap.getOrDefault(person, 0);
-        objectToPopularityMap.put(person, ++popularityCount);
-    }
-
     @Override
-    public void accept(BaseMail mail) {
-        List<BaseMail> recipientMails = recipientToMailsMap
-                .computeIfAbsent(mail.getRecipient(), key -> new ArrayList<>());
-        recipientMails.add(mail);
-
-        popularityCount(popularityToRecipientMap, mail.getRecipient());
-        popularityCount(popularityToSenderMap, mail.getSender());
+    public void accept(BaseMail o) {
+        List<BaseMail> senderToMails = senderToMailBox.getOrDefault(o.getSender(), new ArrayList<>());
+        senderToMails.add(o);
+        senderToMailBox.put(o.getSender(), senderToMails);
+        List<BaseMail> recipientToMails = recipientToMailBox.getOrDefault(o.getRecipient(), new ArrayList<>());
+        recipientToMails.add(o);
+        recipientToMailBox.put(o.getRecipient(), recipientToMails);
     }
 
     /**
@@ -53,30 +54,16 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public Map<String, List<BaseMail>> getMailBox() {
-        return recipientToMailsMap;
+        return recipientToMailBox;
     }
 
-    private String getPopularObject(Map<String, Integer> objectToPopularityMap) {
-        if (objectToPopularityMap.isEmpty()) {
-            return null;
-        }
-
-        Map.Entry<String, Integer> maxPopularEntry = null;
-
-        for (Map.Entry<String, Integer> objectToPopularityCount : objectToPopularityMap.entrySet()) {
-            if (maxPopularEntry == null || maxPopularEntry.getValue() <= objectToPopularityCount.getValue()) {
-                maxPopularEntry = objectToPopularityCount;
-            }
-        }
-        return maxPopularEntry.getKey();
-    }
 
     /**
      * Возвращает самого популярного отправителя
      * 1 балл
      */
     public String getPopularSender() {
-        return getPopularObject(popularityToSenderMap);
+        return senderToMailBox.getPopularKey();
     }
 
     /**
@@ -84,19 +71,17 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public String getPopularRecipient() {
-        return getPopularObject(popularityToRecipientMap);
+        return recipientToMailBox.getPopularKey();
     }
-
 
     /**
      * Метод должен заставить обработать service все mails.
      * 1 балл
      */
-    public static void process(ru.spsuace.homework2.collections.mail.MailService service, List<BaseMail> baseMails) {
+    public static void process(MailService service, List<BaseMail> baseMails) {
         for (BaseMail mail : baseMails) {
             service.accept(mail);
         }
-
     }
 }
 
