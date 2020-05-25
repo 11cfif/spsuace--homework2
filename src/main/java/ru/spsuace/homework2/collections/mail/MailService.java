@@ -23,12 +23,10 @@ import java.util.function.Consumer;
  */
 public class MailService implements Consumer<BaseMail> {
     private MailRepository mailRepository = new MailRepository();
-    private PopularMap<String, List<BaseMail>> allMails;
     private PopularMap<String, List<BaseMail>> allSenders;
     private PopularMap<String, List<BaseMail>> allRecipients;
 
     public MailService() {
-    this.allMails = new PopularMap<>();
     this.allSenders = new PopularMap<>();
     this.allRecipients = new PopularMap<>();
     }
@@ -39,7 +37,6 @@ public class MailService implements Consumer<BaseMail> {
      */
     @Override
     public void accept(BaseMail o) {
-        List<BaseMail> allMails = mailRepository.getAllEmail();
         List<BaseMail> allSend = allSenders.getOrDefault(o.getSender(), new ArrayList<>());
         List<BaseMail> allRecip = allRecipients.getOrDefault(o.getRecipient(), new ArrayList<>());
         allSend.add(o);
