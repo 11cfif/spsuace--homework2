@@ -1,9 +1,7 @@
 package ru.spsuace.homework2.collections.mail;
 
-import ru.spsuace.homework2.collections.mail.MailException;
-import ru.spsuace.homework2.collections.mail.BaseMail;
+import ru.spsuace.homework2.collections.PopularMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -25,6 +23,15 @@ import java.util.function.Consumer;
  */
 public class MailService implements Consumer<BaseMail> {
     private MailRepository mailRepository = new MailRepository();
+    private PopularMap<String, List<BaseMail>> allMails;
+    private PopularMap<String, List<BaseMail>> allSenders;
+    private PopularMap<String, List<BaseMail>> allRecipients;
+
+    public MailService() {
+    this.allMails = new PopularMap<>();
+    this.allSenders = new PopularMap<>();
+    this.allRecipients = new PopularMap<>();
+    }
 
     /**
      * С помощью этого метода почтовый сервис обрабатывает письма и зарплаты
@@ -32,7 +39,13 @@ public class MailService implements Consumer<BaseMail> {
      */
     @Override
     public void accept(BaseMail o) {
-        mailRepository.saveMail(o);
+        List<BaseMail> allMails = mailRepository.getAllEmail();
+        List<BaseMail> allSend = allSenders.getOrDefault(o.getSender(), new ArrayList<>());
+        List<BaseMail> allRecip = allRecipients.getOrDefault(o.getRecipient(), new ArrayList<>());
+        allSend.add(o);
+        allSenders.put(o.getSender(), allSend);
+        allRecip.add(o);
+        allRecipients.put(o.getRecipient(), allRecip);
     }
 
     /**
@@ -40,79 +53,23 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public Map<String, List<BaseMail>> getMailBox() {
-        Map<String, List<BaseMail>> mailMap = new HashMap<>();
-        List<BaseMail> mails = mailRepository.getAllEmail();
-
-        for (BaseMail baseMail : mails) {
-            String recipient = baseMail.getRecipient();
-
-            if (mailMap.get(recipient) == null) {
-                List<BaseMail> mailList = new ArrayList<>();
-                mailList.add(baseMail);
-                mailMap.put(recipient, mailList);
-                continue;
-            }
-            mailMap.get(recipient).add(baseMail);
-        }
-        return mailMap;
+        return allRecipients;
     }
 
     /**
      * Возвращает самого популярного отправителя
      * 1 балл
      */
-    public String getPopularSender() throws MailException {
-        Map<String, Integer> countMap = new HashMap<>();
-        List<BaseMail> mails = mailRepository.getAllEmail();
-        for (BaseMail baseMail : mails) {
-            String sender = baseMail.getSender();
-            Integer count = countMap.get(sender);
-            if (count == null) {
-                count = 1;
-                countMap.put(sender, count);
-                continue;
-            }
-            count = count + 1;
-            countMap.put(sender, count);
-        }
-
-        String sender;
-        try {
-            sender = countMap.entrySet().stream()
-                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get().getKey();
-        } catch (Exception e) {
-            throw new MailException(e.getMessage());
-        }
-        return sender;
+    public String getPopularSender() {
+        return allSenders.getPopularKey();
     }
 
     /**
      * Возвращает самого популярного получателя
      * 1 балл
      */
-    public String getPopularRecipient() throws MailException {
-        Map<String, Integer> countMap = new HashMap<>();
-        List<BaseMail> mails = mailRepository.getAllEmail();
-        for (BaseMail baseMail : mails) {
-            String recipient = baseMail.getRecipient();
-            Integer count = countMap.get(recipient);
-            if (count == null) {
-                count = 1;
-                countMap.put(recipient, count);
-                continue;
-            }
-            count = count + 1;
-            countMap.put(recipient, count);
-        }
-
-        String recipient;
-        try {
-            recipient = countMap.entrySet().stream()
-                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get().getKey();
-        } catch (Exception e) {
-            throw new MailException(e.getMessage());
-        }
-        return recipient;
+    public String getPopularRecipient() {
+        return allRecipients.getPopularKey();
     }
 
     /**

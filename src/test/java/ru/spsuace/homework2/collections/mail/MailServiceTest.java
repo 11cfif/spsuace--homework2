@@ -33,12 +33,6 @@ public class MailServiceTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    @Test(expected = MailException.class)
-    public void shouldThrowMailServiceException() throws MailException {
-        mailService.getPopularRecipient();
-        mailService.getPopularSender();
-    }
-
     @Test
     public void shouldProcessListMailAndReturnPopularSender() throws MailException {
 
