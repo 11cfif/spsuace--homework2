@@ -1,12 +1,7 @@
 package ru.spsuace.homework2.collections;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 /**
  * Написать структуру данных, реализующую интерфейс мапы + набор дополнительных методов.
@@ -43,6 +38,8 @@ import java.util.Set;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
+    private Map<K, Integer> keysMap = new HashMap<>();
+    private Map<V, Integer> valueMap = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -54,70 +51,94 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        count(key, keysMap);
+        return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        count(value, valueMap);
+        return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        return null;
+        count(key, keysMap);
+        V value = map.get(key);
+        count(value, valueMap);
+        return value;
     }
 
     @Override
     public V put(K key, V value) {
-        return null;
+        V oldValue = map.put(key, value);
+        count(key, keysMap);
+        count(oldValue, valueMap);
+        count(value, valueMap);
+        return oldValue;
     }
 
     @Override
     public V remove(Object key) {
-        return null;
+        count(key, keysMap);
+        V value = map.remove(key);
+        count(value, valueMap);
+        return value;
     }
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        throw new UnsupportedOperationException("putAll");
+        map.putAll(m);
     }
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return map.keySet();
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return map.values();
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return map.entrySet();
     }
 
+    private void count(Object type, Map map) {
+        if (type == null) {
+            return;
+        }
+        if (map.containsKey(type)) {
+            int temp = (int) map.get(type);
+            temp++;
+            map.put(type, temp);
+        } else {
+            map.put(type, 1);
+        }
+    }
     /**
      * Возвращает самый популярный, на данный момент, ключ
      * 1 балл
      */
     public K getPopularKey() {
-        return null;
+        return countPopular(keysMap);
     }
 
 
@@ -126,7 +147,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балла
      */
     public int getKeyPopularity(K key) {
-        return 0;
+        return keysMap.getOrDefault(key, 0);
     }
 
     /**
@@ -134,7 +155,19 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балл
      */
     public V getPopularValue() {
-        return null;
+        return countPopular(valueMap);
+    }
+
+    public <T> T countPopular(Map<T, Integer> map) {
+        T popular = null;
+        int counter = 0;
+        for (Map.Entry<T, Integer> entry : map.entrySet()) {
+            if (entry.getValue() >= counter) {
+                popular = entry.getKey();
+                counter = entry.getValue();
+            }
+        }
+        return popular;
     }
 
     /**
@@ -143,7 +176,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      *  1 балл
      */
     public int getValuePopularity(V value) {
-        return 0;
+        return valueMap.getOrDefault(value, 0);
     }
 
     /**
@@ -151,6 +184,36 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 2 балла (Сортировать можно через метод Collections.sort() с использованием Comparator (как с фильтрами)
      */
     public Iterator<V> popularIterator() {
-        return null;
+        return new MapIterator();
+    }
+
+    private class MapIterator implements Iterator {
+        private Map<V, Integer> temp = sorting();
+        private Iterator iter = temp.entrySet().iterator();
+
+        @Override
+        public boolean hasNext() {
+            return iter.hasNext();
+        }
+
+        @Override
+        public Object next() {
+            return ((Entry) iter.next()).getKey();
+        }
+    }
+
+    private Map<V, Integer> sorting() {
+        Map<V, Integer> unsorted = valueMap;
+        Map<V, Integer> sorted = new LinkedHashMap<>();
+        List<Entry<V, Integer>> list = new ArrayList<>(unsorted.entrySet());
+        Collections.sort(list, new Comparator<Entry<V, Integer>>() {
+            public int compare(HashMap.Entry<V, Integer> map1, HashMap.Entry<V, Integer> map2) {
+                return (map1.getValue()).compareTo(map2.getValue());
+            }
+        });
+        for (Entry<V, Integer> entry : list) {
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+        return sorted;
     }
 }
