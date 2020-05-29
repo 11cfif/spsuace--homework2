@@ -14,17 +14,17 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        if (array == null || array.length < count) {
+        int innerArray [] = array;
+        if (innerArray == null || innerArray.length < count) {
             return null;
         } else {
             int newArray[] = new int[count];
-            Arrays.sort(array);
+            Arrays.sort(innerArray);
             for (int i = 0; i < count; i++) {
-                newArray[i] = array[array.length - i - 1];
+                newArray[i] = innerArray[innerArray.length - i - 1];
             }
             return newArray;
         }
-
     }
 
     /**

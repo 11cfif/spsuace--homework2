@@ -15,15 +15,21 @@ package ru.spsuace.homework2.objects.analyzer;
 public interface TextAnalyzer {
 
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+
+        return new TextFilterLength(maxLength);
+
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+
+        return new TextFilterSpam(spam);
+
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+
+        return new TextFilterNegative();
+
     }
 
     /**
@@ -32,4 +38,8 @@ public interface TextAnalyzer {
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
         return null;
     }
+
+
+    public FilterType analyze(String text);
+
 }

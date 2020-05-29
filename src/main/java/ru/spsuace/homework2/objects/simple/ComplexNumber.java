@@ -8,8 +8,8 @@ import java.util.Objects;
  */
 public class ComplexNumber {
 
-    private final double re;
-    private final double im;
+    private  double re;
+    private  double im;
 
     public ComplexNumber(double re, double im) {
         this.re = re;
@@ -58,5 +58,16 @@ public class ComplexNumber {
         double im = n1.getIm() - n2.getIm();
         return new ComplexNumber(re, im);
     }
+
+    public ComplexNumber makeOpposite() {
+        this.re = 0 - re;
+        this.im = 0 - im;
+        return this;
+    }
+
+    public boolean isEqual(ComplexNumber n1, ComplexNumber n2) {
+        return (n1.getRe() == n2.getRe() && n1.getIm() == n2.getIm());
+    }
+
 
 }
