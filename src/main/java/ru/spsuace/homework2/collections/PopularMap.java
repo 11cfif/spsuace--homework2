@@ -1,11 +1,8 @@
 package ru.spsuace.homework2.collections;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -97,12 +94,20 @@ public class PopularMap<K, V> implements Map<K, V> {
         keyCounter(key);
         valueCounter(value);
         V result = map.put(key, value);
+        if (valuePopMap.containsKey(result)){
+            valueCounter(result);
+        }
         return result;
     }
 
     @Override
     public V remove(Object key) {
-        return map.remove(key);
+        keyCounter(key);
+        V value = map.remove(key);
+        if (value != null) {
+            valueCounter(value);
+        }
+        return value;
     }
 
     @Override
@@ -167,7 +172,11 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 1 балла
      */
     public int getKeyPopularity(K key) {
-        return keyPopMap.get(key);
+        if (keyPopMap.containsKey(key)) {
+            return keyPopMap.get(key);
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -185,7 +194,11 @@ public class PopularMap<K, V> implements Map<K, V> {
      *  1 балл
      */
     public int getValuePopularity(V value) {
-        return valuePopMap.get(value);
+        if (valuePopMap.containsKey(value)) {
+            return valuePopMap.get(value);
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -193,6 +206,33 @@ public class PopularMap<K, V> implements Map<K, V> {
      * 2 балла (Сортировать можно через метод Collections.sort() с использованием Comparator (как с фильтрами)
      */
     public Iterator<V> popularIterator() {
-        return null;
+
+        Iterator<V> iterator = new Iterator<V>() {
+
+            List<Entry<V, Integer>> iter = valuePopMap.entrySet().stream().sorted(Map.Entry.<V, Integer>comparingByValue()).collect(Collectors.toList());
+
+            int cursor = 0;
+            int size = iter.size();
+
+            @Override
+            public boolean hasNext() {
+                if (cursor < size) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public V next() {
+                if (cursor == size) {
+                    throw new NoSuchElementException();
+                }
+
+                V v = iter.get(cursor).getKey();
+                cursor = cursor + 1;
+                return v;
+            }
+        };
+        return iterator;
     }
 }
