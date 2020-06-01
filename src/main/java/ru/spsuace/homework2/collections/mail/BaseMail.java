@@ -7,29 +7,20 @@ import java.util.Objects;
  * 1 балл
  */
 public class BaseMail {
-    private String recipient;
-    private String sender;
-
+    private final String sender;
+    private final String recipient;
 
     public BaseMail(String sender, String recipient) {
-        this.recipient = recipient;
         this.sender = sender;
+        this.recipient = recipient;
     }
 
     public String getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getRecipient() {
         return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
     }
 
     @Override
