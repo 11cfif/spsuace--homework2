@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.collections.mail;
 
+import ru.spsuace.homework2.collections.PopularMap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -21,6 +24,13 @@ import java.util.function.Consumer;
  * За все дополнительное задание в пакете mail можно получить 12 баллов
  */
 public class MailService implements Consumer<BaseMail> {
+    private PopularMap<String, List<BaseMail>> senderMailBox;
+    private PopularMap<String, List<BaseMail>> recipientMailBox;
+
+    public MailService() {
+        this.senderMailBox = new PopularMap<>();
+        this.recipientMailBox = new PopularMap<>();
+    }
 
     /**
      * С помощью этого метода почтовый сервис обрабатывает письма и зарплаты
@@ -28,7 +38,12 @@ public class MailService implements Consumer<BaseMail> {
      */
     @Override
     public void accept(BaseMail o) {
-
+        List<BaseMail> senderMails = senderMailBox.getOrDefault(o.getSender(), new ArrayList<>());
+        senderMails.add(o);
+        senderMailBox.put(o.getSender(), senderMails);
+        List<BaseMail> recipientMails = recipientMailBox.getOrDefault(o.getRecipient(), new ArrayList<>());
+        recipientMails.add(o);
+        recipientMailBox.put(o.getRecipient(), recipientMails);
     }
 
     /**
@@ -36,7 +51,7 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public Map<String, List<BaseMail>> getMailBox() {
-        return null;
+        return recipientMailBox;
     }
 
     /**
@@ -44,7 +59,7 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public String getPopularSender() {
-        return null;
+        return senderMailBox.getPopularKey();
     }
 
     /**
@@ -52,7 +67,7 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public String getPopularRecipient() {
-        return null;
+        return recipientMailBox.getPopularKey();
     }
 
     /**
@@ -60,6 +75,8 @@ public class MailService implements Consumer<BaseMail> {
      * 1 балл
      */
     public static void process(MailService service, List<BaseMail> baseMails) {
-
+        for (BaseMail mail : baseMails) {
+            service.accept(mail);
+        }
     }
 }
