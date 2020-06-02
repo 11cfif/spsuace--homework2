@@ -41,8 +41,8 @@ import java.util.Set;
 public class PopularMap<K, V> implements Map<K, V> {
 
     private final Map<K, V> map;
-    private Map<K, Integer> keysMap = new HashMap<>();
-    private Map<V, Integer> valueMap = new HashMap<>();
+    private final Map<K, Integer> keysMap = new HashMap<>();
+    private final Map<V, Integer> valueMap = new HashMap<>();
 
     public PopularMap() {
         this.map = new HashMap<>();
@@ -65,54 +65,51 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        count(key, keysMap);
+        countKey(key);
         return map.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        count(value, valueMap);
+        countValue(value);
         return map.containsValue(value);
     }
 
     @Override
     public V get(Object key) {
-        count(key, keysMap);
+        countKey(key);
         V value = map.get(key);
-        count(value, valueMap);
+        countValue(value);
         return value;
     }
 
     @Override
     public V put(K key, V value) {
         V oldValue = map.put(key, value);
-        count(key, keysMap);
-        count(oldValue, valueMap);
-        count(value, valueMap);
+        countKey(key);
+        countValue(oldValue);
+        countValue(value);
         return oldValue;
     }
 
 
-    private void count(Object value, Map map) {
-        if (value == null) {
-            return;
+    private void countValue(Object value) {
+        if (value != null) {
+            valueMap.put((V) value, valueMap.getOrDefault(value, 0) + 1);
         }
-        if (map.containsKey(value)) {
-            int cur = (int) map.get(value);
-            cur++;
-            map.put(value, cur);
-        } else {
-            map.put(value, 1);
+    }
+
+    private void countKey(Object key) {
+        if (key != null) {
+            keysMap.put((K) key, keysMap.getOrDefault(key, 0) + 1);
         }
     }
 
     @Override
     public V remove(Object key) {
-        count(key, keysMap);
+        countKey(key);
         V value = map.remove(key);
-        if (value != null) {
-            count(value, valueMap);
-        }
+        countValue(value);
         return value;
     }
 
@@ -159,10 +156,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      */
 
     public int getKeyPopularity(K key) {
-        if (keysMap.get(key) == null) {
-            return 0;
-        }
-        return keysMap.get(key);
+        return keysMap.getOrDefault(key, 0);
     }
 
     public <T> T popularCount(Map<T, Integer> map) {
@@ -192,10 +186,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
     public int getValuePopularity(V value) {
-        if (valueMap.get(value) == null) {
-            return 0;
-        }
-        return valueMap.get(value);
+        return valueMap.getOrDefault(value, 0);
     }
 
     /**
