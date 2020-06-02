@@ -1,5 +1,8 @@
 package ru.spsuace.homework2.objects.october2;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class StringTasks {
 
     /**
@@ -14,6 +17,25 @@ public class StringTasks {
      * У класса Character есть полезные методы, например Character.isDigit()
      */
     public static Number simpleValueOf(String str) {
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+        String result = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '-' || Character.isDigit(str.charAt(i)) || str.charAt(i) == 'e' || str.charAt(i) == '.') {
+                result += str.charAt(i);
+            }
+        }
+        if (result.matches("-?[0-9]+")) {
+            if (Long.valueOf(result) > Integer.MAX_VALUE || Long.valueOf(result) < Integer.MIN_VALUE) {
+                return Long.valueOf(result);
+            }
+            return Integer.valueOf(result);
+        }
+        if (result.matches("-?[0-9]+e-?[0-9]+") || result.matches("-?[0-9]+\\.[0-9]+e-?[0-9]+") || result.matches("-?[0-9]+\\.[0-9]")) {
+            return Double.valueOf(result);
+        }
         return null;
     }
 

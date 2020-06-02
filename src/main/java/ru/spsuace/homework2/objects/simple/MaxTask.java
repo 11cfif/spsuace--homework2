@@ -1,6 +1,7 @@
 package ru.spsuace.homework2.objects.simple;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MaxTask {
 
@@ -14,7 +15,25 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArraySimple(int[] array, int count) {
-        return null;
+        if (array.length < count) {
+            return null;
+        }
+
+        int[] result = new int[count];
+
+        if (count == 0) {
+            return result;
+        }
+
+        int[] updatedArray = Arrays.copyOf(array, array.length);
+
+        Arrays.sort(updatedArray);
+
+        for (int i = 0; i < count; i++) {
+            result[i] = updatedArray[updatedArray.length - i - 1];
+        }
+
+        return result;
     }
 
     /**
@@ -27,7 +46,33 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArrayHard(int[] array, int count) {
-        return null;
-    }
+        if (array.length < count) {
+            return null;
+        }
 
+        int[] result = new int[count];
+
+        if (count == 0) {
+            return result;
+        }
+
+        int[] updatedArray = Arrays.copyOf(array, array.length);
+        int maxNumber = updatedArray[0];
+        int temporarilyValue = 0;
+
+        for (int i = 0; i < count; i++) {
+            for (int j = 1; j < updatedArray.length; j++) {
+                if (updatedArray[j] > maxNumber) {
+                    maxNumber = updatedArray[j];
+                    temporarilyValue = j;
+                }
+            }
+
+            result[i] = maxNumber;
+            updatedArray[temporarilyValue] = Integer.MIN_VALUE;
+            maxNumber = updatedArray[0];
+        }
+
+        return result;
+    }
 }
