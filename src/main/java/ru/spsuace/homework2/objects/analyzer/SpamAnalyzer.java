@@ -19,3 +19,5 @@ public class SpamAnalyzer implements TextAnalyzer {
         return result;
     }
 }
+
+
